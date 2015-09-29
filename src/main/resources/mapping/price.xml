@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapPrice">
+    
+    <resultMap id="Price" type="es.ubiqua.compareme.model.Price">
+        <result property="id" column="id"/>
+        <result property="hotelId" column="name"/>
+        <result property="language" column="language"/>
+        <result property="dateIn" column="dateIn"/>
+        <result property="dateOut" column="dateOut"/>
+        <result property="guests" column="guests"/>
+        <result property="rooms" column="rooms"/>
+        <result property="otaId" column="otaId"/>
+        <result property="price" column="price"/>
+        <result property="basePrice" column="basePrice"/>
+        <result property="valoration" column="valoration"/>
+        <result property="hash" column="hash"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapPrice.Price">
+        SELECT * FROM RepositoryPrice;
+    </select>
+    
+    <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
+        SELECT * FROM RepositoryPrice WHERE id = #{id};
+    </select>
+    
+    <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
+    	SELECT * FROM RepositoryPrice WHERE hash LIKE #{hash}
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Price" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryPrice (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,basePrice,valoration,hash) 
+        	VALUES (
+        		#{hotelId},
+        		#{language},
+        		#{dateIn},
+        		#{dateOut},
+        		#{guests},
+        		#{rooms},
+        		#{otaId},
+        		#{price},
+        		#{basePrice},
+        		#{valoration},
+        		#{hash}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+</mapper>
