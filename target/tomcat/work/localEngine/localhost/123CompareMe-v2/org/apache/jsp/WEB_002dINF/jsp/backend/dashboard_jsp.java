@@ -1,10 +1,10 @@
-package org.apache.jsp;
+package org.apache.jsp.WEB_002dINF.jsp.backend;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -40,7 +40,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
 
 
     try {
-      response.setContentType("text/html");
+      response.setContentType("text/html; charset=UTF-8");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
       _jspx_page_context = pageContext;
@@ -50,9 +50,27 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out = pageContext.getOut();
       _jspx_out = out;
 
-      out.write('\n');
- response.sendRedirect("index.action"); 
-      out.write('\n');
+      out.write("\n");
+      out.write("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n");
+      out.write("<html>\n");
+      out.write("<head>\n");
+      out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
+      out.write("<title>Insert title here</title>\n");
+      out.write("</head>\n");
+      out.write("<body>\n");
+      out.write("<nav class=\"navbar navbar-inverse\">\n");
+      out.write("  ...\n");
+      out.write("</nav>\n");
+      out.write("<div class=\"panel panel-default\">\n");
+      out.write("  <div class=\"panel-heading\">\n");
+      out.write("    <h3 class=\"panel-title\">Panel title</h3>\n");
+      out.write("  </div>\n");
+      out.write("  <div class=\"panel-body\">\n");
+      out.write("    Panel content\n");
+      out.write("  </div>\n");
+      out.write("</div>\n");
+      out.write("</body>\n");
+      out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

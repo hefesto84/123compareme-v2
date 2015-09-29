@@ -6,6 +6,7 @@
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/struts/struts2-core/2.3.24/struts2-core-2.3.24.jar"/>
@@ -79,4 +80,7 @@
   <classpathentry kind="var" path="M2_REPO/org/seleniumhq/selenium/selenium-support/2.47.1/selenium-support-2.47.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/seleniumhq/selenium/selenium-leg-rc/2.47.1/selenium-leg-rc-2.47.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/mongodb/mongo-java-driver/2.12.3/mongo-java-driver-2.12.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/efsavage/twitter/bootstrap/bootstrap-maven/2.3.1/bootstrap-maven-2.3.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/tuckey/urlrewritefilter/3.0.4/urlrewritefilter-3.0.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/ant/ant/1.5/ant-1.5.jar"/>
 </classpath>

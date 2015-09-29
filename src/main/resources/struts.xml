@@ -7,21 +7,17 @@
 
     <constant name="struts.devMode" value="true" />
  	<constant name="struts.configuration.xml.reload" value="true" />
- 	<constant name="struts.action.extension" value="html" />
 	
     <package name="default" namespace="/" extends="struts-default">
-
         <default-action-ref name="index" />
-
         <action name="index" class="es.ubiqua.compareme.IndexAction">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
-
-        <action name="helloWorld" class="es.ubiqua.compareme.HelloWorldAction">
-            <result name="input">/jsp/index.jsp</result>
-            <result>/WEB-INF/jsp/helloWorld.jsp</result>
+        <action name="backend" class="es.ubiqua.compareme.IndexAction">
+        	<result type="redirectAction">
+        		<param name="actionName">backend/</param>
+        	</result>
         </action>
-        
     </package>
     
     <package name="api" namespace="/api" extends="json-default">
@@ -35,6 +31,16 @@
         	<param name="encoding">UTF-8</param>
         	<param name="contentType">application/json</param>
         </action>
+    </package>
+    
+    <package name="backend" namespace="/backend" extends="struts-default">
+    	<default-action-ref name="index" />
+    	<action name="index" class="es.ubiqua.compareme.backend.actions.IndexBackendAction">
+    		<result>/WEB-INF/jsp/backend/index.jsp</result>
+    	</action>
+    	<action name="dashboard" class="es.ubiqua.compareme.backend.actions.DashboardBackendAction">
+    		<result>/WEB-INF/jsp/backend/dashboard.jsp</result>
+    	</action>
     </package>
 
 </struts>
