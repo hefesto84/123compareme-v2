@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class fast_005fprice_005fcheck_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -58,47 +58,22 @@ public final class dashboard_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<title>Insert title here</title>\n");
       out.write("</head>\n");
       out.write("<body>\n");
-      out.write("\n");
       out.write("<div class=\"panel panel-default\">\n");
-      out.write("  <div class=\"panel-heading\">\n");
-      out.write("    <h3 class=\"panel-title\"><b>Backend Configuration</b></h3>\n");
-      out.write("  </div>\n");
-      out.write("  <div class=\"panel-body\">  \n");
-      out.write("\t<div class=\"panel panel-default\">\n");
-      out.write("\t  <div class=\"panel-heading\"><h3 class=\"panel-title\">Include new OTA</h3></div>\n");
+      out.write("\t  <div class=\"panel-heading\"><h3 class=\"panel-title\"><b>Fast Price Check Tool</b></h3></div>\n");
       out.write("\t  <div class=\"panel-body\">  \n");
       out.write("\t\t<form role=\"form\">\n");
       out.write("\t\t  <div class=\"form-group\">\n");
-      out.write("\t\t    <label for=\"otaName\">OTA Name:</label>\n");
-      out.write("\t\t    <input type=\"text\" class=\"form-control\" id=\"otaName\">\n");
+      out.write("\t\t    <label for=\"otaName\">Select an available OTA:</label>\n");
+      out.write("\t\t    \n");
       out.write("\t\t  </div>\n");
       out.write("\t\t  <div class=\"form-group\">\n");
-      out.write("\t\t    <label for=\"otaIcon\">OTA Icon:</label>\n");
-      out.write("\t\t    <input type=\"text\" class=\"form-control\" id=\"otaIcon\">\n");
+      out.write("\t\t    <label for=\"otaIcon\">Select an available Hotel:</label>\n");
+      out.write("\t\t    \n");
       out.write("\t\t  </div>\n");
-      out.write("\t\t  <button type=\"submit\" class=\"btn btn-default\">Save OTA</button>\n");
+      out.write("\t\t  <button type=\"submit\" class=\"btn btn-default\">Check Price</button>\n");
       out.write("\t\t</form>\n");
       out.write("\t  </div>\n");
       out.write("\t</div>\n");
-      out.write("\t\n");
-      out.write("\t<div class=\"panel panel-default\">\n");
-      out.write("\t  <div class=\"panel-heading\"><h3 class=\"panel-title\">Manage OTAs</h3></div>\n");
-      out.write("\t  <div class=\"panel-body\">  \n");
-      out.write("\t\t<form role=\"form\">\n");
-      out.write("\t\t  <div class=\"form-group\">\n");
-      out.write("\t\t    <label for=\"otaName\">Available OTAs:</label>\n");
-      out.write("\t\t    <input type=\"text\" class=\"form-control\" id=\"otaName\">\n");
-      out.write("\t\t  </div>\n");
-      out.write("\t\t  <div class=\"form-group\">\n");
-      out.write("\t\t    <label for=\"otaIcon\">OTA Icon:</label>\n");
-      out.write("\t\t    <input type=\"text\" class=\"form-control\" id=\"otaIcon\">\n");
-      out.write("\t\t  </div>\n");
-      out.write("\t\t  <button type=\"submit\" class=\"btn btn-default\">Save OTA</button>\n");
-      out.write("\t\t</form>\n");
-      out.write("\t  </div>\n");
-      out.write("\t</div>\n");
-      out.write("  </div>\n");
-      out.write("</div>\n");
       out.write("</body>\n");
       out.write("</html>");
     } catch (Throwable t) {

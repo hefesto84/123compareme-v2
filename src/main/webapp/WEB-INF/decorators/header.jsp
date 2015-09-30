@@ -17,6 +17,54 @@
 <title>123Compare.me v.2</title>
 </head>
 <body  style="margin:1em;">
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Desplegar navegación</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">123 Compare.Me v.2</a>
+  </div>
+ 
+  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+       otro elemento que se pueda ocultar al minimizar la barra -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Configuration</a></li>
+      <li><a href="widget_configuration">Widget</a></li>
+      <li class="dropdown">
+        <a href="tools" class="dropdown-toggle" data-toggle="dropdown">
+          Tools <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="general_reporting">General Reporting</a></li>
+          <li><a href="download_statistics">Download Statistics</a></li>
+          <li><a href="fast_price_check">Fast Price Check</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="about">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Help<b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="ht_manage_otas">How to manage new OTAs</a></li>
+          <li><a href="ht_check_dbstatus">How to check DB status</a></li>
+          <li class="divider"></li>
+          <li><a href="contact">Contact with us</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <decorator:body>
 </decorator:body>
 </body>

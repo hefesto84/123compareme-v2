@@ -26,11 +26,6 @@
         	<param name="encoding">UTF-8</param>
         	<param name="contentType">application/json</param>
         </action>
-        <action name="addPrice" class="es.ubiqua.compareme.actions.AddPriceAction">
-        	<result type="json"/>
-        	<param name="encoding">UTF-8</param>
-        	<param name="contentType">application/json</param>
-        </action>
     </package>
     
     <package name="backend" namespace="/backend" extends="struts-default">
@@ -40,6 +35,27 @@
     	</action>
     	<action name="dashboard" class="es.ubiqua.compareme.backend.actions.DashboardBackendAction">
     		<result>/WEB-INF/jsp/backend/dashboard.jsp</result>
+    	</action>
+    	<action name="about" class="es.ubiqua.compareme.backend.actions.AboutBackendAction">
+    		<result>/WEB-INF/jsp/backend/about.jsp</result>
+    	</action>
+    	<action name="ht_manage_otas" class="es.ubiqua.compareme.backend.actions.ManageOtasBackendAction">
+    		<result>/WEB-INF/jsp/backend/manage_otas.jsp</result>
+    	</action>
+    	<action name="ht_check_dbstatus" class="es.ubiqua.compareme.backend.actions.CheckDBStatusBackendAction">
+    		<result>/WEB-INF/jsp/backend/check_dbstatus.jsp</result>
+    	</action>
+    	<action name="contact" class="es.ubiqua.compareme.backend.actions.ContactBackendAction">
+    		<result>/WEB-INF/jsp/backend/contact.jsp</result>
+    	</action>
+    	<action name="general_reporting" class="es.ubiqua.compareme.backend.actions.GeneralReportingBackendAction">
+    		<result>/WEB-INF/jsp/backend/general_reporting.jsp</result>
+    	</action>
+    	<action name="download_statistics" class="es.ubiqua.compareme.backend.actions.DownloadStatisticsBackendAction">
+    		<result>/WEB-INF/jsp/backend/download_statistics.jsp</result>
+    	</action>
+    	<action name="fast_price_check" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction">
+    		<result>/WEB-INF/jsp/backend/fast_price_check.jsp</result>
     	</action>
     </package>
 
