@@ -19,7 +19,8 @@
         			  RepositoryHotel rh, 
         			  RepositoryOta ro 
         WHERE rh.id = rho.idHotel 
-        		AND ro.id = rho.idOta 
+        		AND ro.id = rho.idOta
+        		AND ro.id = #{otaId}
         		AND rh.name LIKE #{name};
     </select>
     

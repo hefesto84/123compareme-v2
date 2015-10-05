@@ -8,6 +8,7 @@ public class Hotel {
 	private int id;
 	private String name;
 	private int customerId;
+	private int otaId;
 	
 	public Hotel(){
 		
@@ -35,6 +36,14 @@ public class Hotel {
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+
+	public int getOtaId() {
+		return otaId;
+	}
+
+	public void setOtaId(int otaId) {
+		this.otaId = otaId;
 	}
 
 }

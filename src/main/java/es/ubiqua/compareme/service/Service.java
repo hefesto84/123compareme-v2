@@ -36,6 +36,7 @@ public class Service {
 		h.setName(hotel);
 		o.setName(ota);
 		o = otaManager.get(o);
+		h.setOtaId(o.getId());
 		HotelOta ho = hotelOtaManager.get(h, o);
 		hotelName =ho.getName();
 		hotelId = ho.getIdHotel();

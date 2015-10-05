@@ -14,7 +14,7 @@
     </select>
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
-        SELECT * FROM RepositoryHotel WHERE id = #{id} OR name = #{name};
+        SELECT * FROM RepositoryHotel WHERE id = #{id} OR name LIKE #{name};
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Hotel" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

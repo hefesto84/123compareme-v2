@@ -64,7 +64,7 @@ public final class fast_005fprice_005fcheck_jsp extends org.apache.jasper.runtim
       out.write("\t\t<form role=\"form\">\n");
       out.write("\t\t  <div class=\"form-group\">\n");
       out.write("\t\t    <label for=\"otaName\">Select an available OTA:</label>\n");
-      out.write("\t\t    \n");
+      out.write("\t\t    <s:property value=\"data.size()\"/>\n");
       out.write("\t\t  </div>\n");
       out.write("\t\t  <div class=\"form-group\">\n");
       out.write("\t\t    <label for=\"otaIcon\">Select an available Hotel:</label>\n");

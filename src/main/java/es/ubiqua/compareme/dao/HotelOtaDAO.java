@@ -39,6 +39,8 @@ public class HotelOtaDAO extends BaseDAO {
 	}
 	
 	public HotelOta get(Hotel hotel, Ota ota){
+		HotelOta ho = new HotelOta();
+		/*
 		List<HotelOta> hotelotas = new ArrayList<HotelOta>();
 		SqlSession session = sql.openSession();
 		try{
@@ -54,6 +56,17 @@ public class HotelOtaDAO extends BaseDAO {
 			session.close();
 		}
 		return new HotelOta();
+		*/
+		SqlSession session = sql.openSession();
+		try{
+			ho = session.selectOne("SqlMapHotelOta.get",hotel);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		
+		return ho;
 	}
 	
 	public HotelOta add(HotelOta hotelota){

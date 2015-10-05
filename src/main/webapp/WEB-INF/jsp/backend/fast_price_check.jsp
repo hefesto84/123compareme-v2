@@ -13,7 +13,7 @@
 		<form role="form">
 		  <div class="form-group">
 		    <label for="otaName">Select an available OTA:</label>
-		    
+		    <s:property value="data.size()"/>
 		  </div>
 		  <div class="form-group">
 		    <label for="otaIcon">Select an available Hotel:</label>

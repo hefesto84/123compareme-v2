@@ -66,10 +66,16 @@ public final class header_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<meta charset=\"utf-8\">\n");
       out.write("<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n");
       out.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
+      out.write("<script src=\"../js/jquery-2.1.4.min.js\"></script>\n");
+      out.write("<link rel=\"stylesheet\" href=\"../css/bootstrap.min.css\">\n");
+      out.write("<link rel=\"stylesheet\" href=\"../css/bootstrap-theme.min.css\">\n");
+      out.write("<script src=\"../js/bootstrap.min.js\"></script>\n");
+      out.write("<!-- \n");
       out.write("<script src=\"https://code.jquery.com/jquery-2.1.4.min.js\"></script>\n");
       out.write("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\">\n");
       out.write("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css\">\n");
       out.write("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"></script>\n");
+      out.write("-->\n");
       out.write("<title>123Compare.me v.2</title>\n");
       out.write("</head>\n");
       out.write("<body  style=\"margin:1em;\">\n");

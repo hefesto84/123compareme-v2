@@ -40,7 +40,8 @@ public class ExpediaService extends Service implements ServiceInterface{
 			Document d = Jsoup.connect("https://www.expedia."+price.getLanguage()+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2").get();
 
 			if (d.select("a.price.link-to-rooms")!=null) {
-				price.setPrice(d.select("a.price.link-to-rooms").text());
+				//price.setPrice(d.select("a.price.link-to-rooms").text());
+				price.setPrice(d.select("span.room-price.one-night-room-price").get(0).text());
 			}else{
 				price.setPrice("0");
 			}
