@@ -5,9 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
-
+<!-- 
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"><b>Backend Configuration</b></h3>
@@ -48,5 +49,9 @@
 	</div>
   </div>
 </div>
+-->
 </body>
+<script>
+hotelswiget.init(true);
+</script>
 </html>

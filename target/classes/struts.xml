@@ -26,6 +26,12 @@
         	<param name="encoding">UTF-8</param>
         	<param name="contentType">application/json</param>
         </action>
+        <action name="widget" class="es.ubiqua.compareme.actions.GetWidgetAction">
+           <result type="stream">
+        	<param name="contentType">application/javascript</param>
+        	<param name="inputName">output</param>
+           </result>
+        </action>
     </package>
     
     <package name="backend" namespace="/backend" extends="struts-default">

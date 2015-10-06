@@ -102,7 +102,7 @@ public class CrawlerServiceTest extends TestCase{
 		hotel = hotelManager.add(hotel);
 		*/
 	}
-	
+
 	public void testCustomer() throws Exception{
 		/*
 		CustomerManager customerManager = new CustomerManager();
@@ -184,6 +184,7 @@ public class CrawlerServiceTest extends TestCase{
 	
 	*/
 	
+	/*
 	public void testMultithreading() throws Exception{
 		ExecutorService es = Executors.newCachedThreadPool();
 		
@@ -230,5 +231,5 @@ public class CrawlerServiceTest extends TestCase{
 		es.shutdown();
 		boolean finished = es.awaitTermination(30, TimeUnit.SECONDS);
 	}
-	
+	*/
 }

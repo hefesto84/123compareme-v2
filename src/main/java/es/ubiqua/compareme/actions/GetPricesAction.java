@@ -19,7 +19,7 @@ public class GetPricesAction extends ActionSupport {
 
 	private static final long serialVersionUID = -2527009795402427983L;
 
-	private List<Price> data;
+	private List<Price> datos;
 	
 	private String code;
 	private String lang;
@@ -33,17 +33,17 @@ public class GetPricesAction extends ActionSupport {
     
         Query query = new Query(lang,hotel,rooms,guests,fin,fout);
         CrawlingService service = new CrawlingService();
-        data = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
+        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         
         return SUCCESS;
     }
 
-	public List<Price> getData() {
-		return data;
+	public List<Price> getDatos() {
+		return datos;
 	}
 
-	public void setData(List<Price> data) {
-		this.data = data;
+	public void setDatos(List<Price> datos) {
+		this.datos = datos;
 	}
 
 	public void setCode(String code) {

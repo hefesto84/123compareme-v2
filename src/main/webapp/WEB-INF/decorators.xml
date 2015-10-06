@@ -10,6 +10,7 @@
         <pattern>/dojo/*</pattern>
         <pattern>/struts/*</pattern>
         <pattern>/prices*</pattern>
+        <pattern>/api/*</pattern>
         
     </excludes>
 

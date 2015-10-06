@@ -38,7 +38,11 @@ public class VenereService extends Service implements ServiceInterface{
 			Document d = Jsoup.connect(url).get();
 			
 			if (d.select("span.current-price.has-old-price")!=null) {
+				try{
 				price.setPrice(d.select("span.current-price.has-old-price").get(0).text());
+				}catch(Exception e){
+					price.setPrice("0");
+				}
 			}else{
 				price.setPrice("0");
 			}

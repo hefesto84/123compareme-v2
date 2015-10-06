@@ -23,9 +23,11 @@ public class CrawlingService {
 	public static int MULTITHREAD_MODE = 1;
 	private List<Price> prices;
 	private PriceManager priceManager;
+	private OtaManager otaManager;
 	
 	public CrawlingService(){
 		priceManager = new PriceManager();
+		otaManager = new OtaManager();
 	}
 	
 	public List<Price> weaving(int mode, Query query){
@@ -42,7 +44,6 @@ public class CrawlingService {
 		
 			p.setHash(query.toHash(hotel.getId(), ota.getId()));
 			p = priceManager.getByHash(p);
-			System.out.println("P: "+new Gson().toJson(p));
 			if(p==null){
 				p = crawlPrice(ota.getId(),query);
 			}
@@ -59,25 +60,32 @@ public class CrawlingService {
 	
 	private Price crawlPrice(int otaId, Query query){
 		Price p = new Price();
+		Ota o = new Ota();
+		o.setId(otaId);
+		
 		switch(otaId){
 		case 1:
 			ExpediaService es = new ExpediaService();
 			p = es.setServiceParameters(query.getLang(), query.getHotel(), 2,1,query.getDateIn(), query.getDateOut()).trackPrice();
+			p.setSite(otaManager.get(o).getIcon());
 			priceManager.add(p);
 			break;
 		case 2:
 			BookingService be = new BookingService();
 			p = be.setServiceParameters(query.getLang(), query.getHotel(), 2,1, query.getDateIn(), query.getDateOut()).trackPrice();
+			p.setSite(otaManager.get(o).getIcon());
 			priceManager.add(p);
 			break;
 		case 3:
 			HotelsService he = new HotelsService();
 			p = he.setServiceParameters(query.getLang(), query.getHotel(), 2,1, query.getDateIn(), query.getDateOut()).trackPrice();
+			p.setSite(otaManager.get(o).getIcon());
 			priceManager.add(p);
 			break;
 		case 4:
 			VenereService ve = new VenereService();
 			p = ve.setServiceParameters(query.getLang(), query.getHotel(), 2,1, query.getDateIn(), query.getDateOut()).trackPrice();
+			p.setSite(otaManager.get(o).getIcon());
 			priceManager.add(p);
 			break;
 		}

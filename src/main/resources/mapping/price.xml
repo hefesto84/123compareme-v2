@@ -12,6 +12,7 @@
         <result property="guests" column="guests"/>
         <result property="rooms" column="rooms"/>
         <result property="otaId" column="otaId"/>
+        <result property="site" column="site"/>
         <result property="price" column="price"/>
         <result property="basePrice" column="basePrice"/>
         <result property="valoration" column="valoration"/>
@@ -23,11 +24,11 @@
     </select>
     
     <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
-        SELECT * FROM RepositoryPrice WHERE id = #{id};
+        SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id;
     </select>
     
     <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
-    	SELECT * FROM RepositoryPrice WHERE hash LIKE #{hash}
+    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash LIKE #{hash} AND rp.otaId = ro.id;
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Price" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

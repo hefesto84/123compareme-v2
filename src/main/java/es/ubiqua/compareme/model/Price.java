@@ -14,6 +14,7 @@ public class Price {
 	private int guests;
 	private int rooms;
 	private int otaId;
+	private String site;
 	private String price;
 	private String basePrice = "0";
 	private int valoration;
@@ -64,7 +65,7 @@ public class Price {
 	}
 	
 	public void setPrice(String price) {
-		this.price = price;
+		this.price = price.replaceAll("[^\\d.,]", "");
 	}
 	
 	public int getValoration() {
@@ -101,6 +102,14 @@ public class Price {
 
 	public int getOtaId() {
 		return otaId;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 	public void setOtaId(int otaId) {
