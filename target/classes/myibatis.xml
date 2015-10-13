@@ -18,8 +18,8 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver"/>
 				<property name="url" value="jdbc:mysql://localhost:3306/123compareme-v2"/>
-				<property name="username" value="root"/>
-				<property name="password" value="w9!J7ju5"/>
+				<property name="username" value="compare"/>
+				<property name="password" value="20Ubiq2015"/>
 			</dataSource>
 		</environment>
 	</environments>

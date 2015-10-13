@@ -5,7 +5,7 @@
 
 var hotelswidget = new (function(window, document, jQuery){
 	var debug = true;
-    var domain = 'http://localhost:8080/123CompareMe-v2'
+    var domain = 'https://www.123compare.me/v2'
     var data = '';
     if(debug){
 	    var utag_data = {};

@@ -36,7 +36,6 @@ public class BookingService extends Service implements ServiceInterface{
 	public Price trackPrice() {
 		
 		if(!isConfigured){
-			DBLogger.getLogger().Log("DSAD");
 			Logger.getLogger(BookingService.class).error(ServiceException.INVALID_ARGUMENTS);
 		}
 		
