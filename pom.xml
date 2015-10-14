@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>123CompareMe-v2</name>
-	<description>Struts 2 Starter</description>
+	<description>123CompareMe-v2</description>
 
     <properties>
         <struts2.version>2.3.24</struts2.version>
@@ -170,7 +170,7 @@
     </dependencies>
 	
     <build>
-      <finalName>struts2-archetype-starter</finalName>
+      <finalName>123CompareMe-v2</finalName>
     	<plugins>
     		<plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
