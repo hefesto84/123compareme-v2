@@ -166,11 +166,12 @@ public class CrawlerServiceTest extends TestCase{
 		
 	}
 	
-	/*
+	
 	public void testExpedia() throws Exception{
 		ExpediaService es = new ExpediaService();
-		Price p = es.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/10/2015", "10/10/2015").trackPrice();
+		Price p = es.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/02/2016", "10/02/2016").trackPrice();
 		new PriceManager().add(p);
+		/*
 		BookingService be = new BookingService();
 		p = be.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/10/2015", "10/10/2015").trackPrice();
 		new PriceManager().add(p);
@@ -180,9 +181,10 @@ public class CrawlerServiceTest extends TestCase{
 		VenereService ve = new VenereService();
 		p = ve.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/10/2015", "10/10/2015").trackPrice();
 		new PriceManager().add(p);
+		*/
 	}
 	
-	*/
+	
 	
 	/*
 	public void testMultithreading() throws Exception{
