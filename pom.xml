@@ -167,6 +167,12 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.4</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.piwik</groupId>
+		    <artifactId>piwik-java-tracking</artifactId>
+		    <version>1.1.0</version>
+		</dependency>
     </dependencies>
 	
     <build>
