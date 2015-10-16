@@ -27,12 +27,13 @@ public class GetPricesAction extends ActionSupport {
 	private String hotel;
 	private String fin;
 	private String fout;
+	private String base;
 	private int rooms;
 	private int guests;
 	
     public String execute() {
     
-        Query query = new Query(lang,hotel,rooms,guests,fin,fout);
+        Query query = new Query(lang,hotel,rooms,guests,fin,fout,base);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         Utils.checkCoherence(datos);
@@ -73,6 +74,14 @@ public class GetPricesAction extends ActionSupport {
 
 	public void setGuests(int guests) {
 		this.guests = guests;
+	}
+
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String base) {
+		this.base = base;
 	}
 	
 

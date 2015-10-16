@@ -10,14 +10,16 @@ public class Query {
 	private int guests;
 	private String dateIn;
 	private String dateOut;
+	private String base;
 	
-	public Query(String lang, String hotel, int rooms, int guests, String dateIn, String dateOut){
+	public Query(String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base){
 		this.lang = lang;
 		this.hotel = hotel;
 		this.rooms = rooms;
 		this.guests = guests;
 		this.dateIn = dateIn;
 		this.dateOut = dateOut;
+		this.base = base;
 	}
 
 	public String getLang() {
@@ -68,6 +70,14 @@ public class Query {
 		this.dateOut = dateOut;
 	}
 	
+	public String getBase() {
+		return base;
+	}
+
+	public void setBase(String base) {
+		this.base = base;
+	}
+
 	public String toHash(int hotelId,int otaId){
 		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+hotelId+otaId+this.lang);
 	}
