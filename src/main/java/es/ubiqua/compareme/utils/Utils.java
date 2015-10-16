@@ -42,7 +42,7 @@ public class Utils {
 			float bp = Float.valueOf(p.getBasePrice()).floatValue();
 			float op = Float.valueOf(p.getPrice()).floatValue();
 			
-			if ( bp < op ){
+			if ( bp > op ){
 				DBLogger.getLogger().Warning("OTA CHEAPER THAN HOTEL: "+p.toDBLogger());
 			}else{
 				if (op > bp + 5){
