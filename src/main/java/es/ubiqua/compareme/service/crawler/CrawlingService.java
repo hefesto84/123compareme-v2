@@ -66,50 +66,26 @@ public class CrawlingService {
 		switch(otaId){
 		case 1:
 			ExpediaService es = new ExpediaService();
-			p = es.setServiceParameters(query.getLang(), query.getHotel(), 2,1,query.getDateIn(), query.getDateOut()).trackPrice();
-			//if(!p.getPrice().equals("0") && otaManager.get(o).getIcon()!=null){
-			//p.setSite(otaManager.get(o).getIcon());
-			//priceManager.add(p);
-			//}
+			p = es.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 2:
 			BookingService be = new BookingService();
-			p = be.setServiceParameters(query.getLang(), query.getHotel(), 2,1, query.getDateIn(), query.getDateOut()).trackPrice();
-			//if(!p.getPrice().equals("0")){
-			//p.setSite(otaManager.get(o).getIcon());
-			//priceManager.add(p);
-			//}
+			p = be.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 3:
 			HotelsService he = new HotelsService();
-			p = he.setServiceParameters(query.getLang(), query.getHotel(), 2,1, query.getDateIn(), query.getDateOut()).trackPrice();
-			//if(!p.getPrice().equals("0")){
-			//p.setSite(otaManager.get(o).getIcon());
-			//priceManager.add(p);
-			//}
+			p = he.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 4:
 			VenereService ve = new VenereService();
-			p = ve.setServiceParameters(query.getLang(), query.getHotel(), 2,1, query.getDateIn(), query.getDateOut()).trackPrice();
-			//if(!p.getPrice().equals("0")){
-			//p.setSite(otaManager.get(o).getIcon());
-			//priceManager.add(p);
-			//}
+			p = ve.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		}
 		
 		p.setSite(otaManager.get(o).getIcon());
 		p.setBasePrice(query.getBase());
 		priceManager.add(p);
-		
-		/*
-		if(p.getPrice()!=null && p.getSite()!=null){
-			if(p.getPrice().length()>2){
-				p.setSite(otaManager.get(o).getIcon());
-				priceManager.add(p);
-			}
-		}
-		*/
+	
 		return p;
 	}
 }

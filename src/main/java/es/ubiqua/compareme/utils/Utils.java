@@ -43,10 +43,12 @@ public class Utils {
 			float op = Float.valueOf(p.getPrice()).floatValue();
 			
 			if ( bp > op ){
-				DBLogger.getLogger().Warning("OTA CHEAPER THAN HOTEL: "+p.toDBLogger());
+				DBLogger.getLogger().Warning("OTA cheaper than hotel: "+p.toDBLogger());
+				DBLogger.getLogger().Critical("OTA cheaper than hotel: "+p.toDBLogger());
 			}else{
 				if (op > bp + 5){
-					DBLogger.getLogger().Warning("OTA PRICE IS SUSPICIOUS: "+p.toDBLogger());
+					DBLogger.getLogger().Warning("Suspicious OTA price: "+p.toDBLogger());
+					DBLogger.getLogger().Critical("Suspicious OTA price: "+p.toDBLogger());
 				}
 			}
 		}

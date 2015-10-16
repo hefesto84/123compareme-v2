@@ -42,4 +42,9 @@ public class DBLogger {
 		Log l = new Log(str,Log.WARNING);
 		logManager.add(l);
 	}
+	
+	// TODO: Implementar envio con aviso crítico
+	public void Critical(String str){
+		
+	}
 }

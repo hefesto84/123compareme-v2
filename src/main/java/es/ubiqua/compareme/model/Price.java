@@ -127,7 +127,6 @@ public class Price {
 	@Override
 	public String toString(){
 		return new Gson().toJson(this);
-		//return "OTA: "+this.ota+" PRICE: "+this.price+ " VALORATION: "+this.valoration;
 	}
 	
 	public String toHash(){
@@ -135,7 +134,7 @@ public class Price {
 	}
 	
 	public String toDBLogger(){
-		String s = this.dateIn+this.dateOut+this.rooms+this.guests+this.hotelId+this.otaId+this.language;
+		String s = this.dateIn+"|"+this.dateOut+"|"+this.rooms+"|"+this.guests+"|"+this.hotelId+"|"+this.otaId+"|"+this.language;
 		return s;
 	}
 }
