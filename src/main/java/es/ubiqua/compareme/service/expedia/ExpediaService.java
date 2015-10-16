@@ -11,6 +11,7 @@ import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.service.Service;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
+import es.ubiqua.compareme.utils.DBLogger;
 
 public class ExpediaService extends Service implements ServiceInterface{
 
@@ -48,6 +49,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 					//price.setPrice(d.select("span.room-price.one-night-room-price").get(0).text());
 				}catch(Exception e){
 					price.setPrice("0");
+					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 				}
 			}else{
 				price.setPrice("0");

@@ -31,6 +31,7 @@
 		<mapper resource="mapping/hotel.xml"/>
 		<mapper resource="mapping/hotelota.xml"/>
 		<mapper resource="mapping/price.xml"/>
+		<mapper resource="mapping/log.xml"/>
 	</mappers>
 	
 </configuration>

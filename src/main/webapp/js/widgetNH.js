@@ -50,7 +50,7 @@ var hotelswidget = new (function(window, document, $){
     this.getCurrencyConversion = function (currency){
         var conversion;
         $.ajax({
-            type: 'GET',
+            type: "GET",
             url: domain + "/currency.php",
             success: function (datos) {
                 var datos = JSON.parse(datos);
@@ -64,7 +64,7 @@ var hotelswidget = new (function(window, document, $){
     this.getDatos = function(url_post,device,price,conversion,currency,lang){
         var datos;
         $.ajax({
-            type: 'GET',
+            type: "GET",
             url: url_post,
             success: function (respuesta) {
             	console.log(respuesta);

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
 import es.ubiqua.compareme.model.Ota;
+import es.ubiqua.compareme.utils.DBLogger;
 
 public class OtaDAO extends BaseDAO {
 	
@@ -16,7 +17,8 @@ public class OtaDAO extends BaseDAO {
 		try{
 			otas = session.selectList("SqlMapOta.list");
 		}catch(Exception e){
-			Logger.getLogger(this.getClass()).error(e.getMessage());
+			//Logger.getLogger(this.getClass()).error(e.getMessage());
+			DBLogger.getLogger().Error("ERROR: "+e.getMessage());
 		}finally{
 			session.close();
 		}
@@ -28,7 +30,8 @@ public class OtaDAO extends BaseDAO {
 		try{
 			ota = session.selectOne("SqlMapOta.get",ota);
 		}catch(Exception e){
-			Logger.getLogger(this.getClass()).error(e.getMessage());
+			//Logger.getLogger(this.getClass()).error(e.getMessage());
+			DBLogger.getLogger().Error("ERROR: "+e.getMessage() + " DATA: "+ota.toDBLogger());
 		}finally{
 			session.close();
 		}
@@ -41,7 +44,8 @@ public class OtaDAO extends BaseDAO {
 			session.insert("SqlMapOta.add",ota);
 			session.commit();
 		}catch(Exception e){
-			Logger.getLogger(this.getClass()).error(e.getMessage());
+			//Logger.getLogger(this.getClass()).error(e.getMessage());
+			DBLogger.getLogger().Error("ERROR: "+e.getMessage() + " DATA: "+ota.toDBLogger());
 		}finally{
 			session.close();
 		}

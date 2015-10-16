@@ -38,5 +38,8 @@ public class Ota {
 		this.icon = icon;
 	}
 	
-	
+	public String toDBLogger(){
+		String s = this.name+"|"+this.icon+"|"+this.id;
+		return s;
+	}
 }

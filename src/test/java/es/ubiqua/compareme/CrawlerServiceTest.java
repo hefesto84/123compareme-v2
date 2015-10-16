@@ -20,6 +20,7 @@ import es.ubiqua.compareme.service.booking.BookingService;
 import es.ubiqua.compareme.service.expedia.ExpediaService;
 import es.ubiqua.compareme.service.hotels.HotelsService;
 import es.ubiqua.compareme.service.venere.VenereService;
+import es.ubiqua.compareme.utils.DBLogger;
 import junit.framework.TestCase;
 
 public class CrawlerServiceTest extends TestCase{
@@ -70,6 +71,12 @@ public class CrawlerServiceTest extends TestCase{
 		assertEquals(true,(p.getPrice().length()>0));
 	}
 	*/
+	
+	public void testLog() throws Exception{
+		DBLogger.getLogger().Error("This is an error");
+		DBLogger.getLogger().Warning("This is a warning");
+		DBLogger.getLogger().Info("This is a log");
+	}
 	
 	public void testPrice() throws Exception{
 		/*
@@ -168,9 +175,9 @@ public class CrawlerServiceTest extends TestCase{
 	
 	
 	public void testExpedia() throws Exception{
-		ExpediaService es = new ExpediaService();
-		Price p = es.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/02/2016", "10/02/2016").trackPrice();
-		new PriceManager().add(p);
+		//ExpediaService es = new ExpediaService();
+		//Price p = es.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/02/2016", "10/02/2016").trackPrice();
+		//new PriceManager().add(p);
 		/*
 		BookingService be = new BookingService();
 		p = be.setServiceParameters("es", "Park Inn By Radisson Nice Airport", 2,1, "08/10/2015", "10/10/2015").trackPrice();

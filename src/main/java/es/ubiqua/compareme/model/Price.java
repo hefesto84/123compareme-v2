@@ -133,4 +133,9 @@ public class Price {
 	public String toHash(){
 		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+this.hotelId+this.otaId+this.language);
 	}
+	
+	public String toDBLogger(){
+		String s = this.dateIn+this.dateOut+this.rooms+this.guests+this.hotelId+this.otaId+this.language;
+		return s;
+	}
 }

@@ -5,24 +5,19 @@
     
     <resultMap id="Log" type="es.ubiqua.compareme.model.Log">
         <result property="id" column="id"/>
-        <result property="type" column="name"/>
-        <result property="date" column="date"/>
+        <result property="type" column="type"/>
         <result property="data" column="data"/>
+        <result property="date" column="date"/>
     </resultMap>
     
     <select id="list" resultMap="SqlMapLog.Log">
         SELECT * FROM RepositoryLog;
     </select>
-    
-    <select id="get" parameterType="es.ubiqua.compareme.model.Log" resultMap="SqlMapLog.Log">
-        SELECT * FROM RepositoryLog WHERE name LIKE #{name} OR id = #{id};
-    </select>
-   
+
     <insert id="add" parameterType="es.ubiqua.compareme.model.Log" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO RepositoryLog (type,date,data) 
+        INSERT INTO RepositoryLog (type,data) 
         	VALUES (
         		#{type},
-        		#{date},
         		#{data}
         	)
         	
