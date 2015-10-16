@@ -75,7 +75,7 @@ var hotelswidget = new (function(window, document, $){
                 } else {
                     hotelswidget.setWidget(datos,price,conversion, currency);
                 }
-            },
+            }//,
             //async: false
         });
     }
