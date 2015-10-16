@@ -11,7 +11,7 @@ public class Log {
 	private int id;
 	private int type;
 	private String data;
-	private Date date;
+	private long date;
 	
 	public Log(String data, int type){
 		this.data = data;
@@ -42,11 +42,11 @@ public class Log {
 		this.data = data;
 	}
 
-	public Date getDate() {
+	public long getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 }

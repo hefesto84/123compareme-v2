@@ -35,22 +35,26 @@ public class BookingService extends Service implements ServiceInterface{
 
 	public Price trackPrice() {
 		
+		String url = "";
+		
 		if(!isConfigured){
 			Logger.getLogger(BookingService.class).error(ServiceException.INVALID_ARGUMENTS);
 		}
 		
 		try {
-
-			Document d = Jsoup.connect("http://www.booking.com/"+hotelName+"."+price.getLanguage()+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;group_adults=2;room1=A%2CA;sb_price_type=total;srfid=6093b67beca037cffc10e3dee1c751e4c8f92373X1;type=total;ucfs=1&").get();
+			url = "http://www.booking.com/"+hotelName+"."+price.getLanguage()+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;group_adults=2;room1=A%2CA;sb_price_type=total;srfid=6093b67beca037cffc10e3dee1c751e4c8f92373X1;type=total;ucfs=1&";
+			Document d = Jsoup.connect(url).get();
 		
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
 					price.setPrice(d.select("strong[data-price-without-addons]").get(0).text());
 				}catch(Exception e){
 					price.setPrice("0");
+					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 				}
 			}else{
 				price.setPrice("0");
+				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
 			
 			if (d.select("span.average")!=null) {
@@ -60,7 +64,7 @@ public class BookingService extends Service implements ServiceInterface{
 			}
 			
 		} catch (IOException e) {
-			Logger.getLogger(BookingService.class).error(ServiceException.INVALID_CRAWLER_URL);
+			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 		
 		price.setHash(price.toHash());

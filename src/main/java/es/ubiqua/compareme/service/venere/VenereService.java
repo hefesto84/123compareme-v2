@@ -12,6 +12,7 @@ import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.service.Service;
 import es.ubiqua.compareme.service.booking.BookingService;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
+import es.ubiqua.compareme.utils.DBLogger;
 import es.ubiqua.compareme.utils.Utils;
 
 public class VenereService extends Service implements ServiceInterface{
@@ -42,12 +43,14 @@ public class VenereService extends Service implements ServiceInterface{
 				price.setPrice(d.select("span.current-price.has-old-price").get(0).text());
 				}catch(Exception e){
 					price.setPrice("0");
+					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 				}
 			}else{
 				price.setPrice("0");
+				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
 		} catch (IOException e) {
-			Logger.getLogger(BookingService.class).error(ServiceException.INVALID_CRAWLER_URL);
+			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 		
 		price.setHash(price.toHash());

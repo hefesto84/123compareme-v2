@@ -33,26 +33,27 @@ public class ExpediaService extends Service implements ServiceInterface{
 	
 	public  Price  trackPrice(){
 	
+		String url  = "";
+		
 		if(!isConfigured){
 			Logger.getLogger(ExpediaService.class).error(ServiceException.INVALID_ARGUMENTS);
 		}
 		
 		try {
-			String url = "https://www.expedia."+price.getLanguage()+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
-			Logger.getLogger(ExpediaService.class).debug("URL: "+url);
-			Document d = Jsoup.connect("https://www.expedia."+price.getLanguage()+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2").get();
+			url = "https://www.expedia."+price.getLanguage()+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
+			Document d = Jsoup.connect(url).get();
 			
 			if (d.select("a.price.link-to-rooms")!=null) {
 				
 				try{
 					price.setPrice(d.select("a.price.link-to-rooms").text());
-					//price.setPrice(d.select("span.room-price.one-night-room-price").get(0).text());
 				}catch(Exception e){
 					price.setPrice("0");
 					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 				}
 			}else{
 				price.setPrice("0");
+				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
 			
 			if (d.select("span.recommend-percentage")!=null) {
@@ -62,7 +63,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 			}
 			
 		} catch (IOException e) {
-			Logger.getLogger(ExpediaService.class).error(ServiceException.INVALID_CRAWLER_URL);
+			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 		price.setHash(price.toHash());
 		return price;

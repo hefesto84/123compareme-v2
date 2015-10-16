@@ -73,9 +73,9 @@ public class CrawlerServiceTest extends TestCase{
 	*/
 	
 	public void testLog() throws Exception{
-		DBLogger.getLogger().Error("This is an error");
-		DBLogger.getLogger().Warning("This is a warning");
-		DBLogger.getLogger().Info("This is a log");
+		//DBLogger.getLogger().Error("This is an error");
+		//DBLogger.getLogger().Warning("This is a warning");
+		//DBLogger.getLogger().Info("This is a log");
 	}
 	
 	public void testPrice() throws Exception{

@@ -14,6 +14,7 @@ import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
 import es.ubiqua.compareme.service.expedia.ExpediaService;
+import es.ubiqua.compareme.utils.Utils;
 
 public class GetPricesAction extends ActionSupport {
 
@@ -34,7 +35,7 @@ public class GetPricesAction extends ActionSupport {
         Query query = new Query(lang,hotel,rooms,guests,fin,fout);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
-        
+        Utils.checkCoherence(datos);
         return SUCCESS;
     }
 
