@@ -23,6 +23,6 @@ import es.ubiqua.compareme.service.venere.VenereService;
 import es.ubiqua.compareme.utils.DBLogger;
 import junit.framework.TestCase;
 
-public class CrawlerServiceTest extends TestCase{
+public class CrawlerServiceTest/* extends TestCase*/{
 
 }
