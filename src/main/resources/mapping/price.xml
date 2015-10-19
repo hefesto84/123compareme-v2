@@ -24,7 +24,7 @@
     </select>
     
     <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
-        SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id;
+        SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id ORDER BY rp.price ASC;
     </select>
     
     <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
