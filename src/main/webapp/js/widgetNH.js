@@ -18,7 +18,13 @@ var hotelswidget = new (function(window, document, $){
             var guests = $('#number_guests').val();
             var start = hotelswidget.dateConverse($('#date_ini').val());
             var stop = hotelswidget.dateConverse($('#date_out').val());
-            var price = $('.activa').find('.price').html().substring(0,$('.activa').find('.price').html().indexOf(' <'));
+
+            if($('html').attr('lang') === 'en'){
+                var price = parseFloat($('span.reservas_tarifas_precio').html()).toFixed(2);
+            } else {
+                var price = parseFloat($('span.reservas_tarifas_precio').html().replace('.','').replace(',','.')).toFixed(2);
+            }
+
             var currency = $('.currency_reservas').html();
             var lang = $('html').attr('lang');
             var device = 'isMobile';
