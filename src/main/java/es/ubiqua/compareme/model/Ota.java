@@ -39,7 +39,6 @@ public class Ota {
 	}
 	
 	public String toDBLogger(){
-		String s = this.name+"|"+this.icon+"|"+this.id;
-		return s;
+		return this.name+"|"+this.icon+"|"+this.id;
 	}
 }

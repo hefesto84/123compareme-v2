@@ -51,6 +51,7 @@ public class BookingService extends Service implements ServiceInterface{
 				}catch(Exception e){
 					price.setPrice("0");
 					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
+					Logger.getLogger(this.getClass()).error(e.getMessage());
 				}
 			}else{
 				price.setPrice("0");
@@ -65,6 +66,7 @@ public class BookingService extends Service implements ServiceInterface{
 			
 		} catch (IOException e) {
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
+			Logger.getLogger(this.getClass()).error(e.getMessage());
 		}
 		
 		price.setHash(price.toHash());

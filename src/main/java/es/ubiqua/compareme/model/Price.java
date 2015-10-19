@@ -1,10 +1,14 @@
 package es.ubiqua.compareme.model;
 
+import java.io.Serializable;
+
 import com.google.gson.Gson;
 
 import es.ubiqua.compareme.utils.Utils;
 
-public class Price {
+public class Price implements Serializable {
+	
+	private static final long serialVersionUID = -6558361774322743634L;
 	
 	private int id;
 	private int hotelId;

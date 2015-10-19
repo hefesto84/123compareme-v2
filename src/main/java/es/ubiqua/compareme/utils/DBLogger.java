@@ -1,6 +1,7 @@
 package es.ubiqua.compareme.utils;
 
 import es.ubiqua.compareme.manager.LogManager;
+import es.ubiqua.compareme.manager.MailManager;
 import es.ubiqua.compareme.model.Log;
 
 public class DBLogger {
@@ -43,8 +44,9 @@ public class DBLogger {
 		logManager.add(l);
 	}
 	
-	// TODO: Implementar envio con aviso crítico
-	public void Critical(String str){
-		
+	public void Critical(String customerId, String str){
+		MailManager mm = new MailManager(customerId);
+		mm.sendMail(str);
+		mm = null;
 	}
 }

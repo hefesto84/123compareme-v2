@@ -36,7 +36,7 @@ public class GetPricesAction extends ActionSupport {
         Query query = new Query(lang,hotel,rooms,guests,fin,fout,base);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
-        Utils.checkCoherence(datos);
+        //Utils.checkCoherence(code,datos);
         return SUCCESS;
     }
 

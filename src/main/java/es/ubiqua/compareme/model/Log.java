@@ -1,12 +1,10 @@
 package es.ubiqua.compareme.model;
 
-import java.sql.Date;
-
 public class Log {
 	
-	public static int ERROR = -1;
-	public static int INFO = 0;
-	public static int WARNING = 1;
+	public static final int ERROR = -1;
+	public static final int INFO = 0;
+	public static final int WARNING = 1;
 	
 	private int id;
 	private int type;

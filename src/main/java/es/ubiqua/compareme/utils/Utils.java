@@ -36,7 +36,7 @@ public class Utils {
 		}
 	}
 	
-	public static void checkCoherence(List<Price> prices){
+	public static void checkCoherence(String customerId, List<Price> prices){
 		
 		for(Price p : prices){
 			float bp = Float.valueOf(p.getBasePrice()).floatValue();
@@ -44,12 +44,12 @@ public class Utils {
 			
 			if ( bp > op ){
 				DBLogger.getLogger().Warning("OTA cheaper than hotel: "+p.toDBLogger());
-				DBLogger.getLogger().Critical("OTA cheaper than hotel: "+p.toDBLogger());
-			}else{
-				if (op > bp + 5){
+				DBLogger.getLogger().Critical(customerId,"OTA cheaper than hotel: "+p.toDBLogger());
+			}else if (op > bp + 5){
 					DBLogger.getLogger().Warning("Suspicious OTA price: "+p.toDBLogger());
-					DBLogger.getLogger().Critical("Suspicious OTA price: "+p.toDBLogger());
-				}
+					DBLogger.getLogger().Critical(customerId,"Suspicious OTA price: "+p.toDBLogger());
+			}else{
+				DBLogger.getLogger().Info(" OTA price: "+p.toDBLogger());
 			}
 		}
 	}

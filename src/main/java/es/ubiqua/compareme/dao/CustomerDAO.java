@@ -17,7 +17,7 @@ public class CustomerDAO extends BaseDAO {
 		try{
 			customers = session.selectList("SqlMapCustomer.list");
 		}catch(Exception e){
-			Logger.getLogger(this.getClass()).error(e.getMessage());
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
 		}finally{
 			session.close();
 		}
@@ -29,7 +29,7 @@ public class CustomerDAO extends BaseDAO {
 		try{
 			customer = session.selectOne("SqlMapCustomer.get",customer);
 		}catch(Exception e){
-			Logger.getLogger(this.getClass()).error(e.getMessage());
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
 		}finally{
 			session.close();
 		}
@@ -42,7 +42,7 @@ public class CustomerDAO extends BaseDAO {
 			session.insert("SqlMapCustomer.add",customer);
 			session.commit();
 		}catch(Exception e){
-			Logger.getLogger(this.getClass()).error(e.getMessage());
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
 		}finally{
 			session.close();
 		}

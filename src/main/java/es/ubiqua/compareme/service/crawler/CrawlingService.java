@@ -19,8 +19,8 @@ import es.ubiqua.compareme.service.venere.VenereService;
 
 public class CrawlingService {
 	
-	public static int MONOTHREAD_MODE = 0;
-	public static int MULTITHREAD_MODE = 1;
+	public static final int MONOTHREAD_MODE = 0;
+	public static final int MULTITHREAD_MODE = 1;
 	private List<Price> prices;
 	private PriceManager priceManager;
 	private OtaManager otaManager;

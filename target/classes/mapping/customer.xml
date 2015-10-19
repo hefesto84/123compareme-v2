@@ -9,23 +9,31 @@
         <result property="identifier" column="identifier"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
+        <result property="musername" column="musername"/>
+        <result property="mpassword" column="mpassword"/>
+        <result property="mhost" column="mhost"/>
+        <result property="contact" column="contact"/>
     </resultMap>
     
     <select id="list" resultMap="SqlMapCustomer.Customer">
         SELECT * FROM RepositoryCustomer;
     </select>
     
-    <select id="get" parameterType="int" resultMap="SqlMapCustomer.Customer">
-        SELECT * FROM RepositoryCustomer WHERE id = #{id};
+    <select id="get" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE id = #{id} OR identifier LIKE #{identifier};
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Customer" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO RepositoryCustomer (name,identifier,username,password) 
+        INSERT INTO RepositoryCustomer (name,identifier,username,password,musername,mpassword,mhost,contact) 
         	VALUES (
         		#{name},
         		#{identifier},
         		#{username},
-        		#{password}
+        		#{password},
+        		#{musername},
+        		#{mpassword},
+        		#{mhost},
+        		#{contact}
         	)
         	
         <selectKey keyProperty="id" resultType="int" order="AFTER">
