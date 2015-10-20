@@ -5,6 +5,7 @@ public class Ota {
 	private int id;
 	private String name;
 	private String icon;
+	private int quality = 100;
 	
 	public Ota(){
 		
@@ -38,6 +39,14 @@ public class Ota {
 		this.icon = icon;
 	}
 	
+	public int getQuality() {
+		return quality;
+	}
+
+	public void setQuality(int quality) {
+		this.quality = quality;
+	}
+
 	public String toDBLogger(){
 		return this.name+"|"+this.icon+"|"+this.id;
 	}
