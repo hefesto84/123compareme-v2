@@ -35,6 +35,7 @@ public class HotelsService  extends Service implements ServiceInterface{
 
 	public Price trackPrice() {
 		String url = "http://"+price.getLanguage()+".hotels.com/"+hotelName+"&arrivalDate="+Utils.sanitizeDateForHotels(price.getDateIn())+"&departureDate="+Utils.sanitizeDateForHotels(price.getDateOut())+"&rooms[0].numberOfAdults="+price.getGuests()+"&roomno=1&validate=false&previousDateful=false&reviewOrder=date_newest_first&PSRC=TRIP1&pos=HCOM_ES&hotelid=149150&locale=es_ES&wapa1=149150&rffrid=MDP.HCOM.ES.001.126.01.ES-DM_B00.HDSHReb.B.kwrd%3DTAIDVgAV6QokHFQAAEHwV2EAAAAY";
+		System.out.println(url);
 		try {
 			Document d = Jsoup.connect(url).get();
 			
