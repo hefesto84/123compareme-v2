@@ -62,7 +62,7 @@
     		<result>/WEB-INF/jsp/backend/download_statistics.jsp</result>
     	</action>
     	<action name="fast_price_check" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction">
-    		<result>/WEB-INF/jsp/backend/fast_price_check.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/fast_price_check.jsp</result>
     	</action>
     </package>
 

@@ -21,16 +21,25 @@ public class GetWidgetAction extends ActionSupport {
 
 	private static final long serialVersionUID = -2527009795402427981L;
 	private InputStream output;
+	private String d;
 	
 	
     public String execute() {
-    	output = new StringBufferInputStream("This a stream test");
+    	output = new StringBufferInputStream("This a stream test "+this.d);
         return SUCCESS;
     }
 
     public InputStream getOutput() {
         return output;
        }
+
+	public String getD() {
+		return d;
+	}
+
+	public void setD(String d) {
+		this.d = d;
+	}
      
 
 }

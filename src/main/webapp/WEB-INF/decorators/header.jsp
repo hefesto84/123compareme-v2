@@ -14,8 +14,11 @@
 <script src="../js/jquery-2.1.4.min.js"></script>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="../css/main.css">
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/widgetParkinn.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="../js/jquery-ui-datapicker-es.js"></script>
 <title>123Compare.me v.2</title>
 </head>
 <body  style="margin:1em;">

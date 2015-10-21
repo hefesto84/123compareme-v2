@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,57 +8,143 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="panel panel-default">
-	  <div class="panel-heading"><h3 class="panel-title"><b>Fast Price Check Tool</b></h3></div>
-	  <div class="panel-body">  
-		<form action="fast_price_check" method="GET">
-		<s:hidden name="rooms" value="10" id="rooms"/>
-		  <div class="form-group">
-		    <label for="otaName">Select an available OTA:</label>
-		    <select class="form-control" id="otaId" name="otaId">
-		    	<s:iterator value="otas">
-				    <option value="<s:property value="id"/>"><s:property value="name"/></option>
-			    </s:iterator>
-			</select>
-		  </div>
-		  <div class="form-group">
-		    <label for="hotelName">Select an available Hotel:</label>
-		    <select class="form-control" id="hotelId" name="hotelId">
-			    <s:iterator value="hotels">
-				    <option value="<s:property value="id"/>"><s:property value="name"/></option>
-			    </s:iterator>
-			</select>
-		  </div>
-		  <div class="form-group">
-		    <label for="rooms">Number of rooms:</label>
-		   	<input type="text" name="rooms_" id="rooms_"/>
-		   	<br/>
-		   	<label for="guests">Number of guests:</label>
-		   	<input type="text" name="guests" id="guests"/>
-		   	<br/>
-		   	<br/>
-		   	<label for="dateIn">Date in:</label>
-		   	<input type="text" name="datein" id="datein"/>
-		   	<br/>
-		   	<label for="dateOut">Date out:</label>
-		   	<input type="text" name="dateout" id="dateout"/>
-		   	<br/><br/>
-		   	<label for="language">Select language:</label>
-		   	<select class="form-control" id="lang" name="lang">
-			    <option value="es">es</option>
-			    <option value="en">en</option>
-				<option value="fr">fr</option>
-				<option value="de">de</option>
-				<option value="it">it</option>
-				<option value="ru">ru</option>
-				<option value="pt">pt</option>
-				<option value="dk">dk</option>
-				<option value="nl">nl</option>
-			</select>
-		  </div>
-		  <button type="submit" class="btn btn-default">Check Price</button>
-		</form>
-	  </div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<b>Fast Price Check Tool</b>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<div id="filters">
+				<form action="fast_price_check" method="GET">
+					<div id="left_params">
+						<div id="left_params_ota">
+							<div class="form-group">
+								<label for="otaId">Select an available OTA:</label> <select
+									class="form-control" id="otaId" name="otaId">
+									<option selected value="0">All</option>
+									<s:iterator value="otas">
+										<option value="<s:property value="id"/>"><s:property value="name" /></option>
+									</s:iterator>
+								</select>
+							</div>
+						</div>
+						<div id="left_params_lang">
+							<div class="form-group">
+								<label for="lang">Select language:</label> <select
+									class="form-control" id="lang" name="lang">
+									<option selected value="es">Spanish</option>
+									<option value="en">English</option>
+									<option value="fr">French</option>
+									<option value="de">German</option>
+									<option value="it">Italian</option>
+									<option value="ru">Russian</option>
+									<option value="pt">Portuguese</option>
+									<option value="dk">Dansk</option>
+									<option value="nl">Dutch</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div id="center_params">
+						<div class="form-group">
+							<label for="hotelName">Select an available Hotel:</label> <select
+								class="form-control" id="hotelName" name="hotelName">
+								<s:iterator value="hotels">
+									<option value="<s:property value="name"/>"><s:property value="name" /></option>
+								</s:iterator>
+							</select>
+						</div>
+					</div>
+					<div id="right_params">
+						<div class="form-group">
+							<div id="sub_left_params">
+								<label for="rooms">Number of rooms:</label><br /> <select
+									class="form-control" id="rooms" name="rooms">
+									<option selected value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select> <br /> <label for="guests">Number of guests:</label><br /> <select
+									class="form-control" id="guests" name="guests">
+									<option value="1">1</option>
+									<option selected value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+								</select>
+							</div>
+							<div id="sub_right_params">
+								<label for="dateIn">Date in:</label><br /> <input type="text"
+									name="dateIn" class="form-control" id="dateIn" /> <br /> <label
+									for="dateOut">Date out:</label><br /> <input type="text"
+									name="dateOut" class="form-control" id="dateOut" />
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-default">Check Price</button>
+					<button type="submit" class="btn btn-default">Download Results</button>
+				</form>
+			</div>
+			<div id="results">
+				<table class="table table-hover" name="tablePrices">
+					<tbody>
+						<tr>
+							<td><b>ID</b></td>
+							<td><b>Ota</b></td>
+							<td><b>Language</b></td>
+							<td><b>Date in</b></td>
+							<td><b>Date Out</b></td>
+							<td><b>Guests</b></td>
+							<td><b>Rooms</b></td>
+							<td><b>Price</b></td>
+							<td><b>Base Price</b></td>
+							<td><b>Actions</b></td>
+						</tr>
+						<s:iterator value="datos">
+							<tr>
+								<td><s:property value="id" /></td>
+								<td><img style="width:128px;height:32px;" src="../img/expedia.png"/></td>
+								<td><s:property value="lang" /></td>
+								<td><s:property value="dateIn" /></td>
+								<td><s:property value="dateOut" /></td>
+								<td><s:property value="guests" /></td>
+								<td><s:property value="rooms" /></td>
+								<td><s:property value="price" /></td>
+								<td><s:property value="basePrice" /></td>
+								<td>
+									<a href="
+											<s:url action="delete">
+												<s:param name="id">
+													<s:property value="id" />
+												</s:param>
+											</s:url>
+											">
+											Delete from Cache
+									</a>
+								</td>
+							</tr>
+						</s:iterator>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
+	<script>
+		$(function() {
+			$("#dateIn").datepicker();
+		});
+		$(function() {
+			$("#dateOut").datepicker();
+		});
+	</script>
 </body>
 </html>
