@@ -82,10 +82,10 @@
 								</select>
 							</div>
 							<div id="sub_right_params">
-								<label for="dateIn">Date in:</label><br /> <input type="text"
-									name="dateIn" class="form-control" id="dateIn" /> <br /> <label
-									for="dateOut">Date out:</label><br /> <input type="text"
-									name="dateOut" class="form-control" id="dateOut" />
+								<label for="dateIn">Date in:</label><br /> 
+								<input type="text" name="dateIn" class="form-control" id="dateIn" value="<s:property value="dateIn"/>"/> <br /> 
+								<label for="dateOut">Date out:</label><br /> 
+								<input type="text" name="dateOut" class="form-control" id="dateOut" value="<s:property value="dateOut"/>"/>
 							</div>
 						</div>
 					</div>
@@ -112,8 +112,8 @@
 						<s:iterator value="datos">
 							<tr>
 								<td><s:property value="id" /></td>
-								<td><img style="width:128px;height:32px;" src="../img/expedia.png"/></td>
-								<td><s:property value="lang" /></td>
+								<td><img style="width:128px;height:32px;" src="../img/otas/<s:property value="otaId" />.png"/></td>
+								<td><img src="../img/flags/<s:property value="lang" />.png"/></td>
 								<td><s:property value="dateIn" /></td>
 								<td><s:property value="dateOut" /></td>
 								<td><s:property value="guests" /></td>
@@ -140,9 +140,17 @@
 	</div>
 	<script>
 		$(function() {
+			var dateIn = new Date();
+			if($("#dateIn").val().length < 2){
+				$("#dateIn").val(dateIn.getDate()+"/"+(dateIn.getMonth()+1)+"/"+dateIn.getFullYear());
+			}
 			$("#dateIn").datepicker();
 		});
 		$(function() {
+			var dateOut = new Date();
+			if($("#dateOut").val().length < 2){
+				$("#dateOut").val((dateOut.getDate()+1)+"/"+(dateOut.getMonth()+1)+"/"+dateOut.getFullYear());
+			}
 			$("#dateOut").datepicker();
 		});
 	</script>

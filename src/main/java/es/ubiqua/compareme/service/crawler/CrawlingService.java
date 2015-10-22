@@ -73,7 +73,7 @@ public class CrawlingService {
 			p = be.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 3:
-			HotelsService he = new HotelsService();
+			VenereService he = new VenereService();
 			p = he.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 4:

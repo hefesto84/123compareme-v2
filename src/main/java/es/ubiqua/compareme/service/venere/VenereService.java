@@ -34,7 +34,8 @@ public class VenereService extends Service implements ServiceInterface{
 	}
 
 	public Price trackPrice() {
-		String url = "http://"+price.getLanguage()+".venere.com/"+hotelName+"&arrivalDate="+Utils.sanitizeDateForHotels(price.getDateIn())+"&departureDate="+Utils.sanitizeDateForHotels(price.getDateOut())+"&rooms[0].numberOfAdults="+price.getGuests()+"&roomno=1&validate=false&previousDateful=false&reviewOrder=date_newest_first&PSRC=TRIP1&pos=HCOM_ES&hotelid=149150&locale=es_ES&wapa1=149150&rffrid=MDP.HCOM.ES.001.126.01.ES-DM_B00.HDSHReb.B.kwrd%3DTAIDVgAV6QokHFQAAEHwV2EAAAAY";
+
+		String url = "http://"+price.getLanguage()+".venere.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id=128432&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 		try {
 			Document d = Jsoup.connect(url).get();
 			
