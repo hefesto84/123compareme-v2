@@ -64,6 +64,7 @@ public class CrawlingService {
 		o.setId(otaId);
 		
 		switch(otaId){
+	
 		case 1:
 			ExpediaService es = new ExpediaService();
 			p = es.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
@@ -72,14 +73,17 @@ public class CrawlingService {
 			BookingService be = new BookingService();
 			p = be.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
+		
 		case 3:
-			VenereService he = new VenereService();
+			HotelsService he = new HotelsService();
 			p = he.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
+		
 		case 4:
 			VenereService ve = new VenereService();
 			p = ve.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
+		
 		}
 		
 		p.setSite(otaManager.get(o).getIcon());

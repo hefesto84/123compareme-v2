@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Ota;
@@ -37,25 +38,23 @@ public class HotelsService  extends Service implements ServiceInterface{
 		String url = "";
 		
 		if(price.getLanguage().equals("es")){
-			url = "http://fr.hotels.com/"+hotelName+"&arrivalDate="+Utils.sanitizeDateForHotels(price.getDateIn())+"&departureDate="+Utils.sanitizeDateForHotels(price.getDateOut())+"&rooms[0].numberOfAdults="+price.getGuests()+"&roomno=1&validate=false&previousDateful=false&reviewOrder=date_newest_first&PSRC=TRIP1&pos=HCOM_ES&hotelid=149150&locale=es_ES&wapa1=149150&rffrid=MDP.HCOM.ES.001.126.01.ES-DM_B00.HDSHReb.B.kwrd%3DTAIDVgAV6QokHFQAAEHwV2EAAAAY";
+			url = "http://www.hoteles.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 		}else{
-			url = "http://"+price.getLanguage()+".hotels.com/"+hotelName+"&arrivalDate="+Utils.sanitizeDateForHotels(price.getDateIn())+"&departureDate="+Utils.sanitizeDateForHotels(price.getDateOut())+"&rooms[0].numberOfAdults="+price.getGuests()+"&roomno=1&validate=false&previousDateful=false&reviewOrder=date_newest_first&PSRC=TRIP1&pos=HCOM_ES&hotelid=149150&locale=es_ES&wapa1=149150&rffrid=MDP.HCOM.ES.001.126.01.ES-DM_B00.HDSHReb.B.kwrd%3DTAIDVgAV6QokHFQAAEHwV2EAAAAY";
+			url = "http://"+price.getLanguage()+".hotels.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 		}
 		
 		try {
-			Document d = Jsoup.connect(url).get();
+			Document d = Jsoup.connect(url).get();		
+			Elements newPrice = d.select("span.current-price");
 			
-			if (d.select("span.current-price.has-old-price")!=null) {
-				try{
-					price.setPrice(d.select("span.current-price.has-old-price").get(0).text());
-				}catch(Exception e){
-					price.setPrice("0");
-					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
-				}
+			if(newPrice!=null){
+				String s = newPrice.text();
+				price.setPrice(s);
 			}else{
 				price.setPrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
+		
 		} catch (IOException e) {
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Ota;
@@ -35,25 +36,26 @@ public class VenereService extends Service implements ServiceInterface{
 
 	public Price trackPrice() {
 
-		String url = "http://"+price.getLanguage()+".venere.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id=128432&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
+		String url = "";
+
+		url = "http://"+price.getLanguage()+".venere.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
+	
 		try {
 			Document d = Jsoup.connect(url).get();
 			
-			if (d.select("span.current-price.has-old-price")!=null) {
-				try{
-				price.setPrice(d.select("span.current-price.has-old-price").get(0).text());
-				}catch(Exception e){
-					price.setPrice("0");
-					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
-				}
+			Elements newPrice = d.select("span.current-price");
+			
+			if(newPrice!=null){
+				String s = newPrice.text();
+				price.setPrice(s);
 			}else{
 				price.setPrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
+		
 		} catch (IOException e) {
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
-		
 		price.setHash(price.toHash());
 		return price;
 	}
