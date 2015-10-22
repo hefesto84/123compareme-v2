@@ -11,7 +11,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<b>Fast Price Check Tool</b>
+				<b>Fast Price Check Tool - Source IP: <s:property value="ip"/></b>
 			</h3>
 		</div>
 		<div class="panel-body">

@@ -13,6 +13,7 @@ import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
+import es.ubiqua.compareme.utils.Utils;
 
 
 public class FastPriceCheckBackendAction extends ActionSupport{
@@ -32,10 +33,12 @@ public class FastPriceCheckBackendAction extends ActionSupport{
 	private String lang;
 	
 	private String query;
+	private String ip;
 	
 	private static final long serialVersionUID = -2527001795402427911L;
 
 	public String execute(){
+		ip = Utils.getIP();
 		otas = otaManager.list();
 		hotels = hotelManager.list();
 		try{
@@ -143,6 +146,14 @@ public class FastPriceCheckBackendAction extends ActionSupport{
 
 	public void setDatos(List<Price> datos) {
 		this.datos = datos;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 }

@@ -1,6 +1,9 @@
 package es.ubiqua.compareme.utils;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -51,6 +54,17 @@ public class Utils {
 			}else{
 				DBLogger.getLogger().Info(" OTA price: "+p.toDBLogger());
 			}
+		}
+	}
+	
+	public static String getIP(){
+		try{
+			 URL whatismyip = new URL("http://checkip.amazonaws.com");
+			 BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+			 String ip = in.readLine(); //you get the IP as a String
+			 return ip;
+		}catch(Exception e){
+			return "0.0.0.0";
 		}
 	}
 }
