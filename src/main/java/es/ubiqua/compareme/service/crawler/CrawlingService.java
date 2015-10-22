@@ -54,7 +54,7 @@ public class CrawlingService {
 		return prices;
 	}
 	
-	private synchronized void addPriceToResponse(Price price){
+	private void addPriceToResponse(Price price){
 		prices.add(price);
 	}
 	

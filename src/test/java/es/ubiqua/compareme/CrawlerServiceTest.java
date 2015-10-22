@@ -16,13 +16,13 @@ public class CrawlerServiceTest  extends TestCase{
 	 
 	 public void testMail() throws Exception {
 		
-		 /*
-		 Query query = new Query("es","NH Madrid Atocha",1,2,"08/02/2016","11/02/2016","179,10");
+		
+		 Query query = new Query("fr","NH Collection Madrid Abascal",1,2,"29/10/2015","31/10/2015","179,10");
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 	*/
+	 
 	 }
 
 }

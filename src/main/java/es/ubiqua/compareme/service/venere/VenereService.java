@@ -42,8 +42,8 @@ public class VenereService extends Service implements ServiceInterface{
 	
 		try {
 			Document d = Jsoup.connect(url).get();
-			
-			Elements newPrice = d.select("span.current-price");
+			System.out.println("URL ++++++++++++++++++++++++++ "+url);
+			Elements newPrice = d.select("span.current-price.bold");
 			
 			if(newPrice!=null){
 				String s = newPrice.text();

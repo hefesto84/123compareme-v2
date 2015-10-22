@@ -42,7 +42,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 		try {
 			url = "https://www.expedia."+price.getLanguage()+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
 			Document d = Jsoup.connect(url).get();
-			
+			System.out.println("URL ++++++++++++++++++++++++++ "+url);
 			if (d.select("a.price.link-to-rooms")!=null) {
 				
 				try{
