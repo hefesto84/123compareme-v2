@@ -21,13 +21,13 @@ public class CrawlerServiceTest  extends TestCase{
 	 
 	 public void testMail() throws Exception {
 		
-	
+	/*
 		 Query query = new Query("es","NH Barcelona Calderón",1,2,"22/10/2015","23/10/2015","179,10");
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 	
+	 	*/
 		 
 		
 	 }
