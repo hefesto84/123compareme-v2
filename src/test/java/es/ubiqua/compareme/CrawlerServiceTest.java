@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.tunyk.currencyconverter.api.Currency;
 
 import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.model.Price;
@@ -30,8 +31,16 @@ public class CrawlerServiceTest  extends TestCase{
 	        
 	        System.out.println(new Gson().toJson(datos));
 	 	*/
-		System.out.println(Utils.createOtaStatusJavascriptContent(new OtaManager().list()));
+		//System.out.println(Utils.createOtaStatusJavascriptContent(new OtaManager().list()));
+		 /*
+		 if(Currency.AUD.toString().equals("AUD")){
+			 System.out.println(Currency.AUD);
+		 }else{
+			 System.out.println("KO");
+		 }
+		*/
 		 
-		
+		// String p = "100";
+		// System.out.println(Utils.changeCurrency(p, "GBP","EUR"));
 	 }
 }

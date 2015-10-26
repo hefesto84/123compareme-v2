@@ -10,6 +10,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.tunyk.currencyconverter.BankUaCom;
+import com.tunyk.currencyconverter.api.Currency;
+import com.tunyk.currencyconverter.api.CurrencyConverter;
+import com.tunyk.currencyconverter.api.CurrencyConverterException;
+import com.tunyk.currencyconverter.api.CurrencyNotSupportedException;
+
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 
@@ -88,5 +94,24 @@ public class Utils {
 		
 		content = head + otasContent + dataSetHeader + dataSetContent + footer;
 		return content;
+	}
+	
+	public static String changeCurrency(String price, String currencyFrom, String currencyTo){
+		return price;
+		/*
+		try {
+			CurrencyConverter currencyConverter = new BankUaCom(Currency.fromString(currencyFrom), Currency.fromString(currencyTo));
+			return String.valueOf(currencyConverter.convertCurrency(Float.valueOf(price)));
+		} catch (CurrencyNotSupportedException e) {
+			price = "0";
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: "+price);
+			e.printStackTrace();
+		} catch (CurrencyConverterException e) {
+		   price = "0";
+		   System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: "+price);
+			e.printStackTrace();
+		}
+		return price;
+	*/
 	}
 }

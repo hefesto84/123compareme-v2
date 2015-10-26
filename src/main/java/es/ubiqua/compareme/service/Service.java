@@ -3,6 +3,7 @@ package es.ubiqua.compareme.service;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
+import es.ubiqua.compareme.manager.HotelManager;
 import es.ubiqua.compareme.manager.HotelOtaManager;
 import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.model.Hotel;
@@ -17,9 +18,11 @@ public class Service {
 	protected HtmlUnitDriver driver;
 	protected OtaManager otaManager = new OtaManager();
 	protected HotelOtaManager hotelOtaManager = new HotelOtaManager();
+	protected HotelManager hotelManager = new HotelManager();
 	protected String hotelName = "";
 	protected int hotelId = 0;
 	protected HotelOta ho;
+	protected Hotel mHotel;
 	
 	public void initDriver(){
 		this.driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_8);
@@ -40,5 +43,12 @@ public class Service {
 		HotelOta ho = hotelOtaManager.get(h, o);
 		hotelName =ho.getName();
 		hotelId = ho.getIdHotel();
+	}
+	
+	public String getCurrency(int hotelId){
+		mHotel = new Hotel();
+		mHotel.setId(hotelId);
+		mHotel = hotelManager.get(mHotel);
+		return mHotel.getCurrency();
 	}
 }

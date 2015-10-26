@@ -49,8 +49,8 @@ public class VenereService extends Service implements ServiceInterface{
 			Elements newPrice = d.select("span.current-price.bold");
 			
 			if(newPrice!=null){
-				String s = newPrice.text();
-				price.setPrice(s);
+				String p = Utils.changeCurrency(newPrice.text(), getCurrency(hotelId), "EUR");
+				price.setPrice(p);
 				mOta.setQueryOk(1);
 			}else{
 				price.setPrice("0");

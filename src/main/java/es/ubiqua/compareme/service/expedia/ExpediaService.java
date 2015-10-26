@@ -12,6 +12,7 @@ import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.service.Service;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
 import es.ubiqua.compareme.utils.DBLogger;
+import es.ubiqua.compareme.utils.Utils;
 
 public class ExpediaService extends Service implements ServiceInterface{
 
@@ -29,7 +30,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 		price.setDateIn(dateIn);
 		price.setDateOut(dateOut);
 		getOtaHotelName("Expedia", name);
-		price.setHotelId(hotelId);;
+		price.setHotelId(hotelId);
 		isConfigured = true;
 		return this;
 	}
@@ -43,13 +44,16 @@ public class ExpediaService extends Service implements ServiceInterface{
 		}
 		
 		try {
-			url = "https://www.expedia.es"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
+			url = "https://www.expedia.es/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
 			Document d = Jsoup.connect(url).get();
 			System.out.println("URL ++++++++++++++++++++++++++ "+url);
+			
 			if (d.select("a.price.link-to-rooms")!=null) {
 				
 				try{
-					price.setPrice(d.select("a.price.link-to-rooms").text());
+					
+					String p = Utils.changeCurrency(d.select("a.price.link-to-rooms").text(), getCurrency(hotelId), "EUR");
+					price.setPrice(p);
 					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");

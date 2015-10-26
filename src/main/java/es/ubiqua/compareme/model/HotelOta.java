@@ -6,6 +6,7 @@ public class HotelOta {
 	private int idHotel;
 	private int idOta;
 	private String name;
+	private String currency;
 	
 	public HotelOta(){
 		
@@ -41,6 +42,14 @@ public class HotelOta {
 
 	public void setIdOta(int idOta) {
 		this.idOta = idOta;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	

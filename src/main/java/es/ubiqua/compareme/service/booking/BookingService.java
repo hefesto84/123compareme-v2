@@ -31,7 +31,8 @@ public class BookingService extends Service implements ServiceInterface{
 		price.setDateIn(dateIn);
 		price.setDateOut(dateOut);
 		getOtaHotelName(OTA, name);
-		price.setHotelId(hotelId);;
+		
+		price.setHotelId(hotelId);
 		isConfigured = true;
 		return this;
 	}
@@ -50,7 +51,8 @@ public class BookingService extends Service implements ServiceInterface{
 			System.out.println(url);
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
-					price.setPrice(d.select("strong[data-price-without-addons]").get(0).text());
+					String p = Utils.changeCurrency(d.select("strong[data-price-without-addons]").get(0).text(), getCurrency(hotelId), "EUR");
+					price.setPrice(p);
 					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");
