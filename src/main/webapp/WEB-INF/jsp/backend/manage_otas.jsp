@@ -27,9 +27,15 @@
 		<td><s:property value="icon"/></td>
 		<td>
 			<b>
-			<font color="#01A611">
-			<s:property value="quality"/>
-			</font>
+			<s:if test="%{quality > 75}">
+				<font color="#01A611"><s:property value="quality"/> %</font>
+			</s:if>
+			<s:if test="%{quality <= 75 && quality >= 50}">
+				<font color="#FF8C00"><s:property value="quality"/> %</font>
+			</s:if>
+			<s:if test="%{quality < 50}">
+				<font color="#FF0000"><s:property value="quality"/> %</font>
+			</s:if>
 			</b>
 		</td>
 		<td><a href="editOta">Edit</a>&nbsp;<a href="delOta">Delete</a></td>

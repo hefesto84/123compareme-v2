@@ -16,10 +16,13 @@ import es.ubiqua.compareme.utils.DBLogger;
 public class ExpediaService extends Service implements ServiceInterface{
 
 	private static String OTA = "Expedia";
+	private Ota mOta;
 	
 	public ExpediaService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut){
 		price = new Price();
-		price.setOtaId(otaManager.get(new Ota(OTA)).getId());
+		mOta = otaManager.get(new Ota(OTA));
+		mOta.setQueryOk(0);
+		price.setOtaId(mOta.getId());
 		price.setLanguage(language);
 		price.setGuests(guests);
 		price.setRooms(rooms);
@@ -40,13 +43,14 @@ public class ExpediaService extends Service implements ServiceInterface{
 		}
 		
 		try {
-			url = "https://www.expedia.fr/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
+			url = "https://www.expedia.es"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
 			Document d = Jsoup.connect(url).get();
 			System.out.println("URL ++++++++++++++++++++++++++ "+url);
 			if (d.select("a.price.link-to-rooms")!=null) {
 				
 				try{
 					price.setPrice(d.select("a.price.link-to-rooms").text());
+					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");
 					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
@@ -63,9 +67,11 @@ public class ExpediaService extends Service implements ServiceInterface{
 			}
 			
 		} catch (IOException e) {
+			price.setPrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 		price.setHash(price.toHash());
+		otaManager.update(mOta);
 		return price;
 	}
 	

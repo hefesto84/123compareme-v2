@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 
 public class Utils {
@@ -66,5 +67,26 @@ public class Utils {
 		}catch(Exception e){
 			return "0.0.0.0";
 		}
+	}
+	
+	public static String createOtaStatusJavascriptContent(List<Ota> otas){
+		String content = "";
+		String head = "<script type=\"text/javascript\"> var barChartData = {";
+		String otasContent  = " labels: [";
+		for(Ota o : otas){
+			otasContent = otasContent + "\""+o.getName()+"\",";
+		}
+		otasContent = otasContent.substring(0, otasContent.lastIndexOf(",")) + "],";
+		String dataSetHeader =  "datasets : [{fillColor : \"rgba(220,220,220,0.5)\",strokeColor : \"rgba(220,220,220,0.8)\",highlightFill: \"rgba(220,220,220,0.75)\",highlightStroke: \"rgba(220,220,220,1)\",";
+		String dataSetContent = " data : [";
+		
+		for(Ota o : otas){
+			dataSetContent = dataSetContent + "\""+o.getQuality()+"\",";
+		}
+		dataSetContent = dataSetContent.substring(0, dataSetContent.lastIndexOf(",")) + "]}] }";
+		String footer = "; window.onload = function(){var ctx = document.getElementById(\"canvas\").getContext(\"2d\");window.myBar = new Chart(ctx).Bar(barChartData, {responsive : true});}</script>";
+		
+		content = head + otasContent + dataSetHeader + dataSetContent + footer;
+		return content;
 	}
 }

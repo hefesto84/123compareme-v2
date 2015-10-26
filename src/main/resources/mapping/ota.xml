@@ -7,6 +7,8 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="icon" column="icon"/>
+        <result property="queryOk" column="queryOk"/>
+        <result property="queryNum" column="queryNum"/>
     </resultMap>
     
     <select id="list" resultMap="SqlMapOta.Ota">
@@ -17,11 +19,20 @@
         SELECT * FROM RepositoryOta WHERE name LIKE #{name} OR id = #{id};
     </select>
    
+    <update id="update" parameterType="es.ubiqua.compareme.model.Ota">
+    	UPDATE RepositoryOta SET 
+    		queryOk = queryOk + #{queryOk},
+    		queryNum = queryNum + 1
+    	WHERE id = #{id}
+    </update>
+    
     <insert id="add" parameterType="es.ubiqua.compareme.model.Ota" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO RepositoryOta (name,icon) 
+        INSERT INTO RepositoryOta (name,icon,queryOk,queryNum) 
         	VALUES (
         		#{name},
-        		#{icon}
+        		#{icon},
+        		0,
+        		0
         	)
         	
         <selectKey keyProperty="id" resultType="int" order="AFTER">

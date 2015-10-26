@@ -5,7 +5,9 @@ public class Ota {
 	private int id;
 	private String name;
 	private String icon;
-	private int quality = 100;
+	private float quality = 100;
+	private int queryOk = 0;
+	private int queryNum = 0;
 	
 	public Ota(){
 		
@@ -39,15 +41,32 @@ public class Ota {
 		this.icon = icon;
 	}
 	
-	public int getQuality() {
+	public float getQuality() {
+		try{
+			quality = Float.valueOf(String.format("%.2g%n", (new Float(queryOk).floatValue()/new Float(queryNum).floatValue())*100)).floatValue();
+		}catch(Exception e){
+			quality = 0f;
+		}
 		return quality;
-	}
-
-	public void setQuality(int quality) {
-		this.quality = quality;
 	}
 
 	public String toDBLogger(){
 		return this.name+"|"+this.icon+"|"+this.id;
+	}
+
+	public int getQueryOk() {
+		return queryOk;
+	}
+
+	public void setQueryOk(int queryOk) {
+		this.queryOk = queryOk;
+	}
+
+	public int getQueryNum() {
+		return queryNum;
+	}
+
+	public void setQueryNum(int queryNum) {
+		this.queryNum = queryNum;
 	}
 }

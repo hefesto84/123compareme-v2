@@ -18,10 +18,13 @@ import es.ubiqua.compareme.utils.Utils;
 public class BookingService extends Service implements ServiceInterface{
 
 	private static String OTA = "Booking";
+	private Ota mOta;
 	
 	public BookingService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
-		price.setOtaId(otaManager.get(new Ota(OTA)).getId());
+		mOta = otaManager.get(new Ota(OTA));
+		mOta.setQueryOk(0);
+		price.setOtaId(mOta.getId());
 		price.setLanguage(language);
 		price.setGuests(guests);
 		price.setRooms(rooms);
@@ -48,6 +51,7 @@ public class BookingService extends Service implements ServiceInterface{
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
 					price.setPrice(d.select("strong[data-price-without-addons]").get(0).text());
+					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");
 					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
@@ -65,11 +69,13 @@ public class BookingService extends Service implements ServiceInterface{
 			}
 			
 		} catch (IOException e) {
+			price.setPrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 			Logger.getLogger(this.getClass()).error(e.getMessage());
 		}
 		
 		price.setHash(price.toHash());
+		otaManager.update(mOta);
 		return price;
 	}
 

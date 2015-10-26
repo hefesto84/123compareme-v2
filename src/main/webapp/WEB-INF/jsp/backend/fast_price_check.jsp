@@ -33,7 +33,7 @@
 							<div class="form-group">
 								<label for="lang">Select language:</label> <select
 									class="form-control" id="lang" name="lang">
-									<option selected value="es">Spanish</option>
+									<option value="es">Spanish</option>
 									<option value="en">English</option>
 									<option value="fr">French</option>
 									<option value="de">German</option>
@@ -51,7 +51,7 @@
 							<label for="hotelName">Select an available Hotel:</label> <select
 								class="form-control" id="hotelName" name="hotelName">
 								<s:iterator value="hotels">
-									<option value="<s:property value="name"/>"><s:property value="name" /></option>
+									<option value="<s:property value="name"/>" <s:if test="%{id == idHotel}">selected</s:if>><s:property value="name" /></option>
 								</s:iterator>
 							</select>
 						</div>

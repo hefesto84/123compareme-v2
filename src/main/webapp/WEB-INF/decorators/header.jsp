@@ -19,6 +19,7 @@
 <script src="../js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="../js/jquery-ui-datapicker-es.js"></script>
+<script src="../js/Chart.min.js"></script>
 <title>123Compare.me v.2</title>
 </head>
 <body  style="margin:1em;">

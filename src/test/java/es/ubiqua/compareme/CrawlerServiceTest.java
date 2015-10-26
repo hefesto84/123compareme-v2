@@ -10,9 +10,11 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
+import es.ubiqua.compareme.utils.Utils;
 import junit.framework.TestCase;
 
 public class CrawlerServiceTest  extends TestCase{
@@ -28,6 +30,7 @@ public class CrawlerServiceTest  extends TestCase{
 	        
 	        System.out.println(new Gson().toJson(datos));
 	 	*/
+		System.out.println(Utils.createOtaStatusJavascriptContent(new OtaManager().list()));
 		 
 		
 	 }

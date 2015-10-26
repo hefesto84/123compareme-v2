@@ -19,10 +19,13 @@ import es.ubiqua.compareme.utils.Utils;
 public class VenereService extends Service implements ServiceInterface{
 
 	private static String OTA = "Venere";
+	private Ota mOta;
 	
 	public VenereService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
-		price.setOtaId(otaManager.get(new Ota(OTA)).getId());
+		mOta = otaManager.get(new Ota(OTA));
+		mOta.setQueryOk(0);
+		price.setOtaId(mOta.getId());
 		price.setLanguage(language);
 		price.setGuests(guests);
 		price.setRooms(rooms);
@@ -48,15 +51,18 @@ public class VenereService extends Service implements ServiceInterface{
 			if(newPrice!=null){
 				String s = newPrice.text();
 				price.setPrice(s);
+				mOta.setQueryOk(1);
 			}else{
 				price.setPrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
 		
 		} catch (IOException e) {
+			price.setPrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 		price.setHash(price.toHash());
+		otaManager.update(mOta);
 		return price;
 	}
 

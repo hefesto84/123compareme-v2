@@ -34,6 +34,7 @@ public class FastPriceCheckBackendAction extends ActionSupport{
 	
 	private String query;
 	private String ip;
+	private int idHotel;
 	
 	private static final long serialVersionUID = -2527001795402427911L;
 
@@ -44,6 +45,10 @@ public class FastPriceCheckBackendAction extends ActionSupport{
 		try{
 			Query q = new Query(lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(rooms), dateIn, dateOut, "100");
 			CrawlingService service = new CrawlingService();
+			Hotel h = new Hotel();
+			h.setName(new String(hotelName.getBytes("iso-8859-1"),"UTF-8"));
+			h = hotelManager.get(h);
+			idHotel = h.getId();
 			setDatos(service.weaving(CrawlingService.MONOTHREAD_MODE, q));
 			this.query = new Gson().toJson(datos);
 		}catch(Exception e){
@@ -154,6 +159,14 @@ public class FastPriceCheckBackendAction extends ActionSupport{
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public int getIdHotel() {
+		return idHotel;
+	}
+
+	public void setIdHotel(int idHotel) {
+		this.idHotel = idHotel;
 	}
 
 }

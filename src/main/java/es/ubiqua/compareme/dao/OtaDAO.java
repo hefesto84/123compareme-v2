@@ -25,6 +25,18 @@ public class OtaDAO extends BaseDAO {
 		return otas;
 	}
 	
+	public void update(Ota ota){
+		SqlSession session = sql.openSession();
+		try{
+			session.update("SqlMapOta.update",ota);
+			session.commit();
+		}catch(Exception e){
+			DBLogger.getLogger().Error("ERROR: "+e.getMessage() + " DATA: "+ota.toDBLogger());
+		}finally{
+			session.close();
+		}
+	}
+	
 	public Ota get(Ota ota){
 		SqlSession session = sql.openSession();
 		try{
