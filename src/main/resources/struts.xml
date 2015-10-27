@@ -33,6 +33,16 @@
         	<param name="inputName">output</param>
            </result>
         </action>
+        <action name="otasinfo" class="es.ubiqua.compareme.backend.actions.info.OtasInformationBackendAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="pricesinfo" class="es.ubiqua.compareme.backend.actions.info.PricesByHotelInformationBackendAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
     </package>
     
     <package name="backend" namespace="/backend" extends="struts-default">
@@ -64,6 +74,8 @@
     	<action name="fast_price_check" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction">
     		<result name="success">/WEB-INF/jsp/backend/fast_price_check.jsp</result>
     	</action>
+    	
+    	
     </package>
 
 </struts>

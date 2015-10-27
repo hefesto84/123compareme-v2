@@ -81,5 +81,25 @@ td{
 	padding:5px;
 }
 
+#section1{
+	float:left;
+	position:relative;
+	width:100%;
+}
 
+#section1_left{
+	float:left;
+	position:relative;
+	width:30%;
+	height:400px;
+	padding:5px;
+}
+
+#section1_right{
+	float:left;
+	position:relative;
+	width:70%;
+	height:400px;
+	padding:5px;
+}
 

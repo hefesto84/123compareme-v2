@@ -90,6 +90,7 @@
 							<td><b>Guests</b></td>
 							<td><b>Rooms</b></td>
 							<td><b>Price</b></td>
+							<td><b>Pure Price</b></td>
 							<td><b>Base Price</b></td>
 							<td><b>Actions</b></td>
 						</tr>
@@ -103,6 +104,7 @@
 								<td><s:property value="guests" /></td>
 								<td><s:property value="rooms" /></td>
 								<td><s:property value="price" /></td>
+								<td><s:property value="purePrice"/></td>	
 								<td><s:property value="basePrice" /></td>
 								<td>
 									<a href="

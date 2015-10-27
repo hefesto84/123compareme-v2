@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.PricesByHotel;
 
 public class PriceDAO extends BaseDAO {
 	
@@ -63,4 +64,16 @@ public class PriceDAO extends BaseDAO {
 		return price;
 	}
 	
+	public List<PricesByHotel> getPricesByHotel(){
+		List<PricesByHotel> prices = new ArrayList<PricesByHotel>();
+		SqlSession session = sql.openSession();
+		try{
+			prices = session.selectList("SqlMapPrice.getPricesByHotel");
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return prices;
+	}
 }

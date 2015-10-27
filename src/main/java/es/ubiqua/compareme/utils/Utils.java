@@ -76,7 +76,9 @@ public class Utils {
 	}
 	
 	public static String createOtaStatusJavascriptContent(List<Ota> otas){
+		
 		String content = "";
+		/*
 		String head = "<script type=\"text/javascript\"> var barChartData = {";
 		String otasContent  = " labels: [";
 		for(Ota o : otas){
@@ -93,6 +95,7 @@ public class Utils {
 		String footer = "; window.onload = function(){var ctx = document.getElementById(\"canvas\").getContext(\"2d\");window.myBar = new Chart(ctx).Bar(barChartData, {responsive : true});}</script>";
 		
 		content = head + otasContent + dataSetHeader + dataSetContent + footer;
+		*/
 		return content;
 	}
 	

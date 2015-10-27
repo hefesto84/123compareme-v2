@@ -1,0 +1,12 @@
+{
+    "data": [
+      {
+        "name": "Expedia",
+        "quality": "60"
+      },
+      {
+        "name": "Booking",
+        "quality": "30"
+      }
+    ]
+}

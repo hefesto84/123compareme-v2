@@ -10,18 +10,51 @@
 
 </head>
 <body>
-<div class="panel panel-default">
+<div id="section1">
+	<div id="section1_left">
+		<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<b>Overview <s:property value="otas.size()"/></b>
+				<b>Quality of OTAs</b>
 			</h3>
 		</div>
 		<div class="panel-body">
-			<div style="width: 50%">
-				<canvas id="canvas" height="450" width="600"></canvas>
+			<div style="width: 100%">
+				<canvas id="cnvOtas" ></canvas>
 			</div>
 		</div>
+		</div>
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<b>Last Notifications Sent</b>
+			</h3>
+		</div>
+		<div class="panel-body">
+			 <ul>
+				  <li>Coffee</li>
+				  <li>Tea</li>
+				  <li>Milk</li>
+				</ul> 
+		</div>
+		</div>
+	</div>
+	<div id="section1_right">
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<b>Most Used Hotels</b>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<div style="width: 100%">
+				<canvas id="cnvPrices" ></canvas>
+			</div>
+		</div>
+		</div>
+	</div>
 </div>
-<script src="../js/otaInformation.js"></script>
+
+<script src="../js/information.js"></script>
 </body>
 </html>

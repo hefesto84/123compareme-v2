@@ -5,6 +5,7 @@ import java.util.List;
 import es.ubiqua.compareme.dao.PriceDAO;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.PricesByHotel;
 
 public class PriceManager {
 	
@@ -17,6 +18,11 @@ public class PriceManager {
 	public List<Price> list(){
 		return priceDao.list();
 	}
+	
+	public List<PricesByHotel> getPricesByHotel(){
+		return priceDao.getPricesByHotel();
+	}
+
 
 	public Price get(Price price){
 		return priceDao.get(price);

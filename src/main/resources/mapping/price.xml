@@ -20,6 +20,11 @@
         <result property="hash" column="hash"/>
     </resultMap>
     
+    <resultMap id="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel">
+    	<result property="times" column="times"/>
+    	<result property="name" column="name"/>
+    </resultMap>
+    
     <select id="list" resultMap="SqlMapPrice.Price">
         SELECT * FROM RepositoryPrice;
     </select>
@@ -30,6 +35,11 @@
     
     <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
     	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash LIKE #{hash} AND rp.otaId = ro.id;
+    </select>
+    
+     
+    <select id="getPricesByHotel" resultMap="SqlMapPrice.PricesByHotel">
+    	SELECT COUNT(rp.hotelId) as times, rh.name as name FROM RepositoryPrice rp, RepositoryHotel rh WHERE rp.hotelId = rh.id GROUP BY rp.hotelId;
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Price" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

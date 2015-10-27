@@ -8,7 +8,9 @@
 	    <typeAlias alias="Customer" type="es.ubiqua.compareme.model.Customer"/>
 	    <typeAlias alias="Hotel" type="es.ubiqua.compareme.model.Hotel"/>
 		<typeAlias alias="HotelOta" type="es.ubiqua.compareme.model.HotelOta"/>
+		<typeAlias alias="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel"/>
 		<typeAlias alias="Price" type="es.ubiqua.compareme.model.Price"/>
+		
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
