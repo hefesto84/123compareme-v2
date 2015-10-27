@@ -20,6 +20,7 @@ public class Price implements Serializable {
 	private int otaId;
 	private String site;
 	private String price;
+	private String purePrice;
 	private String basePrice = "0";
 	private int valoration;
 	private String hash = "";
@@ -128,6 +129,14 @@ public class Price implements Serializable {
 		this.hash = hash;
 	}
 
+	public String getPurePrice() {
+		return purePrice;
+	}
+
+	public void setPurePrice(String purePrice) {
+		this.purePrice = purePrice;
+	}
+	
 	@Override
 	public String toString(){
 		return new Gson().toJson(this);
@@ -141,4 +150,5 @@ public class Price implements Serializable {
 		String s = this.dateIn+"|"+this.dateOut+"|"+this.rooms+"|"+this.guests+"|"+this.hotelId+"|"+this.otaId+"|"+this.language;
 		return s;
 	}
+
 }

@@ -51,10 +51,15 @@ public class ExpediaService extends Service implements ServiceInterface{
 			if (d.select("a.price.link-to-rooms")!=null) {
 				
 				try{
-					
-					String p = Utils.changeCurrency(d.select("a.price.link-to-rooms").text(), getCurrency(hotelId), "EUR");
+
+					String p = d.select("a.price.link-to-rooms").text();
+					price.setPurePrice(p);
+					price.setPrice(p);
+					p = price.getPrice();
+					p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
 					price.setPrice(p);
 					mOta.setQueryOk(1);
+					
 				}catch(Exception e){
 					price.setPrice("0");
 					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());

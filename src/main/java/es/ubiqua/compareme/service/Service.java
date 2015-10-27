@@ -49,6 +49,7 @@ public class Service {
 		mHotel = new Hotel();
 		mHotel.setId(hotelId);
 		mHotel = hotelManager.get(mHotel);
+		System.out.println("++++++++++++++++++++++++++: "+mHotel.getCurrency());
 		return mHotel.getCurrency();
 	}
 }

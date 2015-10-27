@@ -51,8 +51,14 @@ public class BookingService extends Service implements ServiceInterface{
 			System.out.println(url);
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
-					String p = Utils.changeCurrency(d.select("strong[data-price-without-addons]").get(0).text(), getCurrency(hotelId), "EUR");
+					
+					String p = d.select("strong[data-price-without-addons]").get(0).text();
+					price.setPurePrice(p);
 					price.setPrice(p);
+					p = price.getPrice();
+					p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
+					price.setPrice(p);
+					
 					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");

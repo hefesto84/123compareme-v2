@@ -97,21 +97,20 @@ public class Utils {
 	}
 	
 	public static String changeCurrency(String price, String currencyFrom, String currencyTo){
-		return price;
-		/*
+		System.out.println("CURRENCY FROM: "+currencyFrom);
+		System.out.println("CURRENCY TO: "+currencyTo);
 		try {
 			CurrencyConverter currencyConverter = new BankUaCom(Currency.fromString(currencyFrom), Currency.fromString(currencyTo));
 			return String.valueOf(currencyConverter.convertCurrency(Float.valueOf(price)));
 		} catch (CurrencyNotSupportedException e) {
 			price = "0";
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: "+price);
+			System.out.println("CURRENCY FROM: "+currencyFrom);
 			e.printStackTrace();
 		} catch (CurrencyConverterException e) {
 		   price = "0";
-		   System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: "+price);
 			e.printStackTrace();
 		}
 		return price;
-	*/
+	
 	}
 }

@@ -24,13 +24,15 @@ public class CrawlerServiceTest  extends TestCase{
 	 
 	 public void testMail() throws Exception {
 		
-	/*
-		 Query query = new Query("es","NH Barcelona Calderón",1,2,"22/10/2015","23/10/2015","179,10");
+	
+		 Query query = new Query("es","NH London Kensington",1,2,"04/12/2015","05/12/2015","179,10");
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 	*/
+	 	
+	        
+	        //System.out.println(Utils.changeCurrency(datos.get(0).getPrice(), "EUR", "GBP"));
 		//System.out.println(Utils.createOtaStatusJavascriptContent(new OtaManager().list()));
 		 /*
 		 if(Currency.AUD.toString().equals("AUD")){

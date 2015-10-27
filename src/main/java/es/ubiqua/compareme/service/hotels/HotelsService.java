@@ -40,7 +40,7 @@ public class HotelsService  extends Service implements ServiceInterface{
 	public Price trackPrice() {
 		String url = "";
 		
-		url = "http://fr.hotels.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
+		url = "http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 	
 		try {
 			Document d = Jsoup.connect(url).get();		
@@ -48,10 +48,15 @@ public class HotelsService  extends Service implements ServiceInterface{
 			Elements newPrice = d.select("span.current-price");
 			
 			if(newPrice!=null){
-				String p = Utils.changeCurrency(newPrice.text(), getCurrency(hotelId), "EUR");
+				
+				String p =newPrice.text();
+				price.setPurePrice(p);
 				price.setPrice(p);
-
+				p = price.getPrice();
+				p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
+				price.setPrice(p);
 				mOta.setQueryOk(1);
+				
 			}else{
 				price.setPrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");

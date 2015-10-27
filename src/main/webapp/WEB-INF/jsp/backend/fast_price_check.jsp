@@ -59,27 +59,11 @@
 					<div id="right_params">
 						<div class="form-group">
 							<div id="sub_left_params">
-								<label for="rooms">Number of rooms:</label><br /> <select
-									class="form-control" id="rooms" name="rooms">
-									<option selected value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-								</select> <br /> <label for="guests">Number of guests:</label><br /> <select
-									class="form-control" id="guests" name="guests">
-									<option value="1">1</option>
-									<option selected value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-								</select>
+								<label for="rooms">Number of rooms:</label><br /> 
+								<input class="form-control" type="text" id="rooms" name="rooms" value="<s:property value="rooms"/>"/>
+								<br /> 
+								<label for="guests">Number of guests:</label><br />
+								<input class="form-control" type="text" id="guests" name="guests" value="<s:property value="guests"/>"/>
 							</div>
 							<div id="sub_right_params">
 								<label for="dateIn">Date in:</label><br /> 
