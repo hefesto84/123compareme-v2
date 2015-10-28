@@ -40,7 +40,7 @@
        otro elemento que se pueda ocultar al minimizar la barra -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Configuration</a></li>
+      <li class="active"><a href="dashboard">Dashboard</a></li>
       <li><a href="widget_configuration">Widget</a></li>
       <li class="dropdown">
         <a href="tools" class="dropdown-toggle" data-toggle="dropdown">
