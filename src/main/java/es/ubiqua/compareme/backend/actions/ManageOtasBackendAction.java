@@ -15,8 +15,10 @@ public class ManageOtasBackendAction extends BaseBackendAction{
 	String a;
 	
 	public String execute(){
+		
+		if(!isLogged()){ return ERROR; }
+
 		otas = new OtaManager().list();
-		System.out.println("OTAS: "+otas.size());
 		a = otas.get(0).getName();
 		return SUCCESS;
 	}

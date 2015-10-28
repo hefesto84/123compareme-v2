@@ -11,7 +11,7 @@
         <pattern>/struts/*</pattern>
         <pattern>/prices*</pattern>
         <pattern>/api/*</pattern>
-        
+        <pattern>/login/*</pattern>
     </excludes>
 
     <decorator name="header" page="header.jsp">

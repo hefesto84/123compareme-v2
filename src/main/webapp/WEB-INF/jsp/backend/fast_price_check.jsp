@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="panel panel-default">
+	<div class="panel panel-info">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<b>Fast Price Check Tool - Source IP: <s:property value="ip"/></b>
@@ -74,8 +74,8 @@
 						</div>
 					</div>
 
-					<button type="submit" class="btn btn-default">Check Price</button>
-					<button type="submit" class="btn btn-default">Download Results</button>
+					<button type="submit" class="btn btn-success">Check Price</button>
+					<button type="submit" class="btn btn-success">Download Results</button>
 				</form>
 			</div>
 			<div id="results">

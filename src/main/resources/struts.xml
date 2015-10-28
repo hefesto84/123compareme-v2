@@ -12,7 +12,7 @@
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />
         <action name="index" class="es.ubiqua.compareme.IndexAction">
-            <result>/WEB-INF/jsp/index.jsp</result>
+            <result name="success" type="redirect">/backend/</result>
         </action>
         <action name="backend" class="es.ubiqua.compareme.IndexAction">
         	<result type="redirectAction">
@@ -45,37 +45,55 @@
         </action>
     </package>
     
-    <package name="backend" namespace="/backend" extends="struts-default">
+    <package name="login" namespace="/login" extends="struts-default">
     	<default-action-ref name="index" />
-    	<action name="index" class="es.ubiqua.compareme.backend.actions.IndexBackendAction">
-    		<result>/WEB-INF/jsp/backend/index.jsp</result>
+    	<action name="index" class="es.ubiqua.compareme.backend.actions.LoginBackendAction">
+    		<result name="success">/WEB-INF/jsp/login/signin.jsp</result>
     	</action>
+    	<action name="signin" class="es.ubiqua.compareme.backend.actions.LoginBackendAction" method="signin">
+    		<result name="success" type="redirect">../backend/</result>
+    		<result name="error">/WEB-INF/jsp/login/signin.jsp</result>
+    	</action>
+    	<action name="signout" class="es.ubiqua.compareme.backend.actions.LoginBackendAction" method="signout">
+    		<result name="success" type="redirect">../login/</result>
+    	</action>
+    </package>
+    
+    <package name="backend" namespace="/backend" extends="struts-default">
+    	<default-action-ref name="dashboard" />
     	<action name="dashboard" class="es.ubiqua.compareme.backend.actions.DashboardBackendAction">
-    		<result>/WEB-INF/jsp/backend/dashboard.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/dashboard.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="about" class="es.ubiqua.compareme.backend.actions.AboutBackendAction">
-    		<result>/WEB-INF/jsp/backend/about.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/about.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="ht_manage_otas" class="es.ubiqua.compareme.backend.actions.ManageOtasBackendAction">
-    		<result>/WEB-INF/jsp/backend/manage_otas.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/manage_otas.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="ht_check_dbstatus" class="es.ubiqua.compareme.backend.actions.CheckDBStatusBackendAction">
-    		<result>/WEB-INF/jsp/backend/check_dbstatus.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/check_dbstatus.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="contact" class="es.ubiqua.compareme.backend.actions.ContactBackendAction">
-    		<result>/WEB-INF/jsp/backend/contact.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/contact.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="general_reporting" class="es.ubiqua.compareme.backend.actions.GeneralReportingBackendAction">
-    		<result>/WEB-INF/jsp/backend/general_reporting.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/general_reporting.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="download_statistics" class="es.ubiqua.compareme.backend.actions.DownloadStatisticsBackendAction">
-    		<result>/WEB-INF/jsp/backend/download_statistics.jsp</result>
+    		<result name="success">/WEB-INF/jsp/backend/download_statistics.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
     	<action name="fast_price_check" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction">
     		<result name="success">/WEB-INF/jsp/backend/fast_price_check.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
     	</action>
-    	
-    	
+    		
     </package>
 
 </struts>

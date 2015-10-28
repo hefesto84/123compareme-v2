@@ -11,7 +11,9 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.tunyk.currencyconverter.api.Currency;
 
+import es.ubiqua.compareme.manager.CustomerManager;
 import es.ubiqua.compareme.manager.OtaManager;
+import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
@@ -20,18 +22,22 @@ import junit.framework.TestCase;
 
 public class CrawlerServiceTest  extends TestCase{
 	
-	 private List<Price> datos = new ArrayList<Price>();
+	// private List<Price> datos = new ArrayList<Price>();
 	 
 	 public void testMail() throws Exception {
 		
 	
-		 Query query = new Query("es","NH London Kensington",1,2,"04/12/2015","05/12/2015","179,10");
-	        CrawlingService service = new CrawlingService();
-	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
+		 //Query query = new Query("es","NH London Kensington",1,2,"04/12/2015","05/12/2015","179,10");
+	      //  CrawlingService service = new CrawlingService();
+	       // datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
-	        System.out.println(new Gson().toJson(datos));
+	       // System.out.println(new Gson().toJson(datos));
 	 	
-	        
+		//CustomerManager m = new CustomerManager();
+	     // Customer c = new Customer();
+	      //c.setUsername("nhhotels");
+	      //c.setPassword("nhhotels");
+	      //System.out.println(new Gson().toJson(m.login(c)));
 	        //System.out.println(Utils.changeCurrency(datos.get(0).getPrice(), "EUR", "GBP"));
 		//System.out.println(Utils.createOtaStatusJavascriptContent(new OtaManager().list()));
 		 /*

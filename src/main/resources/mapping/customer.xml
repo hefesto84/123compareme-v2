@@ -23,6 +23,10 @@
         SELECT * FROM RepositoryCustomer WHERE id = #{id} OR identifier LIKE #{identifier};
     </select>
     
+    <select id="login" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE username = #{username} AND password = #{password};
+    </select>
+    
     <insert id="add" parameterType="es.ubiqua.compareme.model.Customer" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO RepositoryCustomer (name,identifier,username,password,musername,mpassword,mhost,contact) 
         	VALUES (

@@ -16,7 +16,7 @@ import es.ubiqua.compareme.service.crawler.CrawlingService;
 import es.ubiqua.compareme.utils.Utils;
 
 
-public class FastPriceCheckBackendAction extends ActionSupport{
+public class FastPriceCheckBackendAction extends BaseBackendAction{
 
 	private List<Ota> otas;
 	private List<Hotel> hotels;
@@ -39,6 +39,9 @@ public class FastPriceCheckBackendAction extends ActionSupport{
 	private static final long serialVersionUID = -2527001795402427911L;
 
 	public String execute(){
+		
+		if(!isLogged()){ return ERROR; }
+		
 		ip = Utils.getIP();
 		otas = otaManager.list();
 		hotels = hotelManager.list();

@@ -41,32 +41,34 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
       <li class="active"><a href="dashboard">Dashboard</a></li>
-      <li><a href="widget_configuration">Widget</a></li>
+      <li><a href="widget_configuration">Configuration</a></li>
       <li class="dropdown">
         <a href="tools" class="dropdown-toggle" data-toggle="dropdown">
           Tools <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="general_reporting">General Reporting</a></li>
           <li><a href="download_statistics">Download Statistics</a></li>
           <li><a href="fast_price_check">Fast Price Check</a></li>
+          <li><a href="ht_manage_otas">OTA Status</a></li>
         </ul>
       </li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="about">About</a></li>
+	  <!--        
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           Help<b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="ht_manage_otas">How to manage new OTAs</a></li>
           <li><a href="ht_check_dbstatus">How to check DB status</a></li>
           <li class="divider"></li>
           <li><a href="contact">Contact with us</a></li>
         </ul>
+        
       </li>
+      -->
+      <li><a href="../login/signout"><b><font color="#FF8C00">Logout</font></b></a></li>
     </ul>
   </div>
 </nav>

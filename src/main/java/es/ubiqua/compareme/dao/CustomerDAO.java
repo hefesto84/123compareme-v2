@@ -24,6 +24,18 @@ public class CustomerDAO extends BaseDAO {
 		return customers;
 	}
 	
+	public Customer login(Customer customer){
+		SqlSession session = sql.openSession();
+		try{
+			customer = session.selectOne("SqlMapCustomer.login",customer);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
+		}finally{
+			session.close();
+		}
+		return customer;
+	}
+	
 	public Customer get(Customer customer){
 		SqlSession session = sql.openSession();
 		try{

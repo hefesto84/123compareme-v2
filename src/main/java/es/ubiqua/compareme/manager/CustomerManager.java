@@ -25,6 +25,10 @@ public class CustomerManager {
 		return customerDao.get(customer);
 	}
 	
+	public Customer login(Customer customer) throws CustomerException{
+		return customerDao.login(customer);
+	}
+	
 	public Customer add(Customer customer) throws CustomerException{
 		return customerDao.add(customer);
 	}

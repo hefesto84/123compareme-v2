@@ -16,13 +16,16 @@ public class DashboardBackendAction extends BaseBackendAction{
 	private List<Ota> otas;
 	private List<Hotel> hotels;
 	private OtaManager otaManager = new OtaManager();
-	private String otaJavascriptContent = "";
+
 	private int numOtas = 0;
 	
 	public String execute(){
+		
+		if(!isLogged()){ return ERROR; }
+		
 		otas = otaManager.list();
 		setNumOtas(otas.size());
-		otaJavascriptContent = Utils.createOtaStatusJavascriptContent(otas);
+		
 		return SUCCESS;
 	}
 
@@ -50,10 +53,6 @@ public class DashboardBackendAction extends BaseBackendAction{
 		this.otaManager = otaManager;
 	}
 
-	public String getOtaJavascriptContent() {
-		return otaJavascriptContent;
-	}
-
 	public int getNumOtas() {
 		return numOtas;
 	}
@@ -62,7 +61,4 @@ public class DashboardBackendAction extends BaseBackendAction{
 		this.numOtas = numOtas;
 	}
 
-	public void setOtaJavascriptContent(String otaJavascriptContent) {
-		this.otaJavascriptContent = otaJavascriptContent;
-	}
 }
