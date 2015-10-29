@@ -48,11 +48,11 @@ public class ExpediaService extends Service implements ServiceInterface{
 			Document d = Jsoup.connect(url).get();
 			System.out.println("URL ++++++++++++++++++++++++++ "+url);
 			
-			if (d.select("a.price.link-to-rooms")!=null) {
-				
+			//if (d.select("a.price.link-to-rooms")!=null) {
+			if(d.select("span.room-price.one-night-room-price")!=null){
 				try{
 
-					String p = d.select("a.price.link-to-rooms").text();
+					String p = d.select("span.room-price.one-night-room-price").get(0).text();
 					price.setPurePrice(p);
 					price.setPrice(p);
 					p = price.getPrice();

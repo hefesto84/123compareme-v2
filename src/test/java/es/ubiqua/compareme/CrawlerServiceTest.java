@@ -6,7 +6,13 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import com.google.gson.Gson;
 import com.tunyk.currencyconverter.api.Currency;
@@ -22,16 +28,16 @@ import junit.framework.TestCase;
 
 public class CrawlerServiceTest  extends TestCase{
 	
-	// private List<Price> datos = new ArrayList<Price>();
+	private List<Price> datos = new ArrayList<Price>();
 	 
 	 public void testMail() throws Exception {
 		
 	
-		 //Query query = new Query("es","NH London Kensington",1,2,"04/12/2015","05/12/2015","179,10");
-	      //  CrawlingService service = new CrawlingService();
-	       // datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
+		 Query query = new Query("es","Hesperia Playa Dorada",1,2,"04/07/2016","05/07/2016","179,10");
+	        CrawlingService service = new CrawlingService();
+	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
-	       // System.out.println(new Gson().toJson(datos));
+	        System.out.println(new Gson().toJson(datos));
 	 	
 		//CustomerManager m = new CustomerManager();
 	     // Customer c = new Customer();
@@ -50,5 +56,24 @@ public class CrawlerServiceTest  extends TestCase{
 		 
 		// String p = "100";
 		// System.out.println(Utils.changeCurrency(p, "GBP","EUR"));
+		 
+		 /*
+		 Document doc = Jsoup.connect("http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in=29/03/2016&hotel-id=355619&q-room-0-adults=2&YGF=0&MGT=2&WOE=6&q-localised-check-out=30/03/2016&WOD=4&ZSX=0&SYE=3&q-room-0-children=0").get();
+		 Elements e = doc.select("form");
+		 Map<String,String> data = new HashMap<String,String>();
+		 for(int i = 0; i<e.size(); i++){
+			 if(e.get(i).hasAttr("id")){
+				 if(e.get(i).attr("id").equals("room-1-rateplan-1")){
+					 Elements fields = e.get(i).select("input");
+					 for(int j = 0; j<fields.size(); j++){
+						 data.put(fields.get(j).attr("name"), fields.get(j).attr("value"));
+					 }
+				 }
+			 }
+		 }
+		 Document request = Jsoup.connect("https://ssl-fr.hotels.com/bookingInitialise.do").data(data).post();
+		 Elements rq = request.select("strong[id=financial-details-total-price]");
+		 System.out.println(rq.text());
+		 */
 	 }
 }
