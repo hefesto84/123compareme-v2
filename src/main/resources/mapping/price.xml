@@ -3,6 +3,8 @@
 
 <mapper namespace="SqlMapPrice">
     
+    <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+    
     <resultMap id="Price" type="es.ubiqua.compareme.model.Price">
         <result property="id" column="id"/>
         <result property="hotelId" column="name"/>

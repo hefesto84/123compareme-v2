@@ -1,7 +1,13 @@
 package es.ubiqua.compareme.model;
 
-public class PricesByHotel {
+import java.io.Serializable;
+
+public class PricesByHotel implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 546990681515308719L;
 	private int times;
 	private String name;
 	

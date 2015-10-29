@@ -102,6 +102,8 @@ public class Utils {
 	public static String changeCurrency(String price, String currencyFrom, String currencyTo){
 		System.out.println("CURRENCY FROM: "+currencyFrom);
 		System.out.println("CURRENCY TO: "+currencyTo);
+		
+		
 		try {
 			CurrencyConverter currencyConverter = new BankUaCom(Currency.fromString(currencyFrom), Currency.fromString(currencyTo));
 			return String.valueOf(currencyConverter.convertCurrency(Float.valueOf(price)));
@@ -114,6 +116,6 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return price;
-	
+
 	}
 }

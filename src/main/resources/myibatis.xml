@@ -26,6 +26,8 @@
 		</environment>
 	</environments>
 	
+	
+	
 	<!-- Mapeado con las querys sql de cada modelo -->
 	<mappers>
 		<mapper resource="mapping/ota.xml"/>

@@ -1,7 +1,13 @@
 package es.ubiqua.compareme.model;
 
-public class Log {
+import java.io.Serializable;
+
+public class Log implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5920900913349526987L;
 	public static final int ERROR = -1;
 	public static final int INFO = 0;
 	public static final int WARNING = 1;

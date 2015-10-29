@@ -22,16 +22,16 @@ import junit.framework.TestCase;
 
 public class CrawlerServiceTest  extends TestCase{
 	
-	// private List<Price> datos = new ArrayList<Price>();
+	private List<Price> datos = new ArrayList<Price>();
 	 
 	 public void testMail() throws Exception {
 		
 	
-		 //Query query = new Query("es","NH London Kensington",1,2,"04/12/2015","05/12/2015","179,10");
-	      //  CrawlingService service = new CrawlingService();
-	       // datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
+		Query query = new Query("es","NH London Kensington",1,2,"04/12/2015","05/12/2015","179,10");
+	     CrawlingService service = new CrawlingService();
+	     datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
-	       // System.out.println(new Gson().toJson(datos));
+	   System.out.println(new Gson().toJson(datos));
 	 	
 		//CustomerManager m = new CustomerManager();
 	     // Customer c = new Customer();

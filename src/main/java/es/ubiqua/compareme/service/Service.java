@@ -1,7 +1,7 @@
 package es.ubiqua.compareme.service;
 
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import com.gargoylesoftware.htmlunit.BrowserVersion;
+//import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+//import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 import es.ubiqua.compareme.manager.HotelManager;
 import es.ubiqua.compareme.manager.HotelOtaManager;
@@ -15,7 +15,7 @@ public class Service {
 	
 	protected Price price;
 	protected boolean isConfigured = false;
-	protected HtmlUnitDriver driver;
+	//protected HtmlUnitDriver driver;
 	protected OtaManager otaManager = new OtaManager();
 	protected HotelOtaManager hotelOtaManager = new HotelOtaManager();
 	protected HotelManager hotelManager = new HotelManager();
@@ -24,6 +24,11 @@ public class Service {
 	protected HotelOta ho;
 	protected Hotel mHotel;
 	
+	public Service(){
+		
+		
+	}
+	/*
 	public void initDriver(){
 		this.driver = new HtmlUnitDriver(BrowserVersion.INTERNET_EXPLORER_8);
 		this.driver.setJavascriptEnabled(true);
@@ -32,7 +37,7 @@ public class Service {
 	public void stop(){
 		this.driver.close();
 	}
-	
+	*/
 	public void getOtaHotelName(String ota, String hotel){
 		Hotel h = new Hotel();
 		Ota o = new Ota();

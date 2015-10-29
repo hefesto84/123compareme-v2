@@ -1,7 +1,13 @@
 package es.ubiqua.compareme.model;
 
-public class Ota {
+import java.io.Serializable;
+
+public class Ota implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2073208584927446777L;
 	private int id;
 	private String name;
 	private String icon;

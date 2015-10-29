@@ -138,6 +138,7 @@
 			<version>5.1.36</version>
 		</dependency>
 		
+		<!-- 
 		<dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
@@ -149,7 +150,7 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>2.12.3</version>
 		</dependency>
-		
+		-->
 		<dependency>
 		    <groupId>com.efsavage.twitter.bootstrap</groupId>
 		    <artifactId>bootstrap-maven</artifactId>
@@ -167,23 +168,26 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.4</version>
 		</dependency>
-		
+		 
 		<dependency>
 		  <groupId>com.tunyk.currencyconverter</groupId>
 		  <artifactId>currency-converter-api</artifactId>
 		  <version>1.0</version>
 		</dependency>
-
+		
+		<!-- 
 		<dependency>
 		    <groupId>org.piwik</groupId>
 		    <artifactId>piwik-java-tracking</artifactId>
 		    <version>1.1.0</version>
 		</dependency>
+		-->
 		<dependency>
 		 <groupId>com.thetransactioncompany</groupId>
 		 <artifactId>cors-filter</artifactId>
 		 <version>2.4</version>
 		</dependency>
+		
 		<dependency>
 		    <groupId>com.sun.mail</groupId>
 		    <artifactId>javax.mail</artifactId>
@@ -195,6 +199,13 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<!-- 
+		<dependency>
+            <groupId>org.mybatis.caches</groupId>
+            <artifactId>mybatis-ehcache</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        -->
     </dependencies>
 	
     <build>

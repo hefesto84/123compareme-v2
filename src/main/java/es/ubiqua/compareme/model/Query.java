@@ -1,9 +1,15 @@
 package es.ubiqua.compareme.model;
 
+import java.io.Serializable;
+
 import es.ubiqua.compareme.utils.Utils;
 
-public class Query {
+public class Query implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2184280701642418706L;
 	private String lang;
 	private String hotel;
 	private int rooms;
