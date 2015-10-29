@@ -47,9 +47,10 @@ public class HotelsService  extends Service implements ServiceInterface{
 			System.out.println("URL ++++++++++++++++++++++++++ "+url);
 			Elements newPrice = d.select("span.current-price");
 			
-			if(newPrice!=null){
+			if(newPrice!=null && !newPrice.text().isEmpty()){
 				
 				String p =newPrice.text();
+				
 				price.setPurePrice(p);
 				price.setPrice(p);
 				p = price.getPrice();
