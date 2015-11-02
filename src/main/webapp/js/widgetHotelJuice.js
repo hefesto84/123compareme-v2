@@ -288,16 +288,12 @@ var hotelswidget = new (function(window, document, $){
 
     this.findPrice = function(){
         var cheap_price = '';
-        $('.contentRooms > table').each(function(){
-            $.td = $(this).find('td').first().next();
-            $.div = $.td.find('div').first().next();
-            $.div.find('.rowRoomPrice').each(function(){
-               $(this).find('.box2 > .rowPriceRoom').each(function(){
-                   var price = parseFloat($(this).find('.subBox2').html().replace('.','').replace(',','.'));
-                   if ((cheap_price === '') || (price < cheap_price)){
-                       cheap_price = price;
-                   }
-               });
+        $('.rowRoomPrice').each(function(){
+            $(this).find('.box2 > .rowPriceRoom').each(function(){
+                var price = parseFloat($(this).find('.subBox2').html().replace('.','').replace(',','.'));
+                if ((cheap_price === '') || (price < cheap_price)){
+                    cheap_price = price;
+                }
             });
         });
         return cheap_price;
