@@ -2,13 +2,17 @@ package es.ubiqua.compareme;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.text.DecimalFormat;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,18 +35,57 @@ public class CrawlerServiceTest  extends TestCase{
 	private List<Price> datos = new ArrayList<Price>();
 	private Map<String,String> data = new HashMap<String,String>();
 	
+	public float change(String val){
+		val = val.replaceAll("[^\\d\\.\\,+]", "").replace(".", "#").replace(",", "#");
+		val = val.replaceAll("(#[0-9][0-9])$", "."+val.substring(val.length()-2, val.length())).replace("#", "");
+		return Float.parseFloat(val);
+	}
+	
 	 public void testMail() throws Exception {
 		
-	
 		 /*
-		 Query query = new Query("es","Hesperia Playa Dorada",1,2,"04/07/2016","05/07/2016","179,10");
+		 String price1 = "€ 13,060.50";
+		 String price2 = "1 060";
+		 String price3 = "1 060 €";
+		 String price4 = "1,060 €";
+		 String price5 = "1.060 €";
+		 String price6 = "1.060,40 €";
+		 String price7 = "1,060.18 €";
+		 String price8 = "1 060.31 €";
+		 String price9 = "1 060,03 €";
+		 
+		 System.out.println(change(price1));
+		 System.out.println(change(price2));
+		 System.out.println(change(price3));
+		 System.out.println(change(price4));
+		 System.out.println(change(price5));
+		 System.out.println(change(price6));
+		 System.out.println(change(price7));
+		 System.out.println(change(price8));
+		 System.out.println(change(price9));
+		
+		
+		  
+		 NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMANY);
+		 ((DecimalFormat)nf).setParseBigDecimal(true);
+		 
+		 
+		 System.out.println("PRICE: "+(BigDecimal)nf.parse(price));
+		 Price p = new Price();
+		 p.setPrice(price);
+		
+		 System.out.println(Utils.changeCurrency(p.getPrice(), "EUR", "EUR"));
+		*/
+		 
+		 
+		 Query query = new Query("es","The May Fair Hotel",1,2,"06/08/2016","10/08/2016","179,10");
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 	*/
+	 	
 		 
-		  data = Utils.searchHotelIdentifiers("Radisson Blu Edwardian Bloomsbury Street");
+		 // data = Utils.searchHotelIdentifiers("Radisson Blu Edwardian Bloomsbury Street");
 		 //System.out.println(result);
 		 
 	

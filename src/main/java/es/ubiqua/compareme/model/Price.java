@@ -70,8 +70,9 @@ public class Price implements Serializable {
 	}
 	
 	public void setPrice(String price) {
-		this.price = price.replaceAll("[^\\d.,]", "");
-		this.price = this.price.replace(",", ".");
+		this.price = String.valueOf(Utils.change(price));
+		//this.price = price.replaceAll("[^\\d.,]", "");
+		//this.price = this.price.replace(",", ".");
 		
 	}
 	
@@ -145,7 +146,7 @@ public class Price implements Serializable {
 	}
 	
 	public String toHash(){
-		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+this.hotelId+this.otaId+this.language);
+		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+this.hotelId+this.otaId/*+this.language*/);
 	}
 	
 	public String toDBLogger(){
