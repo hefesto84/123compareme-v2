@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapTest"> <!--  aixo ho veuras escrit al DAO -->
+    
+    <resultMap id="Test" type="es.ubiqua.compareme.model.Test">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    
+    <!--  aixo tb ho veuras al DAO -->
+    <select id="list" resultMap="SqlMapTest.Test"> 
+        SELECT * FROM Test;
+    </select>
+    
+    <!--  parameterType = el tipus d'objecte que ficarem dins -->
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Test" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO Test (name) 
+        	VALUES (
+        		#{name}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+</mapper>
