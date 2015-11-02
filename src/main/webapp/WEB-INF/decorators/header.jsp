@@ -49,6 +49,7 @@
         <ul class="dropdown-menu">
           <li><a href="download_statistics">Download Statistics</a></li>
           <li><a href="fast_price_check">Fast Price Check</a></li>
+          <li><a href="ht_manage_hotels">Manage Hotels</a></li>
           <li><a href="ht_manage_otas">OTA Status</a></li>
         </ul>
       </li>

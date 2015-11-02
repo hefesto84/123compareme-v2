@@ -29,16 +29,35 @@ import junit.framework.TestCase;
 public class CrawlerServiceTest  extends TestCase{
 	
 	private List<Price> datos = new ArrayList<Price>();
-	 
+	private Map<String,String> data = new HashMap<String,String>();
+	
 	 public void testMail() throws Exception {
 		
 	
+		 /*
 		 Query query = new Query("es","Hesperia Playa Dorada",1,2,"04/07/2016","05/07/2016","179,10");
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 	
+	 	*/
+		 
+		  data = Utils.searchHotelIdentifiers("Radisson Blu Edwardian Bloomsbury Street");
+		 //System.out.println(result);
+		 
+	
+		 
+		 //String exp = "https://www.expedia.com/London-Hotels-Radisson-Blu-Edwardian-Bloomsbury-Street-Hotel.h19825.Hotel-Information";
+		 //String book = "http://www.booking.com/hotel/gb/radissonedwardianmarlborough.es.html";
+
+		 //System.out.println(exp.substring(exp.indexOf("com/")+4, exp.lastIndexOf(".")));
+		 
+		 //int from = book.indexOf("com/")+4;
+		 //book = book.substring(from);
+		 //int to = book.indexOf(".");
+		 
+		 //System.out.println(book.substring(0,to));
+		// System.out.println(book.substring(from,to));
 		//CustomerManager m = new CustomerManager();
 	     // Customer c = new Customer();
 	      //c.setUsername("nhhotels");

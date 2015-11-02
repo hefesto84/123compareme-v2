@@ -1,15 +1,25 @@
 package es.ubiqua.compareme.utils;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import com.google.gson.Gson;
 import com.tunyk.currencyconverter.BankUaCom;
 import com.tunyk.currencyconverter.api.Currency;
 import com.tunyk.currencyconverter.api.CurrencyConverter;
@@ -21,6 +31,14 @@ import es.ubiqua.compareme.model.Price;
 
 public class Utils {
 	
+	private static Pattern patternDomainName;
+	  private static Matcher matcher;
+	  private static final String DOMAIN_NAME_PATTERN 
+		= "([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}";
+	  static {
+		patternDomainName = Pattern.compile(DOMAIN_NAME_PATTERN);
+	  }
+	  
 	public static String sanitizeDateForBooking(String date){	
 		String output = "";	
 		if(date.contains("/")){
@@ -78,36 +96,16 @@ public class Utils {
 	public static String createOtaStatusJavascriptContent(List<Ota> otas){
 		
 		String content = "";
-		/*
-		String head = "<script type=\"text/javascript\"> var barChartData = {";
-		String otasContent  = " labels: [";
-		for(Ota o : otas){
-			otasContent = otasContent + "\""+o.getName()+"\",";
-		}
-		otasContent = otasContent.substring(0, otasContent.lastIndexOf(",")) + "],";
-		String dataSetHeader =  "datasets : [{fillColor : \"rgba(220,220,220,0.5)\",strokeColor : \"rgba(220,220,220,0.8)\",highlightFill: \"rgba(220,220,220,0.75)\",highlightStroke: \"rgba(220,220,220,1)\",";
-		String dataSetContent = " data : [";
-		
-		for(Ota o : otas){
-			dataSetContent = dataSetContent + "\""+o.getQuality()+"\",";
-		}
-		dataSetContent = dataSetContent.substring(0, dataSetContent.lastIndexOf(",")) + "]}] }";
-		String footer = "; window.onload = function(){var ctx = document.getElementById(\"canvas\").getContext(\"2d\");window.myBar = new Chart(ctx).Bar(barChartData, {responsive : true});}</script>";
-		
-		content = head + otasContent + dataSetHeader + dataSetContent + footer;
-		*/
 		return content;
 	}
 	
 	public static String changeCurrency(String price, String currencyFrom, String currencyTo){
-		System.out.println("CURRENCY FROM: "+currencyFrom);
-		System.out.println("CURRENCY TO: "+currencyTo);
+		
 		try {
 			CurrencyConverter currencyConverter = new BankUaCom(Currency.fromString(currencyFrom), Currency.fromString(currencyTo));
 			return String.valueOf(currencyConverter.convertCurrency(Float.valueOf(price)));
 		} catch (CurrencyNotSupportedException e) {
 			price = "0";
-			System.out.println("CURRENCY FROM: "+currencyFrom);
 			e.printStackTrace();
 		} catch (CurrencyConverterException e) {
 		   price = "0";
@@ -115,5 +113,119 @@ public class Utils {
 		}
 		return price;
 	
+	}
+	
+	 public static String getDomainName(String url){
+			
+			String domainName = "";
+			matcher = patternDomainName.matcher(url);
+			if (matcher.find()) {
+				domainName = matcher.group(0).toLowerCase().trim();
+			}
+			return domainName;
+				
+		  }
+	 
+	public static Map<String,String> searchHotelIdentifiers(String hotelName){
+		
+		hotelName = hotelName.replaceAll(" ", "+");
+		String result = "";
+		Map<String,String> data = new HashMap<String,String>();
+		
+		// EXPEDIA
+		
+		
+		try {
+
+			String request = "https://www.google.es/search?q="+hotelName+"+expedia&num=20";
+			Document doc = Jsoup.connect(request)
+				.userAgent(
+				  "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+				.timeout(5000).get();
+
+			Elements links = doc.select("a[href]");
+			for (Element link : links) {
+
+				String temp = link.attr("href");		
+				if(temp.startsWith("/url?q=")){
+					String domain = getDomainName(temp);
+					if(domain.contains("www.expedia.com")){
+						data.put("www.expedia.com", temp.substring(temp.indexOf("com/")+4, temp.lastIndexOf(".")));
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// BOOKING
+		
+		try {
+
+			String request = "https://www.google.es/search?q="+hotelName+"+booking&num=20";
+			Document doc = Jsoup.connect(request)
+				.userAgent(
+				  "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+				.timeout(5000).get();
+
+			Elements links = doc.select("a[href]");
+			for (Element link : links) {
+
+				String temp = link.attr("href");		
+				if(temp.startsWith("/url?q=")){
+					String domain = getDomainName(temp);
+					if(domain.contains("www.booking.com")){
+						
+						int from = temp.indexOf("com/")+4;
+						temp = temp.substring(from);
+						 int to = temp.indexOf(".");
+						 
+						data.put("www.booking.com", temp.substring(0,to));
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// HOTELS & VENERE
+		
+		try {
+
+			String request = "https://www.google.es/search?q="+hotelName+"++venere&num=20";
+			Document doc = Jsoup.connect(request)
+				.userAgent(
+				  "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+				.timeout(5000).get();
+
+			Elements links = doc.select("a[href]");
+			for (Element link : links) {
+
+				String temp = link.attr("href");		
+				if(temp.startsWith("/url?q=")){
+					String domain = getDomainName(temp);
+					
+					if(domain.contains("venere.com")){
+						 int from = temp.indexOf("com/ho")+6;
+						 temp = temp.substring(from);
+						 int to = temp.indexOf("/");
+						 data.put("www.venere.com", temp.substring(0,to));
+						 data.put("www.hotels.com", temp.substring(0,to));
+						break;
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//result = new Gson().toJson(data);
+		return data;
 	}
 }

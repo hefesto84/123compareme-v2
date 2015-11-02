@@ -3,7 +3,7 @@ var hotelswidget = new (function(window, document, $){
     var domain = 'https://www.123compare.me/v2'
     var data = '';
 
-    this.init = function (showWidget, timeShow) {
+    this.init = function (showWidget, timeShow, reserva) {
         if(showWidget === false){
             hotelswidget.setAnalytics();
         } else {
@@ -45,7 +45,7 @@ var hotelswidget = new (function(window, document, $){
                 if(device === 'isDesktop'){
                     hotelswidget.setHtml(price,currency);
                 } else {
-                    hotelswidget.setHtmlMobile(price,currency,show);
+                    hotelswidget.setHtmlMobile(price,currency,show,reserva);
                 }
                 hotelswidget.setTranslate(lang);
                 setTimeout(function() {
@@ -75,15 +75,15 @@ var hotelswidget = new (function(window, document, $){
 
     this.setTranslate = function(lang){
         // Les ooooques van descalces, descaaaalces descaaaaalcesss....
-        // les ooooques van descalces i els aaanecs tambÃ©!
+        // les ooooques van descalces i els aaanecs tambÃƒÂ©!
         // Posseuuuuu-lis sabaaates, sabaaatesss sabaaates
-        // Posseuuuu-lis sabaaates i mitjons tambÃ©eeee
+        // Posseuuuu-lis sabaaates i mitjons tambÃƒÂ©eeee
 
         // Listado de variables con los textos por idiomas
         var locale_de = '{"widget_top_left":"Best price guaranteed from","widget_middle_text":"Do you want to compare prices?","widget_bottom_button":"Check it here","widget_popup_content_top_text":"Best Price Guaranteed","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"No extra fees.","widget_popup_content_parkinn_right_bottom_t2":"No hidden charges.", "widget_popup_content_bottom_button":"Book Now", "widget_popup_loading_text":"Searching", "no_otas":"No rooms found for these dates in other sites"}';
-        var locale_es = '{"widget_top_left":"Mejor precio garantizado desde","widget_middle_text":"¿Quieres comparar los precios?","widget_bottom_button":"Comparar precio","widget_popup_content_top_text":"Mejor precio garantizado","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"Sin taxas extras.","widget_popup_content_parkinn_right_bottom_t2":"Sin cargos ocultos.", "widget_popup_content_bottom_button":"Reservar", "widget_popup_loading_text":"Buscando", "no_otas":"Sin habitaciones para estas fechas en otros sitios"}';
+        var locale_es = '{"widget_top_left":"Mejor precio garantizado desde","widget_middle_text":"Â¿Quieres comparar los precios?","widget_bottom_button":"Comparar precio","widget_popup_content_top_text":"Mejor precio garantizado","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"Sin taxas extras.","widget_popup_content_parkinn_right_bottom_t2":"Sin cargos ocultos.", "widget_popup_content_bottom_button":"Reservar", "widget_popup_loading_text":"Buscando", "no_otas":"Sin habitaciones para estas fechas en otros sitios"}';
         var locale_en = '{"widget_top_left":"Best price guaranteed from","widget_middle_text":"Do you want to compare prices?","widget_bottom_button":"Check it here","widget_popup_content_top_text":"BEST RATE GUARANTEED","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"No extra fees.","widget_popup_content_parkinn_right_bottom_t2":"No hidden charges.", "widget_popup_content_bottom_button":"Book Now", "widget_popup_loading_text":"Searching", "no_otas":"No rooms found for these dates in other sites"}';
-        var locale_fr = '{"widget_top_left":"GARANTIE DU MEILLEUR PRIX","widget_middle_text":"Voulez-vous comparer les prix?","widget_bottom_button":"V&#233;rifiez ici","widget_popup_content_top_text":"GARANTIE DU MEILLEUR PRIX","widget_popup_content_parkinn_text":"Notre plus bas tarif:","widget_popup_content_parkinn_left_text_t1":"Internet gratuit","widget_popup_content_parkinn_left_text_t2":"Gagnez points Club Carlson","widget_popup_content_parkinn_text_bottom":"En d&#039;autres sites:","widget_popup_content_parkinn_right_bottom_t1":"Pas de frais suppl&#233;mentaires.","widget_popup_content_parkinn_right_bottom_t2":"Pas de frais cach&#233;s.", "widget_popup_content_bottom_button":"R&#233;server maintenant", "widget_popup_loading_text":"Regarder les rÃ©sultats", "no_otas":"No rooms found for these dates in other sites"}';
+        var locale_fr = '{"widget_top_left":"GARANTIE DU MEILLEUR PRIX","widget_middle_text":"Voulez-vous comparer les prix?","widget_bottom_button":"V&#233;rifiez ici","widget_popup_content_top_text":"GARANTIE DU MEILLEUR PRIX","widget_popup_content_parkinn_text":"Notre plus bas tarif:","widget_popup_content_parkinn_left_text_t1":"Internet gratuit","widget_popup_content_parkinn_left_text_t2":"Gagnez points Club Carlson","widget_popup_content_parkinn_text_bottom":"En d&#039;autres sites:","widget_popup_content_parkinn_right_bottom_t1":"Pas de frais suppl&#233;mentaires.","widget_popup_content_parkinn_right_bottom_t2":"Pas de frais cach&#233;s.", "widget_popup_content_bottom_button":"R&#233;server maintenant", "widget_popup_loading_text":"Regarder les rÃƒÂ©sultats", "no_otas":"No rooms found for these dates in other sites"}';
         var locale_it = '{"widget_top_left":"Best price guaranteed from","widget_middle_text":"Do you want to compare prices?","widget_bottom_button":"Check it here","widget_popup_content_top_text":"Best Price Guaranteed","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"No extra fees.","widget_popup_content_parkinn_right_bottom_t2":"No hidden charges.", "widget_popup_content_bottom_button":"Book Now", "widget_popup_loading_text":"Searching", "no_otas":"No rooms found for these dates in other sites"}';
         var locale_nl = '{"widget_top_left":"Best price guaranteed from","widget_middle_text":"Do you want to compare prices?","widget_bottom_button":"Check it here","widget_popup_content_top_text":"Best Price Guaranteed","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"No extra fees.","widget_popup_content_parkinn_right_bottom_t2":"No hidden charges.", "widget_popup_content_bottom_button":"Book Now", "widget_popup_loading_text":"Searching", "no_otas":"No rooms found for these dates in other sites"}';
         var locale_pt_BR = '{"widget_top_left":"Best price guaranteed from,"widget_middle_text":"Do you want to compare prices?","widget_bottom_button":"Check it here","widget_popup_content_top_text":"Best Price Guaranteed","widget_popup_content_parkinn_text":"Our lowest rate:","widget_popup_content_parkinn_left_text_t1":"Free Internet","widget_popup_content_parkinn_left_text_t2":"Earn Club Carlson Points","widget_popup_content_parkinn_text_bottom":"In other sites:","widget_popup_content_parkinn_right_bottom_t1":"No extra fees.","widget_popup_content_parkinn_right_bottom_t2":"No hidden charges.", "widget_popup_content_bottom_button":"Book Now", "widget_popup_loading_text":"Searching", "no_otas":"No rooms found for these dates in other sites"}';
@@ -175,7 +175,7 @@ var hotelswidget = new (function(window, document, $){
 
     }
 
-    this.setJavaScriptMobile = function(time){
+    this.setJavaScriptMobile = function(reserva){
         var width_widget = jQuery('#principal').width() - 16;
         $('#widget').css({
             'width' : width_widget
@@ -212,7 +212,7 @@ var hotelswidget = new (function(window, document, $){
         _paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
 
         $('#widget_popup_content_bottom_button').click(function(){
-            hotelswidget.functionReservar();
+            hotelswidget.functionReservar(reserva);
         });
     }
 
@@ -231,8 +231,12 @@ var hotelswidget = new (function(window, document, $){
         return converseDate;
     }
 
-    this.functionReservar = function(pHotelCode, pRateUni, pRedemptionRate, pClearEcertCode){
+    this.functionReservar = function(reserva){
         _paq.push(['trackEvent', 'Widget', 'Click Book', 'Widget Reservar']);
+        $('#rp1_rate').val(reserva.rate);
+        $('#rp1_room').val(reserva.room);
+        $('#rp1_bed').val(reserva.bed);
+        $('#rp1_board').val(reserva.board);
         $('#rp1_form').submit();
     }
 
@@ -282,7 +286,7 @@ var hotelswidget = new (function(window, document, $){
     this.setHtml = function(price,currency) {
     }
 
-    this.setHtmlMobile = function(price,currency, time) {
+    this.setHtmlMobile = function(price,currency, time, reserva) {
         $('body').append("<div id='widget'><div id='widget_close'></div><div id='widget_top'><div id='widget_top_left'>BEST PRICE GUARANTEED</div><div id='widget_top_right'><span id='widget_top_right_price'>263.34</span>&nbsp;<span id='widget_top_right_currency'>EUR</span></div></div><div id='widget_bottom'><div id='widget_bottom_button'>CHECK IT HERE</div></div></div><div id='widget_popup'><div id='widget_content_background'><div id='widget_popup_content'><div id='widget_popup_content_top'><span id='widget_popup_content_top_text'>Best Price Guaranteed</span><div id='widget_popup_content_top_close'></div><div style='clear:both;'></div></div><div id='widget_popup_content_parkinn'><!--<div id='widget_popup_content_parkinn_text'>Our lowest rate:</div>--><div id='widget_popup_content_parkinn_left' style='width:45%;'><img class='image_parkinn' src='https://www.123compare.me/v1/images/pages/nh_hotels.png' /><!--<span id='widget_popup_content_parkinn_left_text' class='t1' style='display:block;text-align:left;'>Free Internet</span><span id='widget_popup_content_parkinn_left_text' class='t2' style='display: block;text-align: left; font-size: xx-small;'>Earn Club Carlson Points&reg;</span>--></div><div id='widget_popup_content_parkinn_right' style='width:50%;'><span id='widget_popup_content_parkinn_right_price'>1,095.00</span>&nbsp;<span id='widget_popup_content_parkinn_right_currency'>SEK</span><div id='widget_popup_content_parkinn_right_bottom' style='width:100%;'><span class='widget_popup_content_parkinn_right_bottom_t1' style='display:block;'>No extra fees.</span><span class='widget_popup_content_parkinn_right_bottom_t2'>No hidden charges.</span></div><div style='clear:both;'></div></div><div style='clear:both;'></div><!--<div id='widget_popup_content_parkinn_text_bottom'>In other sites:</div>--></div><div id='widget_popup_content_middle'><img src='https://www.123compare.me/v2/img/assets/loading.gif' class='widget_content_loading'/><div id='widget_popup_loading_text'></div></div><div id='widget_popup_content_bottom'><div id='widget_popup_content_bottom_button'>Book Now</div></div><!--<div id='widget_copyright' style='padding-top:5px;'> <a href='http://www.123compare.me' style='text-decoration: none; float:right;'><span style='color:black;font-size:10px;text-align:right;width:auto;position:relative;letter-spacing:1px;'>Powered by 123Compare.me&#169;</span></a></div>--></div></div></div>");
         if($('html').attr('lang') === 'en'){
             $('#widget_top_right_price').html((price.toFixed(2)).replace(',','.'));
@@ -295,7 +299,7 @@ var hotelswidget = new (function(window, document, $){
         $('#widget_popup_content_parkinn_right_currency').html(currency);
 
         hotelswidget.setAnimation(time);
-        hotelswidget.setJavaScriptMobile();
+        hotelswidget.setJavaScriptMobile(reserva);
     }
 
     this.setAnalytics = function(){
@@ -311,7 +315,7 @@ var hotelswidget = new (function(window, document, $){
 
     this.setAnimation = function(time){
         $('#widget').animate({
-           bottom: '15px'
+            bottom: '15px'
         },5000, function(){
             if( time !== 0) {
                 setTimeout(function(){

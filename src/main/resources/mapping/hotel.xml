@@ -7,11 +7,12 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="customerId" column="customerId"/>
+        <result property="customerName" column="customerName"/>
         <result property="currency" column="currency"/>
     </resultMap>
     
     <select id="list" resultMap="SqlMapHotel.Hotel">
-        SELECT * FROM RepositoryHotel;
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id ORDER BY rh.customerId;
     </select>
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">

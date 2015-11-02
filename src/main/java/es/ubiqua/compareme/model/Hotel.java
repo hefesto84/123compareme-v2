@@ -8,6 +8,7 @@ public class Hotel {
 	private int id;
 	private String name;
 	private int customerId;
+	private String customerName;
 	private int otaId;
 	private String currency;
 	
@@ -53,6 +54,14 @@ public class Hotel {
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 }

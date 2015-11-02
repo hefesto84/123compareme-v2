@@ -108,3 +108,12 @@ td{
 	padding:5px;
 }
 
+.panel-heading-left{
+	position:relative;
+	float:left;
+}
+
+.panel-heading-right{
+	position:relative;
+	float:right;
+}

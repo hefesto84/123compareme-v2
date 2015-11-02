@@ -43,6 +43,11 @@
         	<param name="encoding">UTF-8</param>
         	<param name="contentType">application/json</param>
         </action>
+        <action name="find" class="es.ubiqua.compareme.backend.actions.info.AddHotelBackendAction" method="find">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
     </package>
     
     <package name="login" namespace="/login" extends="struts-default">
@@ -73,9 +78,16 @@
     		<result name="success">/WEB-INF/jsp/backend/manage_otas.jsp</result>
     		<result name="error" type="redirect">../login/</result>
     	</action>
+    	<action name="ht_manage_hotels" class="es.ubiqua.compareme.backend.actions.ManageHotelsBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/manage_hotels.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
     	<action name="ht_check_dbstatus" class="es.ubiqua.compareme.backend.actions.CheckDBStatusBackendAction">
     		<result name="success">/WEB-INF/jsp/backend/check_dbstatus.jsp</result>
     		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="findHotelIdentifiers" class="es.ubiqua.compareme.backend.actions.AddHotelBackendAction">
+    	
     	</action>
     	<action name="contact" class="es.ubiqua.compareme.backend.actions.ContactBackendAction">
     		<result name="success">/WEB-INF/jsp/backend/contact.jsp</result>
