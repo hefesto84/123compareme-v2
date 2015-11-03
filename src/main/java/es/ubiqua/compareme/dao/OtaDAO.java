@@ -16,7 +16,7 @@ public class OtaDAO extends BaseDAO {
 		List<Ota> otas = new ArrayList<Ota>();
 		SqlSession session = sql.openSession();
 		try{
-			otas = session.selectList("SqlMapOta.list",c);
+			otas = session.selectList("SqlMapOta.listByOta",c);
 		}catch(Exception e){
 			DBLogger.getLogger().Error("ERROR: "+e.getMessage());
 		}finally{
