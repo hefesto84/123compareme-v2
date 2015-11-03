@@ -11,8 +11,8 @@
         <result property="queryNum" column="queryNum"/>
     </resultMap>
     
-    <select id="list" resultMap="SqlMapOta.Ota">
-        SELECT * FROM RepositoryOta;
+    <select id="list" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapOta.Ota">
+        SELECT ro.* FROM RepositoryOta ro, RepositoryCustomerOta rco WHERE ro.id = rco.idOta AND rco.idCustomer = #{id};
     </select>
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Ota" resultMap="SqlMapOta.Ota">
