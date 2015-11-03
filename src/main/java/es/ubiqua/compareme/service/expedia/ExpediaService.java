@@ -61,10 +61,8 @@ public class ExpediaService extends Service implements ServiceInterface{
 				try{
 					String p = d.select("span.room-price.one-night-room-price").get(0).text();
 					price.setPurePrice(p);
-					price.setPrice(p);
-					p = price.getPrice();
-					p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
-					price.setPrice(p);
+					price.setPrice(String.valueOf(Utils.change(p)));
+					price.setPrice(Utils.changeCurrency(price.getPrice(), "EUR", getCurrency(hotelId)));
 					mOta.setQueryOk(1);
 					
 				}catch(Exception e){
@@ -78,10 +76,8 @@ public class ExpediaService extends Service implements ServiceInterface{
 				try{
 					String p = d.select("a.price.link-to-rooms").get(0).text();
 					price.setPurePrice(p);
-					price.setPrice(p);
-					p = price.getPrice();
-					p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
-					price.setPrice(p);
+					price.setPrice(String.valueOf(Utils.change(p)));
+					price.setPrice(Utils.changeCurrency(price.getPrice(), "EUR", getCurrency(hotelId)));
 					mOta.setQueryOk(1);
 					
 				}catch(Exception e){

@@ -70,7 +70,7 @@ public class Price implements Serializable {
 	}
 	
 	public void setPrice(String price) {
-		this.price = String.valueOf(Utils.change(price));
+		this.price = price;//String.valueOf(Utils.change(price));
 		//this.price = price.replaceAll("[^\\d.,]", "");
 		//this.price = this.price.replace(",", ".");
 		

@@ -44,7 +44,7 @@ public class CrawlerServiceTest  extends TestCase{
 	 public void testMail() throws Exception {
 		
 		 /*
-		 String price1 = "€ 13,060.50";
+		 String price1 = "€ 60.50";
 		 String price2 = "1 060";
 		 String price3 = "1 060 €";
 		 String price4 = "1,060 €";
@@ -53,6 +53,8 @@ public class CrawlerServiceTest  extends TestCase{
 		 String price7 = "1,060.18 €";
 		 String price8 = "1 060.31 €";
 		 String price9 = "1 060,03 €";
+		 String price10 = "850,02 €";
+		 String price11 = "180 €";
 		 
 		 System.out.println(change(price1));
 		 System.out.println(change(price2));
@@ -63,9 +65,9 @@ public class CrawlerServiceTest  extends TestCase{
 		 System.out.println(change(price7));
 		 System.out.println(change(price8));
 		 System.out.println(change(price9));
+		 System.out.println(change(price11));
 		
 		
-		  
 		 NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMANY);
 		 ((DecimalFormat)nf).setParseBigDecimal(true);
 		 
@@ -75,15 +77,16 @@ public class CrawlerServiceTest  extends TestCase{
 		 p.setPrice(price);
 		
 		 System.out.println(Utils.changeCurrency(p.getPrice(), "EUR", "EUR"));
-		*/
+		
 		 
-		 
-		 Query query = new Query("es","The May Fair Hotel",1,2,"06/08/2016","10/08/2016","179,10");
+		
+		
+		 Query query = new Query("en","Hotel Duquesa de Cardona",1,2,"14/11/2015","15/11/2015","179,10");
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 	
+	 */
 		 
 		 // data = Utils.searchHotelIdentifiers("Radisson Blu Edwardian Bloomsbury Street");
 		 //System.out.println(result);

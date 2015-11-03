@@ -129,6 +129,7 @@ public class Utils {
 	 public static float change(String val){
 			val = val.replaceAll("[^\\d\\.\\,+]", "").replace(".", "#").replace(",", "#");
 			val = val.replaceAll("(#[0-9][0-9])$", "."+val.substring(val.length()-2, val.length())).replace("#", "");
+			System.out.println(" NON PARSED: "+val);
 			return Float.parseFloat(val);
 	}
 	 

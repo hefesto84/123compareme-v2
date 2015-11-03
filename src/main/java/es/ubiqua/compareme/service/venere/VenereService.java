@@ -46,7 +46,7 @@ public class VenereService extends Service implements ServiceInterface{
 		url = "http://es.venere.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 	
 		try{
-			Document doc = Jsoup.connect(url).get();
+			Document doc = Jsoup.connect(url).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
 			 Elements e = doc.select("form");
 			 Map<String,String> data = new HashMap<String,String>();
 			 for(int i = 0; i<e.size(); i++){
@@ -59,48 +59,20 @@ public class VenereService extends Service implements ServiceInterface{
 					 }
 				 }
 			 }
-			 Document request = Jsoup.connect("https://ssl-es.venere.com/bookingInitialise.do").data(data).post();
+			 Document request = Jsoup.connect("https://ssl-es.venere.com/bookingInitialise.do").timeout(5000).ignoreHttpErrors(true).followRedirects(true).data(data).post();
 			 Elements rq = request.select("strong[id=financial-details-total-price]");
 			 
 			 String p =rq.text();
-				
-				price.setPurePrice(p);
-				price.setPrice(p);
-				p = price.getPrice();
-				p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
-				price.setPrice(p);
+			 price.setPurePrice(p);
+				price.setPrice(String.valueOf(Utils.change(p)));
+				price.setPrice(Utils.changeCurrency(price.getPrice(), "EUR", getCurrency(hotelId)));
 				mOta.setQueryOk(1);
 				
 		} catch (IOException e) {
 			price.setPrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
-		/*
-		try {
-			Document d = Jsoup.connect(url).get();
-			System.out.println("URL ++++++++++++++++++++++++++ "+url);
-			Elements newPrice = d.select("span.current-price.bold");
-			
-			if(newPrice!=null && !newPrice.text().isEmpty()){
-				
-				String p =newPrice.text();
-				price.setPurePrice(p);
-				price.setPrice(p);
-				p = price.getPrice();
-				p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
-				price.setPrice(p);
-				mOta.setQueryOk(1);
-			
-			}else{
-				price.setPrice("0");
-				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
-			}
-		
-		} catch (IOException e) {
-			price.setPrice("0");
-			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
-		}
-		*/
+	
 		price.setHash(price.toHash());
 		otaManager.update(mOta);
 		return price;
