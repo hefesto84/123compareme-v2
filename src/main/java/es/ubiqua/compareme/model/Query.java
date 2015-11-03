@@ -14,7 +14,11 @@ public class Query {
 	private String base;
 	
 	public Query(String customerId, String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base){
-		this.customerId = customerId;
+		if(customerId==null){
+			this.customerId = "10000";
+		}else{
+			this.customerId = customerId;
+		}
 		this.lang = lang;
 		this.hotel = hotel;
 		this.rooms = rooms;
