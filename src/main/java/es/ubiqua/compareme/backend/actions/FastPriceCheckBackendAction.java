@@ -46,7 +46,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		otas = otaManager.list();
 		hotels = hotelManager.list();
 		try{
-			Query q = new Query(lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100");
+			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100");
 			CrawlingService service = new CrawlingService();
 			Hotel h = new Hotel();
 			h.setName(new String(hotelName.getBytes("iso-8859-1"),"UTF-8"));

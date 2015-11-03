@@ -42,7 +42,7 @@ public class GetPricesAction extends ActionSupport {
 	
     public String execute() {
     
-        Query query = new Query(lang,hotel,rooms,guests,fin,fout,base);
+        Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         //Utils.checkCoherence(code,datos);

@@ -77,11 +77,9 @@ public class CrawlerServiceTest  extends TestCase{
 		 p.setPrice(price);
 		
 		 System.out.println(Utils.changeCurrency(p.getPrice(), "EUR", "EUR"));
-		
-		 
-		
-		
-		 Query query = new Query("en","Hotel Duquesa de Cardona",1,2,"14/11/2015","15/11/2015","179,10");
+
+		 Query query = new Query("2","es","The May Fair Hotel",1,2,"06/08/2016","10/08/2016","179,10");
+
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        

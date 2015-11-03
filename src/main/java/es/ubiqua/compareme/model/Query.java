@@ -4,6 +4,7 @@ import es.ubiqua.compareme.utils.Utils;
 
 public class Query {
 	
+	private String customerId;
 	private String lang;
 	private String hotel;
 	private int rooms;
@@ -12,7 +13,8 @@ public class Query {
 	private String dateOut;
 	private String base;
 	
-	public Query(String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base){
+	public Query(String customerId, String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base){
+		this.customerId = customerId;
 		this.lang = lang;
 		this.hotel = hotel;
 		this.rooms = rooms;
@@ -70,6 +72,14 @@ public class Query {
 		this.dateOut = dateOut;
 	}
 	
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
 	public String getBase() {
 		return base;
 	}

@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import es.ubiqua.compareme.manager.CustomerManager;
 import es.ubiqua.compareme.manager.HotelManager;
 import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.manager.PriceManager;
+import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Hotel;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
@@ -24,16 +26,27 @@ public class CrawlingService {
 	private List<Price> prices;
 	private PriceManager priceManager;
 	private OtaManager otaManager;
+	private CustomerManager customerManager;
 	
 	public CrawlingService(){
 		priceManager = new PriceManager();
 		otaManager = new OtaManager();
+		customerManager = new CustomerManager();
 	}
 	
 	public List<Price> weaving(int mode, Query query){
 		prices = new ArrayList<Price>();
+		Customer c = new Customer();
+		c.setIdentifier(query.getCustomerId());
 		
-		List<Ota> otas = new OtaManager().list();
+		try{
+			c = customerManager.get(c);
+		}catch(Exception e){
+			c.setId(10000);
+			c.setIdentifier("10000");
+		}
+		
+		List<Ota> otas = new OtaManager().list(c);
 		Hotel hotel = new Hotel();
 		hotel.setName(query.getHotel());
 	

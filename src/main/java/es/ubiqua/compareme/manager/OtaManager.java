@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import es.ubiqua.compareme.dao.OtaDAO;
 import es.ubiqua.compareme.exceptions.OtaException;
+import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Ota;
 
 public class OtaManager {
@@ -18,6 +19,10 @@ public class OtaManager {
 	
 	public List<Ota> list(){
 		return otaDao.list();
+	}
+	
+	public List<Ota> list(Customer c){
+		return otaDao.list(c);
 	}
 
 	public void update(Ota ota){
