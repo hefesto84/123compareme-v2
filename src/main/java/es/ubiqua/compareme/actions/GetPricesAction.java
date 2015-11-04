@@ -34,12 +34,6 @@ public class GetPricesAction extends ActionSupport {
 	private int rooms;
 	private int guests;
 	
-	private String test;
-	
-	private String name;
-	private Test objecte1;
-	private List<Test> tests;
-	
     public String execute() {
     
         Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base);
@@ -49,20 +43,6 @@ public class GetPricesAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String hazAlgo(){
-   
-    	TestManager testManager = new TestManager();
-    	objecte1 = new Test(name);
-    	
-    	try {
-			objecte1 = testManager.add(objecte1);
-			tests = testManager.list();
-			return SUCCESS;
-		} catch (CustomerException e) {
-			return ERROR;
-		}
-    	
-    }
     
 	public List<Price> getDatos() {
 		return datos;
@@ -107,38 +87,5 @@ public class GetPricesAction extends ActionSupport {
 	public void setBase(String base) {
 		this.base = base;
 	}
-
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Test getObjecte1() {
-		return objecte1;
-	}
-
-	public void setObjecte1(Test objecte1) {
-		this.objecte1 = objecte1;
-	}
-
-	public List<Test> getTests() {
-		return tests;
-	}
-
-	public void setTests(List<Test> tests) {
-		this.tests = tests;
-	}
-	
 
 }

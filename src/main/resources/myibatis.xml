@@ -10,7 +10,6 @@
 		<typeAlias alias="HotelOta" type="es.ubiqua.compareme.model.HotelOta"/>
 		<typeAlias alias="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel"/>
 		<typeAlias alias="Price" type="es.ubiqua.compareme.model.Price"/>
-		<typeAlias alias="Test" type="es.ubiqua.compareme.model.Test"/>
 		
 	</typeAliases>
 	
@@ -35,7 +34,6 @@
 		<mapper resource="mapping/hotelota.xml"/>
 		<mapper resource="mapping/price.xml"/>
 		<mapper resource="mapping/log.xml"/>
-		<mapper resource="mapping/test.xml"/>
 	</mappers>
 	
 </configuration>

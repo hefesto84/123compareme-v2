@@ -8,9 +8,7 @@
     <constant name="struts.devMode" value="true" />
  	<constant name="struts.configuration.xml.reload" value="true" />
  	<constant name="struts.mapper.action.prefix.enabled" value="true" />
-	
-	<!-- struts default : comportament normal de l'accio -->
-	<!-- json default: comportament d'un json -->
+
 	
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />
@@ -22,9 +20,6 @@
         		<param name="actionName">backend/</param>
         	</result>
         </action>
-        <action name="test" class="es.ubiqua.compareme.actions.GetPricesAction" method="hazAlgo">
-    		<result name="success">/WEB-INF/jsp/test.jsp</result>
-    	</action>
     </package>
     
     <package name="api" namespace="/api" extends="json-default">
