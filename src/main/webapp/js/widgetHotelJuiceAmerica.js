@@ -7,17 +7,17 @@ var hotelswidget = new (function(window, document, $){
             hotelswidget.setAnalytics();
         } else {
             var conversion = 1;
-            var hotel = 'Hotel Duquesa de Cardona';
+            var hotel = 'Hotel America Barcelona';
             var rooms = 1;
-            var guests = parseInt($('#form_pax').find(":selected").html());
-            var start = hotelswidget.dateConverse($('#form_startdate').val());
-            var stop = hotelswidget.dateConverse($('#form_enddate').val());
-
+            var guests = $('a.addroomaction').first().attr('data-adults');
+            var user = 3;
+            //var start = hotelswidget.dateConverse($('#form_startdate').val());
+            //var stop = hotelswidget.dateConverse($('#form_enddate').val());
+            var start = $('ul.dates li:eq(0)').find('.date-value').html().trim();
+            var stop = $('ul.dates li:eq(1)').find('.date-value').html().trim();
             var price = hotelswidget.findPrice();
-
             var currency = 'EUR';
             var lang = $('html').attr('lang');
-
             var device = 'isDesktop';
 
             var url_post = domain + '/api/prices?base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
@@ -149,7 +149,7 @@ var hotelswidget = new (function(window, document, $){
     }
 
     this.setJavaScript = function(){
-        var top_widget = jQuery('.cos.container').offset().top;
+        var top_widget = jQuery('.bgsteps').offset().top;
 
         $('#widget123').css({
             'top' : top_widget
@@ -205,8 +205,8 @@ var hotelswidget = new (function(window, document, $){
 
         $('body').append("<style>" +
             "#widget123{position: fixed;top: 100px;right: 0px;width: 210px;display: none;box-sizing: border-box;cursor: pointer;z-index: 9999}" +
-            "#widget123_top_top{line-height: 15px;padding-top: 15px; padding-bottom: 15px;padding-left: 5px;padding-right: 5px; background-color: #7C7766; text-align: center; color: #FFFFFF; border-bottom: 1px solid #A5A186;font-weight: bold;font-size: 11px;}" +
-            "#widget123_top{padding-top: 5px;padding-bottom: 10px;background-color: #7C7766;color: #FFFFFF;text-align: center;}" +
+            "#widget123_top_top{line-height: 15px;padding-top: 15px; padding-bottom: 15px;padding-left: 5px;padding-right: 5px; background-color: #DB291D; text-align: center; color: #FFFFFF; border-bottom: 1px solid #A5A186;font-weight: bold;font-size: 11px;}" +
+            "#widget123_top{padding-top: 5px;padding-bottom: 10px;background-color:  #DB291D;color: #FFFFFF;text-align: center;}" +
             "#widget123_top_top_text{font-size: 13px;margin-bottom: 5px; font-weight: 100;}" +
             ".alta-flecha{background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAWCAYAAADXYyzPAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjUwRDA3RDg3NzE4ODExRTU5MERCRDZDNjRGNDJGMDU5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjUwRDA3RDg4NzE4ODExRTU5MERCRDZDNjRGNDJGMDU5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTBEMDdEODU3MTg4MTFFNTkwREJENkM2NEY0MkYwNTkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTBEMDdEODY3MTg4MTFFNTkwREJENkM2NEY0MkYwNTkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6bjZ3wAAABaElEQVR42mL8//8/w0AAJoYBAsgWhwDxFyC+C8TqVLRDA4hvQ80OgYuCghqKH/9HgJtALIgkRy4GmXEbydynMDlkRb//o4JdQMxMgaUgvXvQzPyNzeIN/zHBBAosnozFvA3YLJYA4kdYFKeQYWkaFnMeArE4NotB2BCIv6Fp+AXEdiRYag/Vgwy+ArEBsjpsGkOxuPYVECsQYSlIzRss+oPR1eIyoAGL5otAzIPHUl4gvoxFXx029bgMYQTiNTgSByMW9UxAvBGL+pU41DPgCzYuID6PxbBWLGrbsag7BzWDgVSLQVgOiF9iMTQSSU0UFvkXQCyLz2xiUqkVEP9EMxiU8k2A2AyIv6PJgdRaEDKX2CySgMVXoOLvGRbxWGLMJKVQ6PlPGHQRax6pZe82PJZuJaVsJ7Uo5Afi61gsvQbEfKSYRU7hrwrE75AsfQvEyqSaQ27NAyqPX0OLUntyzGAccW0ugAADABmgl1ZVu0KpAAAAAElFTkSuQmCC');}" +
             ".flecha{width: 15px; height: 11px; margin: auto; margin-top: 5px; background-size: 100% 100%;}" +
@@ -224,7 +224,7 @@ var hotelswidget = new (function(window, document, $){
             "#element #element_right .priceWidgetElement .priceWidgeElementCurrency{font-size: 11px;}" +
             "#widget123_copyright{font-size: 10px; text-align:center;font-weight:bold; width: 100%;}" +
             "#widget123_copyright a{color: #FFFFFF;}" +
-            "#widget123_copyright span{color: #7C7766;}" +
+            "#widget123_copyright span{color: #DB291D;}" +
             "@media (min-width: 0px) and (max-width: 1400px){" +
             "#widget123{width: 160px;}"+
             "#widget123_top_top{padding-top: 10px;padding-bottom: 10px;}" +
@@ -288,13 +288,11 @@ var hotelswidget = new (function(window, document, $){
 
     this.findPrice = function(){
         var cheap_price = '';
-        $('.rowRoomPrice').each(function(){
-            $(this).find('.box2 > .rowPriceRoom').each(function(){
-                var price = parseFloat($(this).find('.subBox2').html().replace('.','').replace(',','.'));
-                if ((cheap_price === '') || (price < cheap_price)){
-                    cheap_price = price;
-                }
-            });
+        $('table.detailroom').each(function(){
+            var price = parseFloat($(this).find('span.roomlist-price').html().substring(0,$(this).find('span.roomlist-price').html().indexOf('<')).replace(',','.'));
+            if ((cheap_price === '') || (price < cheap_price)){
+                cheap_price = price;
+            }
         });
         return cheap_price;
     }
