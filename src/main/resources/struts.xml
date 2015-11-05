@@ -34,6 +34,11 @@
         	<param name="inputName">output</param>
            </result>
         </action>
+        <action name="monitor" class="es.ubiqua.compareme.actions.MonitorAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
         <action name="otasinfo" class="es.ubiqua.compareme.backend.actions.info.OtasInformationBackendAction">
            <result type="json"/>
         	<param name="encoding">UTF-8</param>
@@ -45,6 +50,11 @@
         	<param name="contentType">application/json</param>
         </action>
         <action name="find" class="es.ubiqua.compareme.backend.actions.info.AddHotelBackendAction" method="find">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="add" class="es.ubiqua.compareme.backend.actions.info.AddHotelBackendAction" method="add">
            <result type="json"/>
            <param name="encoding">UTF-8</param>
         	<param name="contentType">application/json</param>

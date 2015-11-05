@@ -117,3 +117,36 @@ td{
 	position:relative;
 	float:right;
 }
+
+#modalbodydata{
+	position:relative;
+	float:left;
+	width:100%;
+	height:auto;
+}
+
+#modalbodyname{
+	position:relative;
+	float:left;
+	width:50%;
+	height:auto;
+	margin:2px;
+}
+
+#modalbodycustomer{
+	position:relative;
+	float:left;
+	width:30%;
+	height:auto;
+	margin:2px;
+}
+
+#modalbodycurrency{
+	position:relative;
+	float:left;
+	width:17%;
+	height:auto;
+	margin-left:2px;
+	margin-top:2px;
+	margin-right:2px;
+}
