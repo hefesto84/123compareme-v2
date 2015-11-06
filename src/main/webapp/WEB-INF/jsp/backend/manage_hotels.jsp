@@ -36,8 +36,8 @@
 		  		<input type="text" name="hotelName" class="form-control" id="hotelName" value="<s:property value="hotelName"/>"/> <br /> 
           	</div>
           	<div id="modalbodycustomer">
-          		<label for="customers">Customer:</label> 
-          		<select class="form-control" id="customers" name="customers">
+          		<label for="customer">Customer:</label> 
+          		<select class="form-control" id="customer" name="customer">
 					<s:iterator value="customers">
 					<option value="<s:property value="id"/>"><s:property value="name" /></option>
 					</s:iterator>
@@ -108,7 +108,8 @@ $( "#save" ).click(function() {
 	var hotelsId = $("#hotelsId").val();
 	var venereId = $("#venereId").val();
 	var currency = $("#currency").val();
-	var query = "?name="+hotelName+"&expediaId="+expediaId+"&bookingId="+bookingId+"&hotelsId="+hotelsId+"&venereId="+venereId+"&currency="+currency;
+	var customer = $("#customer").val();
+	var query = "?name="+hotelName+"&expediaId="+expediaId+"&bookingId="+bookingId+"&hotelsId="+hotelsId+"&venereId="+venereId+"&currency="+currency+"&customer="+customer;
 	$("#save" ).html("Saving...");
 	$.getJSON( "../api/add"+query, function( data ) {
 		$("#autofill" ).html("Save");
