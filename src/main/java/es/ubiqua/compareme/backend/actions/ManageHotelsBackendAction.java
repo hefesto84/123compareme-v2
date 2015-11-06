@@ -10,6 +10,7 @@ import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Hotel;
 import es.ubiqua.compareme.model.Ota;
+import es.ubiqua.compareme.utils.Utils;
 
 public class ManageHotelsBackendAction extends BaseBackendAction{
 
@@ -20,10 +21,13 @@ public class ManageHotelsBackendAction extends BaseBackendAction{
 	private Hotel hotel;
 	private CustomerManager customerManager = new CustomerManager();
 	private HotelManager hotelManager = new HotelManager();
+	private List<String> currencies;
 	
 	public String execute(){
 		
 		if(!isLogged()){ return ERROR; }
+		
+		currencies = Utils.LoadCurrencies();
 		
 		try{
 			customers = customerManager.list();
@@ -56,6 +60,14 @@ public class ManageHotelsBackendAction extends BaseBackendAction{
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public List<String> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<String> currencies) {
+		this.currencies = currencies;
 	}
 
 }

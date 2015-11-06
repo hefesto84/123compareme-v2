@@ -57,6 +57,7 @@ window.onload = function(){
 		}
 	});
 	
+	/*
 	var ctxPrices = document.getElementById("cnvPrices").getContext("2d");
 	window.priceBar = new Chart(ctxPrices).Bar(priceData, {responsive : true});
 	$.getJSON( "../api/pricesinfo", function( data ) {
@@ -67,7 +68,7 @@ window.onload = function(){
 		}
 	});
 	
-	/*
+	
 	var ctxEvolution = document.getElementById("cnvEvolution").getContext("2d");
 	window.evolutionLine = new Chart(ctxEvolution).Line(evolutionData, {responsive : true});
 	for(i=0; i<10; i++){

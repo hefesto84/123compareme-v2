@@ -45,7 +45,11 @@
           	</div>
           	<div id="modalbodycurrency">
           		<label for="currency">Currency:</label><br /> 
-		  		<input type="text" name="currency" class="form-control" id="currency" value="<s:property value="hotelName"/>"/> <br /> 
+          		<select class="form-control" id="currency" name="currency">
+					<s:iterator value="currencies">
+					<option value="<s:property/>"><s:property/></option>
+					</s:iterator>
+				</select>
           	</div>
           </div>
           <label for="expediaId">Expedia ID:</label><br /> 

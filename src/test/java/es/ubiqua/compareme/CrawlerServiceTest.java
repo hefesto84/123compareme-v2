@@ -43,6 +43,7 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
+		 Utils.LoadCurrencies();
 		 /*
 		 String price1 = "€ 60.50";
 		 String price2 = "1 060";

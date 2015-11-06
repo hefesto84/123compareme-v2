@@ -35,6 +35,7 @@ public class AddHotelBackendAction extends BaseBackendAction{
 	private String hotelsId;
 	private String venereId;
 	
+	
 	public String execute(){
 		
 		//if(!isLogged()){ return ERROR; }
@@ -159,4 +160,5 @@ public class AddHotelBackendAction extends BaseBackendAction{
 	public void setVenereId(String venereId) {
 		this.venereId = venereId;
 	}
+
 }

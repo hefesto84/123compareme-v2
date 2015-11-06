@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,6 +98,14 @@ public class Utils {
 		
 		String content = "";
 		return content;
+	}
+	
+	public static List<String> LoadCurrencies(){
+		List<String> currencies = new ArrayList<String>();
+		for(Currency c : Currency.values()){
+			currencies.add(c.name());
+		}
+		return currencies;
 	}
 	
 	public static String changeCurrency(String price, String currencyFrom, String currencyTo){

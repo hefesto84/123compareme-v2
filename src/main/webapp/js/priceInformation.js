@@ -14,6 +14,7 @@ var priceData = {
 		    
 }; 
 
+
 window.onload = function(){
 	var ctxPrices = document.getElementById("cnvPrices").getContext("2d");
 	window.priceBar = new Chart(ctxPrices).Bar(priceData, {responsive : true});
