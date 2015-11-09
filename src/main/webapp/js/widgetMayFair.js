@@ -12,10 +12,15 @@ var hotelswidget = new (function(window, document, $){
             var guests = parameters.guests;
             var start = parameters.start;
             var stop = parameters.stop;
-            var price = hotelswidget.findPrice();
             var currency = '£';
             var lang = 'en';
             var device = 'isDesktop';
+            if($('html').hasClass('mobile')){
+                device = 'isMobile';
+                price = hotelswidget.findPriceMobile();
+            } else {
+                var price = hotelswidget.findPrice();
+            }
 
             var url_post = domain + '/api/prices?base=' + price + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
@@ -25,10 +30,11 @@ var hotelswidget = new (function(window, document, $){
             if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
                 price = parseFloat(price);
 
-                hotelswidget.setCSS();
                 if(device === 'isDesktop'){
+                    hotelswidget.setCSS();
                     hotelswidget.setHtml(price,currency);
                 } else {
+                    hotelswidget.setCSSMobile();
                     hotelswidget.setHtmlMobile(price,currency);
                 }
                 hotelswidget.setTranslate(lang);
@@ -126,6 +132,55 @@ var hotelswidget = new (function(window, document, $){
 
     this.setWidgetMobile = function(datos,price,conversion, currency){
 
+        $('.widget123_content_loading').hide();
+        $('#widget123_popup_loading_text').hide();
+        data = datos;
+        if (data.datos.length == 0){
+            _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+            return 0;
+        }
+        var content_middle = document.getElementById("widget123_popup_content_middle");
+        var count = 0;
+        for (var i = 0; i < data.datos.length; i++) {
+
+            var precio_convertido = (parseFloat(data.datos[i].price.replace(',','.')) * conversion);
+            precio_convertido = Math.round(precio_convertido);
+
+            if (((Math.round(price) - 1) < precio_convertido || (Math.round(price) - 1) == precio_convertido) &&  (count < 5)) {
+
+                count = count + 1;
+                var element = document.createElement("div");
+                element.setAttribute('id', 'element');
+
+                var left = document.createElement("div");
+                left.setAttribute('id', 'element_left');
+                left.innerHTML = '<span class="nombre_ota">'+data.datos[i].site.replace('.png','')+'</span>';
+                element.appendChild(left);
+
+                var right = document.createElement("div");
+                right.setAttribute('id', 'element_right');
+                element.appendChild(right);
+
+                var span = document.createElement('span');
+                span.setAttribute('class', 'priceWidgetElement');
+                span.innerHTML = '<span class="priceWidgeElementCurrency">' + currency + '</span>' + Math.round(precio_convertido);
+                right.appendChild(span);
+
+                var clear = document.createElement('div');
+                clear.setAttribute('style', 'clear:both;');
+                element.appendChild(clear);
+
+                content_middle.appendChild(element);
+
+            }
+        }
+        if (count === 0){
+            $('#widget123_popup_content_middle').append("<div id='no_otas'>No rooms found for these dates in other sites</div>");
+            _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+        } else {
+            _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+        }
+
     }
 
     this.setJavaScript = function(){
@@ -145,7 +200,43 @@ var hotelswidget = new (function(window, document, $){
         _paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
     }
 
-    this.setJavaScriptMobile = function(time){
+    this.setJavaScriptMobile = function(){
+
+        var width_widget = $(window).width() - 16;
+        $('#widget123').css({
+            'width' : width_widget
+        });
+
+        var screen_width = $(window).width();
+        var screen_height = $(window).height();
+
+        var popup_width = $('#widget123_popup_content').width();
+        var popup_height = $('#widget123_popup_content').height();
+        $('#widget123_popup_content').css({
+            'left' : ((screen_width - popup_width)/2)
+        });
+
+
+        $('#widget123').click(function(){
+            $('#widget123_popup').show();
+            $('#widget123').hide();
+            _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
+        });
+        $('#widget123_popup_content_top_close').click(function(){
+            $('#widget123').show();
+            $('#widget123_popup').hide();
+            _paq.push(['trackEvent', 'Widget', 'Hide Popup', 'Widget popup ocultado']);
+        });
+
+        $('#widget123_close').click(function(){
+            $('#widget123').hide();
+            $('#widget123').unbind("click");
+
+            _paq.push(['trackEvent', 'Widget', 'Hide', 'Widget ocultado']);
+        });
+
+        _paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
+
     }
 
     this.dateConverse = function(date){
@@ -187,39 +278,70 @@ var hotelswidget = new (function(window, document, $){
         hotelswidget.setAnalytics();
     }
 
+    this.setCSSMobile = function(){
+
+        $('body').append("<style>" +
+            "#widget123{box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;margin-left: 8px;position: fixed;bottom: -150px;width: 100%;background-color: #212121;padding: 10px; padding-left: 0px;}" +
+            "#widget123_close{position: absolute;right: 0px;top: 0px;width: 25px;height: 25px;background: url('https://www.123compare.me/v1/images/close.png');background-size: 100% 100%;}" +
+            "#widget123_top{box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;width: 100%;height: 40px;}" +
+            "#widget123_top_left{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;float: left;width: 56%;height: 40px;padding: 10px;padding-top:5px;padding-right: 5px;color: #FFFFFF;font-size: 15px;line-height: 15px;border-right: 1px solid #FFFFFF;}" +
+            "#widget123_top_right_price{font-size: 25px;}" +
+            "#widget123_top_right{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;float: left;width: 44%;height: 40px;padding: 10px;padding-top:5px;padding-right: 5px;color: #FFFFFF;font-size: 12px;text-transform: uppercase;line-height: 30px;}" +
+            "#widget123_bottom{width: 100%;margin-top: 10px; padding-left: 5px;}" +
+            "#widget123_bottom_button{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;width: 50%;margin: auto;background-color: #7C7766;color: #F1EAC0;font-size: 14px;padding: 0.55em;text-align: center;}" +
+            "#widget123_popup_content_mayfair_text_bottom {margin-bottom: 0px;margin-top: 10px;text-align: left;padding-left: 10px;font-weight: bold;}" +
+            "#widget123_popup{display: none;font-family: 'Montserrat', Helvetica, Arial, sans-serif;}" +
+            "#widget123_content_background{position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;background: rgba(0,0,0,0.5);z-index: 9999999999;}" +
+            "#widget123_popup_content{position: absolute;top: 50px;width: 240px;box-sizing: border-box;}" +
+            "#widget123_popup_content_top{background-color: #7C7766 !important;color: #FFFFFF;padding: 5px;text-align: center;line-height: 50px;font-size: 13px;}" +
+            "#widget123_popup_content_top_text{font-weight: bold;padding-left: 15px;}" +
+            "#widget123_popup_content_top_close{margin-bottom: -22px;float: right;width: 25px;height: 25px;background: url('https://www.123compare.me/v1/images/close.png');background-size: 100% 100%;}" +
+            "#widget123_popup_content_mayfair{padding: 10px;padding-bottom: 0px;background-color: #212121;}" +
+            "#widget123_popup_content_mayfair_text {padding-left: 10px;font-size: 12px;margin-bottom: 10px;text-align: left;font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-weight: bold;}" +
+            "#widget123_popup_content_middle{padding: 10px;padding-top: 0px;background-color: #212121;}" +
+            ".widget123_content_loading{display:block;margin:auto;padding-top:15px;}" +
+            "#widget123_popup_loading_text{margin-top: 10px;font-family: 'Montserrat', Helvetica, Arial, sans-serif;font-size: 11px; text-align: center;}" +
+            "#element{padding: 10px;border-bottom: 1px solid #EBEAEC;}" +
+            "#element:last-child{border-bottom: 0px}" +
+            "#element_left{width: 45%; float: left; text-align: right; font-size: 16px; text-transform: capitalize; line-height: 22px; color: #D7CBBC;}" +
+            "#element_right{width: 50%; float: right; text-align: left; color: #D7CBBC;}" +
+            "#element #element_right .priceWidgetElement {margin-left: 20px;line-height: 20px;font-size: 15px;}" +
+            "#element #element_right .priceWidgetElement .priceWidgeElementCurrency{font-size: 12px;}" +
+            "#widget123_popup_content_mayfair_left{padding-left: 10px;width: 40%;box-sizing: border-box;float: left;line-height: 10px;}" +
+            "#widget123_popup_content_mayfair_left_text {font-size: 10px;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}" +
+            "#widget123_popup_content_mayfair_right{padding-right: 10px;width: 60%;box-sizing: border-box;float: right;text-align: right;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;color: #D7CBBC;line-height: 30px; margin-top: 5px;}" +
+            "#widget123_popup_content_mayfair_right_price{font-weight: bold;font-size: 25px;}" +
+            "#widget123_popup_content_mayfair_right_bottom {font-size: 10px;width: 47%;float: right;margin-top: -5px;line-height: 10px;}" +
+            "#boton_reservar_widget123 {text-decoration: none;}" +
+            "#no_otas {padding-top: 10px;font-size: 14px;font-weight: bold;width: 80%;margin: auto;text-align: center;}");
+        hotelswidget.setAnalytics();
+
+    }
+
     this.setHtml = function(price,currency) {
-        $('body').append(
-            "<div id='widget123'>" +
-                "<div id='widget123_top_top'>" +
-                "</div>" +
-                "<div id='widget123_top'>" +
-                    "<div id='widget123_top_top_text'></div>" +
-                    "<div id='widget123_top_bottom_left'>" +
-                        "<div class='flecha alta-flecha'></div>" +
-                    "</div>" +
-                    "<div id='widget123_top_bottom_price'>" +
-                        "<span id='currency'>SEK</span><span id='price'>850.00</span>" +
-                    "</div>" +
-                    "<div id='widget123_top_bottom_right'>" +
-                        "<div class='flecha alta-flecha'></div>" +
-                    "</div>" +
-                    "<div style='clear:both;'></div>" +
-                "</div>" +
-                "<div id='widget123_middle'>" +
-                "</div>" +
-                "<div id='widget123_copyright' style='padding-top:2px;'>" +
-                    "<a href='http://www.123compare.me' style='text-decoration: none;'>" +
-                        "Powered by&nbsp;<span>123compare.me</span>" +
-                    "</a>" +
-                "</div>" +
-            "</div>");
+        $('body').append("<div id='widget123'><div id='widget123_top_top'></div><div id='widget123_top'><div id='widget123_top_top_text'></div><div id='widget123_top_bottom_left'><div class='flecha alta-flecha'></div></div><div id='widget123_top_bottom_price'><span id='currency'>SEK</span><span id='price'>850.00</span></div><div id='widget123_top_bottom_right'><div class='flecha alta-flecha'></div></div><div style='clear:both;'></div></div><div id='widget123_middle'></div><div id='widget123_copyright' style='padding-top:2px;'><a href='http://www.123compare.me' style='text-decoration: none;'>Powered by&nbsp;<span>123compare.me</span></a></div></div>");
 
         $('#widget123_top_bottom_price').find('#price').html((Math.round(price)));
         $('#widget123_top_bottom_price').find('#currency').html(currency);
         hotelswidget.setJavaScript();
     }
 
-    this.setHtmlMobile = function(price,currency, time) {
+    this.setHtmlMobile = function(price,currency) {
+
+        $('body').append("<div id='widget123'><div id='widget123_close'></div><div id='widget123_top'><div id='widget123_top_left'>BEST PRICE GUARANTEED</div><div id='widget123_top_right'><span id='widget123_top_right_price'>263.34</span>&nbsp;<span id='widget123_top_right_currency'>EUR</span></div></div><div id='widget123_bottom'><div id='widget123_bottom_button'>CHECK IT HERE</div></div></div><div id='widget123_popup'><div id='widget123_content_background'><div id='widget123_popup_content'><div id='widget123_popup_content_top'><span id='widget123_popup_content_top_text'>Best Price Guaranteed</span><div id='widget123_popup_content_top_close'></div><div style='clear:both;'></div></div><div id='widget123_popup_content_mayfair'><!--<div id='widget123_popup_content_mayfair_text'>Our lowest rate:</div>--><div id='widget123_popup_content_mayfair_left' style='width:45%;'><img class='image_mayfair' src='https://www.123compare.me/v1/images/pages/mayfair.png' /><!--<span id='widget123_popup_content_mayfair_left_text' class='t1' style='display:block;text-align:left;'>Free Internet</span><span id='widget123_popup_content_mayfair_left_text' class='t2' style='display: block;text-align: left; font-size: xx-small;'>Earn Club Carlson Points&reg;</span>--></div><div id='widget123_popup_content_mayfair_right' style='width:50%;'><span id='widget123_popup_content_mayfair_right_price'>1,095.00</span>&nbsp;<span id='widget123_popup_content_mayfair_right_currency'>SEK</span><div id='widget123_popup_content_mayfair_right_bottom' style='width:100%;'><span class='widget123_popup_content_mayfair_right_bottom_t1' style='display:block;'>No extra fees.</span><span class='widget123_popup_content_mayfair_right_bottom_t2'>No hidden charges.</span></div><div style='clear:both;'></div></div><div style='clear:both;'></div><!--<div id='widget123_popup_content_mayfair_text_bottom'>In other sites:</div>--></div><div id='widget123_popup_content_middle'><img src='https://www.123compare.me/v2/img/assets/loading.gif' class='widget123_content_loading'/><div id='widget123_popup_loading_text'></div></div><div id='widget123_copyright' style='padding-top:5px;'> <a href='http://www.123compare.me' style='text-decoration: none; float:right;'><span style='color:black;font-size:10px;text-align:right;width:auto;position:relative;letter-spacing:1px;'>Powered by 123Compare.me&#169;</span></a></div></div></div></div>");
+        if($('html').attr('lang') === 'en'){
+            $('#widget123_top_right_price').html((price));
+            $('#widget123_popup_content_mayfair_right_price').html((price));
+        } else{
+            $('#widget123_top_right_price').html((price));
+            $('#widget123_popup_content_mayfair_right_price').html((price));
+        }
+        $('#widget123_top_right_currency').html(currency);
+        $('#widget123_popup_content_mayfair_right_currency').html(currency);
+
+        hotelswidget.setAnimation();
+        hotelswidget.setJavaScriptMobile();
+
     }
 
     this.setAnalytics = function(){
@@ -251,6 +373,30 @@ var hotelswidget = new (function(window, document, $){
         });
 
         return cheap_price;
+    }
+
+    this.findPriceMobile = function(){
+        var cheap_price = '';
+
+        $('.article').each(function(){
+            $.total = $(this).find('div.fleft').find('b');
+            var price = parseFloat($.total.html().substring(($.total.html().indexOf("£") + 1),$.total.html().length).replace(',',''));
+            if ((cheap_price === '') || (price < cheap_price)){
+                cheap_price = price;
+            }
+        });
+
+        return cheap_price;
+    }
+
+    this.setAnimation = function(){
+        $('#widget123').animate({
+            bottom: '15px'
+    },5000, function(){
+            setTimeout(function(){
+                $('#widget123').hide();
+            }, 20 * 1000);
+        });
     }
 
 })(window, document, $);
