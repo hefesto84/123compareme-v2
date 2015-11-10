@@ -3,6 +3,7 @@ package es.ubiqua.compareme.model;
 public class Customer {
 	
 	private int id;
+	private int admin;
 	private String name;
 	private String identifier;
 	private String username;
@@ -14,6 +15,14 @@ public class Customer {
 	
 	public Customer(){
 		
+	}
+
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
 	}
 
 	public int getId() {

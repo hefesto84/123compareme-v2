@@ -15,6 +15,10 @@
         SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id ORDER BY rh.customerId;
     </select>
     
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id AND rc.id = #{id} ORDER BY rh.customerId;
+    </select>
+    
     <select id="get" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
         SELECT * FROM RepositoryHotel WHERE id = #{id} OR name LIKE #{name};
     </select>

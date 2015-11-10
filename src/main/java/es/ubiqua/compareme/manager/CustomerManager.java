@@ -20,6 +20,10 @@ public class CustomerManager {
 	public List<Customer> list() throws CustomerException{
 		return customerDao.list();
 	}
+	
+	public List<Customer> list(Customer c) throws CustomerException{
+		return customerDao.list(c);
+	}
 
 	public Customer get(Customer customer) throws CustomerException{
 		return customerDao.get(customer);

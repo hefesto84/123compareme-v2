@@ -31,7 +31,7 @@ public class ManageHotelsBackendAction extends BaseBackendAction{
 		
 		try{
 			customers = customerManager.list();
-			setHotels(hotelManager.list());
+			setHotels(hotelManager.list(getLoggedCustomer()));
 		}catch(Exception e){
 			System.out.println("error getting hotels...");
 		}

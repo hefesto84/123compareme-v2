@@ -5,6 +5,7 @@
     
     <resultMap id="Customer" type="es.ubiqua.compareme.model.Customer">
         <result property="id" column="id"/>
+        <result property="admin" column="admin"/>
         <result property="name" column="name"/>
         <result property="identifier" column="identifier"/>
         <result property="username" column="username"/>
@@ -17,6 +18,10 @@
     
     <select id="list" resultMap="SqlMapCustomer.Customer">
         SELECT * FROM RepositoryCustomer;
+    </select>
+    
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE id = #{id};
     </select>
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">

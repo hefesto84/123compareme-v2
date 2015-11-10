@@ -24,6 +24,10 @@ public class HotelManager {
 		return hotelDao.list();
 	}
 
+	public List<Hotel> list(Customer c){
+		return hotelDao.list(c);
+	}
+	
 	public Hotel get(Hotel hotel){
 		return hotelDao.get(hotel);
 	}

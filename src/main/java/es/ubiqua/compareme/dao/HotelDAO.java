@@ -25,6 +25,23 @@ public class HotelDAO extends BaseDAO {
 		return hotels;
 	}
 	
+	public List<Hotel> list(Customer c){
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		SqlSession session = sql.openSession();
+		try{
+			if(c.getAdmin()==1){
+				hotels = session.selectList("SqlMapHotel.list");
+			}else{
+				hotels = session.selectList("SqlMapHotel.listByCustomer",c);
+			}
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return hotels;
+	}
+	
 	public Hotel get(Hotel hotel){
 		SqlSession session = sql.openSession();
 		try{

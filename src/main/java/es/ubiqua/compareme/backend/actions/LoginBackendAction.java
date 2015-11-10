@@ -38,6 +38,7 @@ public class LoginBackendAction  extends BaseBackendAction{
 				Map<String, Object> session = ActionContext.getContext().getSession();
 				session.put("login", true);
 				session.put("context",new Date());
+				session.put("sid",c.getId());
 				return SUCCESS;
 			} catch (CustomerException e) {
 				return ERROR;

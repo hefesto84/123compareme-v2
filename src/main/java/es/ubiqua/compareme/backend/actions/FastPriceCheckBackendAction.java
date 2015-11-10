@@ -44,7 +44,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		
 		ip = Utils.getIP();
 		otas = otaManager.list();
-		hotels = hotelManager.list();
+		hotels = hotelManager.list(getLoggedCustomer());
 		try{
 			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100");
 			CrawlingService service = new CrawlingService();

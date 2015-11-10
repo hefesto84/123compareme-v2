@@ -24,6 +24,23 @@ public class CustomerDAO extends BaseDAO {
 		return customers;
 	}
 	
+	public List<Customer> list(Customer c){
+		List<Customer> customers = new ArrayList<Customer>();
+		SqlSession session = sql.openSession();
+		try{
+			if(c.getAdmin()==1){
+				customers = session.selectList("SqlMapCustomer.list",c);
+			}else{
+				customers = session.selectList("SqlMapCustomer.listByCustomer",c);
+			}
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
+		}finally{
+			session.close();
+		}
+		return customers;
+	}
+	
 	public Customer login(Customer customer){
 		SqlSession session = sql.openSession();
 		try{
