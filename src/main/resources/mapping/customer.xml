@@ -50,4 +50,8 @@
 	  	</selectKey>
 	  	
     </insert>
+    
+    <delete id="del" parameterType="es.ubiqua.compareme.model.Customer">
+    	DELETE FROM RepositoryCustomer WHERE id = #{id}
+    </delete>
 </mapper>

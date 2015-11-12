@@ -57,7 +57,22 @@
         <action name="add" class="es.ubiqua.compareme.backend.actions.info.AddHotelBackendAction" method="add">
            <result type="json"/>
            <param name="encoding">UTF-8</param>
-        	<param name="contentType">application/json</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="addcustomer" class="es.ubiqua.compareme.backend.actions.info.CustomerBackendAction" method="add">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="delcustomer" class="es.ubiqua.compareme.backend.actions.info.CustomerBackendAction" method="del">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="getcustomer" class="es.ubiqua.compareme.backend.actions.info.CustomerBackendAction" method="get">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
         </action>
     </package>
     

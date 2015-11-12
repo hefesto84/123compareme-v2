@@ -78,4 +78,15 @@ public class CustomerDAO extends BaseDAO {
 		return customer;
 	}
 	
+	public void del(Customer customer){
+		SqlSession session = sql.openSession();
+		try{
+			session.delete("SqlMapCustomer.del",customer);
+			session.commit();
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
+		}finally{
+			session.close();
+		}
+	}
 }

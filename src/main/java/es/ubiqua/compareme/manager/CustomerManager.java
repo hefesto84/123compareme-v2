@@ -37,4 +37,7 @@ public class CustomerManager {
 		return customerDao.add(customer);
 	}
 	
+	public void del(Customer customer) throws CustomerException{
+		customerDao.del(customer);
+	}
 }
