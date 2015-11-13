@@ -1,6 +1,7 @@
 package es.ubiqua.compareme.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
@@ -14,11 +15,17 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.ibatis.io.Resources;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.xml.sax.SAXException;
 
 import com.google.gson.Gson;
 import com.tunyk.currencyconverter.BankUaCom;
@@ -108,6 +115,12 @@ public class Utils {
 		return currencies;
 	}
 	
+	public static String changeCurrency2(String price, String currencyFrom, String currencyTo){
+		//returcom.frozenbullets.api.currencyconverter.CurrencyConverter.getInstance().convertCurrency(10.0f, "EUR", "USD");
+		return price;
+	}
+	
+	/*
 	public static String changeCurrency(String price, String currencyFrom, String currencyTo){
 		
 		if(currencyFrom.equals(currencyTo)){
@@ -127,7 +140,7 @@ public class Utils {
 		return price;
 	
 	}
-	
+	*/
 	 public static String getDomainName(String url){
 			
 			String domainName = "";

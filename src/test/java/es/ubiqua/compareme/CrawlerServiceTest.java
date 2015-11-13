@@ -18,6 +18,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 import com.google.gson.Gson;
 import com.tunyk.currencyconverter.api.Currency;
 
@@ -43,7 +44,10 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
-		 Utils.LoadCurrencies();
+		 //Utils.changeCurrency2("100f", "EUR","USD");
+		System.out.println(CurrencyConverter.getInstance().convertCurrency(100f, "GBP"));
+		System.out.println(CurrencyConverter.getInstance().convertCurrency("100", "GBP"));
+		// Utils.LoadCurrencies();
 		 /*
 		 String price1 = "€ 60.50";
 		 String price2 = "1 060";

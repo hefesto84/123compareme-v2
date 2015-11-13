@@ -9,6 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.frozenbullets.api.currencyconverter.CurrencyConverter;
+
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
@@ -64,7 +66,7 @@ public class HotelsService  extends Service implements ServiceInterface{
 			 String p =rq.text();
 			 price.setPurePrice(p);
 				price.setPrice(String.valueOf(Utils.change(p)));
-				price.setPrice(Utils.changeCurrency(price.getPrice(), "EUR", getCurrency(hotelId)));
+				price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 				mOta.setQueryOk(1);
 				
 		} catch (IOException e) {

@@ -7,6 +7,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import com.frozenbullets.api.currencyconverter.CurrencyConverter;
+
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
@@ -62,7 +64,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 					String p = d.select("span.room-price.one-night-room-price").get(0).text();
 					price.setPurePrice(p);
 					price.setPrice(String.valueOf(Utils.change(p)));
-					price.setPrice(Utils.changeCurrency(price.getPrice(), "EUR", getCurrency(hotelId)));
+					price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 					mOta.setQueryOk(1);
 					
 				}catch(Exception e){
@@ -77,7 +79,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 					String p = d.select("a.price.link-to-rooms").get(0).text();
 					price.setPurePrice(p);
 					price.setPrice(String.valueOf(Utils.change(p)));
-					price.setPrice(Utils.changeCurrency(price.getPrice(), "EUR", getCurrency(hotelId)));
+					price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 					mOta.setQueryOk(1);
 					
 				}catch(Exception e){
