@@ -110,6 +110,10 @@ public class Utils {
 	
 	public static String changeCurrency(String price, String currencyFrom, String currencyTo){
 		
+		if(currencyFrom.equals(currencyTo)){
+			return price;
+		}
+		
 		try {
 			CurrencyConverter currencyConverter = new BankUaCom(Currency.fromString(currencyFrom), Currency.fromString(currencyTo));
 			return String.valueOf(currencyConverter.convertCurrency(Float.valueOf(price)));
