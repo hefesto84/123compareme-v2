@@ -73,7 +73,6 @@ public class CurrencyConverter {
 	public String convertCurrency(float price, String to){
 		float v = price* currencyMap.get(to);
 		return String.format("%.2f", v);
-		//return String.valueOf(price* currencyMap.get(to));
 	}
 	
 	public String convertCurrency(String price, String to){

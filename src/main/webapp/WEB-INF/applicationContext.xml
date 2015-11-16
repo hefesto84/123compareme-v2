@@ -3,17 +3,4 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
  
-	
-	<bean id="priceManager" class="es.ubiqua.compareme.manager.PriceManager"/>
-	<bean id="otaManager" class="es.ubiqua.compareme.manager.OtaManager"/>
-	<bean id="hotelManager" class="es.ubiqua.compareme.manager.HotelManager"/>
-	
-	<bean id="getPrice" class="es.ubiqua.compareme.actions.GetPricesAction">
-	    <property name="priceManager" ref="priceManager"/>
-	</bean>
-	
-	<bean id="fast_price_check" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction">
-		<property name="otaManager" ref="otaManager"/>
-		<property name="hotelManager" ref="hotelManager"/>
-	</bean>
 </beans>
