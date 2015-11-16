@@ -244,7 +244,7 @@ var hotelswidget = new (function(window, document, jQuery){
     }
 
     this.dateConverse = function(date){
-        converseDate = date.slice(3,5)+'-'+date.slice(0,2)+'-'+date.slice(6,10);
+        converseDate = date.slice(0,2)+'/'+date.slice(3,5)+'/'+date.slice(6,10);
         return converseDate;
     }
 
