@@ -22,6 +22,8 @@ var hotelswidget = new (function(window, document, jQuery){
             var currency = jQuery('.ratecurrency').first().text().trim();
             var lang = utag_data.visitor_language;
             var device = 'isDesktop';
+            
+            var diffDay = this.diffDate(start,stop);
 
             var url_post = domain + '/api/prices?base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
@@ -36,7 +38,7 @@ var hotelswidget = new (function(window, document, jQuery){
 
                 hotelswidget.setCSS();
                 if(device === 'isDesktop'){
-                    hotelswidget.setHtml(price,currency);
+                    hotelswidget.setHtml(price,currency, diffDay);
                 } else {
                     hotelswidget.setHtmlMobile(price,currency,show);
                 }
@@ -141,7 +143,7 @@ var hotelswidget = new (function(window, document, jQuery){
 
     }
 
-    this.setWidget = function(datos,price,conversion, currency) {
+    this.setWidget = function(datos,price,conversion, currency) {    
         var href = hotelswidget.setUrlHref();
         jQuery('.widget_content_loading').hide();
         jQuery('#widget_popup_loading_text').hide();
@@ -245,7 +247,7 @@ var hotelswidget = new (function(window, document, jQuery){
     }
 
     this.dateConverse = function(date){
-        converseDate = date.slice(0,2)+'/'+date.slice(3,5)+'/'+date.slice(6,10);
+        converseDate = date.slice(3,5)+'/'+date.slice(0,2)+'/'+date.slice(6,10);
         return converseDate;
     }
 
@@ -340,7 +342,8 @@ var hotelswidget = new (function(window, document, jQuery){
         hotelswidget.setAnalytics();
     }
 
-    this.setHtml = function(price,currency) {
+    this.setHtml = function(price,currency,diffDays) {
+    	price = price * diffDays;
         jQuery('body').append("<div id='widget'><div id='widget_top'><div id='widget_top_text'></div><div id='widget_top_price'><span id='price'>850.00</span>&nbsp;&nbsp;<span id='currency'>SEK</span></div></div><div id='widget_middle'><div id='widget_middle_text'>Do you want to compare prices?</div><div id='widget_middle_button'>Check it here</div></div><div id='widget_copyright' style='padding-top:2px;'><a href='http://www.123compare.me' style='text-decoration: none;'><span style='color:gray;font-size:10px;font-weight:bold;text-align:right;width:auto;position:relative;margin-top:5px;'></span></a></div></div><div id='widget_popup'><div id='widget_content_background'><div id='widget_popup_content'><div id='widget_popup_content_top'><span id='widget_popup_content_top_text'>Best Price Guaranteed</span><div id='widget_popup_content_top_close'></div><div style='clear:both;'></div></div><div id='widget_popup_content_parkinn'><div id='widget_popup_content_parkinn_text'>Our lowest rate:</div><div id='widget_popup_content_parkinn_left' style='width:45%;'><img class='image_parkinn' src='https://www.123compare.me/v1/images/pages/parkinn.png' /><span id='widget_popup_content_parkinn_left_text' class='t1' style='display:block;text-align:left;'>Free Internet</span><span id='widget_popup_content_parkinn_left_text' class='t2' style='display: block;text-align: left; font-size: xx-small;'>Earn Club Carlson Points&reg;</span></div><div id='widget_popup_content_parkinn_right' style='width:50%;'><span id='widget_popup_content_parkinn_right_price'>1,095.00</span>&nbsp;<span id='widget_popup_content_parkinn_right_currency' style='font-size:25px;'>SEK</span><div id='widget_popup_content_parkinn_right_bottom' style='width:100%;'><span class='widget_popup_content_parkinn_right_bottom_t1' style='display:block;'>No extra fees.</span><span class='widget_popup_content_parkinn_right_bottom_t2'>No hidden charges.</span></div><div style='clear:both;'></div></div><div style='clear:both;'></div><div id='widget_popup_content_parkinn_text_bottom'>In other sites:</div></div><div id='widget_popup_content_middle'><img src='https://www.123compare.me/v1/images/loading.GIF' class='widget_content_loading'/><div id='widget_popup_loading_text'></div></div><div id='widget_popup_content_bottom'><a href='' id='boton_reservar_widget'><div id='widget_popup_content_bottom_button'>Book Now</div></a></div><div id='widget_copyright' style='padding-top:5px;'> <a href='http://www.123compare.me' style='text-decoration: none; float:right;'><span style='color:black;font-size:10px;text-align:right;width:auto;position:relative;letter-spacing:1px;'>Powered by 123Compare.me&#169;</span></a></div></div></div></div>");
         if(utag_data.visitor_language == 'en' || utag_data.visitor_language == 'en_UK'){
             jQuery('#widget_top_price').find('#price').html((price.toFixed(2)).replace(',','.'));
@@ -366,6 +369,16 @@ var hotelswidget = new (function(window, document, jQuery){
             "})();" +
             "</script>" +
             "<noscript><p><img src='//www.123compare.me/piwik/piwik.php?idsite=1' style='border:0;' alt='' /></p></noscript>");
+    }
+    
+    this.diffDate = function (fini,fout){
+    	    	var date1 = new Date(fini.slice(6,10),fini.slice(3,5),fini.slice(0,2));
+				var date2 = new Date(fout.slice(6,10),fout.slice(3,5),fout.slice(0,2));
+				console.log(fini);
+				console.log(fout);
+				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+				console.log(Math.ceil(timeDiff / (1000 * 3600 * 24)));
+				return diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     }
 
 })(window, document,jQuery);
