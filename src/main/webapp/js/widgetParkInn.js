@@ -14,7 +14,8 @@ var hotelswidget = new (function(window, document, jQuery){
             var user = 1;
             var hotel = this.hotelName(jQuery('.innername').find("a").text());
             var rooms = jQuery('[name="rateSearchForm.numberRooms"]').val();
-            var guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
+            //var guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
+            var guests = 2;
             var start = this.dateConverse(jQuery('[name="rateSearchForm.checkinDate"]').val());
             var stop = this.dateConverse(jQuery('[name="rateSearchForm.checkoutDate"]').val());
             var price = this.priceConverse(jQuery('.rateamount').first().text().trim());
