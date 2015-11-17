@@ -1,5 +1,5 @@
 var hotelswidget = new (function(window, document, jQuery){
-    var debug = true;
+    var debug = false;
     var domain = 'https://www.123compare.me/v2'
     var data = '';
     if(debug){
@@ -18,9 +18,9 @@ var hotelswidget = new (function(window, document, jQuery){
             var guests = 2;
             var start = this.dateConverse(jQuery('[name="rateSearchForm.checkinDate"]').val());
             var stop = this.dateConverse(jQuery('[name="rateSearchForm.checkoutDate"]').val());
-            var price = this.priceConverse(jQuery('.rateamount').first().text().trim());
             var currency = jQuery('.ratecurrency').first().text().trim();
-            var lang = utag_data.visitor_language;
+            var lang = jQuery('html').attr('lang');
+            var price = this.priceConverse(jQuery('.rateamount').first().text().trim(), lang);
             var device = 'isDesktop';
             
             var diffDay = this.diffDate(start,stop);
@@ -32,39 +32,21 @@ var hotelswidget = new (function(window, document, jQuery){
             if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
                 price = parseFloat(price);
 
-                if (currency != 'EUR'){
-                    conversion = hotelswidget.getCurrencyConversion(currency);
-                }
-
                 hotelswidget.setCSS();
                 if(device === 'isDesktop'){
-                    hotelswidget.setHtml(price,currency, diffDay);
+                    hotelswidget.setHtml(price,currency,lang);
                 } else {
                     hotelswidget.setHtmlMobile(price,currency,show);
                 }
                 hotelswidget.setTranslate(lang);
                 setTimeout(function() {
-                    hotelswidget.getDatos(url_post,device,price,conversion,currency,lang);
+                    hotelswidget.getDatos(url_post,device,price,conversion,currency,lang,diffDay);
                 },1000) ;
             }
         }
     }
 
-    this.getCurrencyConversion = function (currency){
-        var conversion;
-        jQuery.ajax({
-            type: "GET",
-            url: domain + "/currency.php",
-            success: function (datos) {
-                var datos = JSON.parse(datos);
-                conversion = datos[currency];
-            },
-            async: false
-        });
-        return conversion;
-    }
-
-    this.getDatos = function(url_post,device,price,conversion,currency,lang){
+    this.getDatos = function(url_post,device,price,conversion,currency,lang,diffDays){
         var datos;
         jQuery.ajax({
             type: "GET",
@@ -75,7 +57,7 @@ var hotelswidget = new (function(window, document, jQuery){
                 if (device === 'isMobile'){
                     hotelswidget.setWidgetMobile(datos,price,conversion, currency);
                 } else {
-                    hotelswidget.setWidget(datos,price,conversion, currency);
+                    hotelswidget.setWidget(datos,price,conversion, currency, diffDays);
                 }
             }//,
             //async: false
@@ -123,7 +105,7 @@ var hotelswidget = new (function(window, document, jQuery){
         };
 
         // Array con las traducciones por idioma
-        var t = JSON.parse(unescape(encodeURIComponent(translations[utag_data.visitor_language])));
+        var t = JSON.parse(unescape(encodeURIComponent(translations[lang])));
 
         jQuery('#widget_top_text').html(t["widget_top_text"]);
         jQuery('#widget_middle_text').html(t["widget_middle_text"]);
@@ -143,7 +125,7 @@ var hotelswidget = new (function(window, document, jQuery){
 
     }
 
-    this.setWidget = function(datos,price,conversion, currency) {    
+    this.setWidget = function(datos,price,conversion, currency, diffDay) {    
         var href = hotelswidget.setUrlHref();
         jQuery('.widget_content_loading').hide();
         jQuery('#widget_popup_loading_text').hide();
@@ -158,6 +140,8 @@ var hotelswidget = new (function(window, document, jQuery){
         for (var i = 0; i < data.datos.length; i++) {
 
             var precio_convertido = (parseFloat(data.datos[i].price) * conversion);
+            
+            precio_convertido = precio_convertido / diffDay;
 
             if (((price - 1) < precio_convertido || (price - 1) == precio_convertido) &&  (count < 5)) {
                 count = count + 1;
@@ -251,8 +235,8 @@ var hotelswidget = new (function(window, document, jQuery){
         return converseDate;
     }
 
-    this.priceConverse = function(price){
-        if(utag_data.visitor_language == 'en' || utag_data.visitor_language == 'en_UK'){
+    this.priceConverse = function(price,lang){
+        if(lang == 'en' || lang == 'en_UK'){
             price = price.replace(',','');
         } else{
             price = price.replace(',','.');
@@ -277,26 +261,24 @@ var hotelswidget = new (function(window, document, jQuery){
 
     this.functionReservar = function(pHotelCode, pRateUni, pRedemptionRate, pClearEcertCode){
         _paq.push(['trackEvent', 'Widget', 'Click Book', 'Widget Reservar']);
-        if (jQuery('staticPopup'))
+        
+        if ($('staticPopup'))
         {
-            hideStaticDetailDivWithOverlay('staticPopup');
-        }
-        var lForm = jQuery('hiddenRateReviewForm');
+        hideStaticDetailDivWithOverlay('staticPopup');
+        } 
+        var lForm = $('hiddenRateReviewForm');
         lForm['rateSelectForm.hotelCode'].value = pHotelCode;
         lForm['rateSelectForm.rateUni'].value = pRateUni;
-        jQuery(lForm).prepend('<input type="hidden" name="facilitatorId" value="REZIDORRATETABLE">');
-        jQuery(lForm).prepend('<input type="hidden" name="facilitator" value="REZIDORRATETABLE">');
-        jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
-
-
+        
+        
         if (pClearEcertCode)
         {
-            lForm['rateSearchForm.ecertCodeForNonEligibleRate'].value =  lForm['rateSearchForm.ecertCode'].value;
-            lForm['rateSearchForm.ecertCode'].value = '';
+      	  lForm['rateSearchForm.ecertCodeForNonEligibleRate'].value =  lForm['rateSearchForm.ecertCode'].value;
+      	  lForm['rateSearchForm.ecertCode'].value = '';
         }
         if (pRedemptionRate)
         {
-            lForm['rateSearchForm.redemptionSearch'].value = true;
+      	  lForm['rateSearchForm.redemptionSearch'].value = true;
         }
         lForm.submit();
     }
@@ -342,10 +324,9 @@ var hotelswidget = new (function(window, document, jQuery){
         hotelswidget.setAnalytics();
     }
 
-    this.setHtml = function(price,currency,diffDays) {
-    	price = price * diffDays;
+    this.setHtml = function(price,currency,lang) {
         jQuery('body').append("<div id='widget'><div id='widget_top'><div id='widget_top_text'></div><div id='widget_top_price'><span id='price'>850.00</span>&nbsp;&nbsp;<span id='currency'>SEK</span></div></div><div id='widget_middle'><div id='widget_middle_text'>Do you want to compare prices?</div><div id='widget_middle_button'>Check it here</div></div><div id='widget_copyright' style='padding-top:2px;'><a href='http://www.123compare.me' style='text-decoration: none;'><span style='color:gray;font-size:10px;font-weight:bold;text-align:right;width:auto;position:relative;margin-top:5px;'></span></a></div></div><div id='widget_popup'><div id='widget_content_background'><div id='widget_popup_content'><div id='widget_popup_content_top'><span id='widget_popup_content_top_text'>Best Price Guaranteed</span><div id='widget_popup_content_top_close'></div><div style='clear:both;'></div></div><div id='widget_popup_content_parkinn'><div id='widget_popup_content_parkinn_text'>Our lowest rate:</div><div id='widget_popup_content_parkinn_left' style='width:45%;'><img class='image_parkinn' src='https://www.123compare.me/v1/images/pages/parkinn.png' /><span id='widget_popup_content_parkinn_left_text' class='t1' style='display:block;text-align:left;'>Free Internet</span><span id='widget_popup_content_parkinn_left_text' class='t2' style='display: block;text-align: left; font-size: xx-small;'>Earn Club Carlson Points&reg;</span></div><div id='widget_popup_content_parkinn_right' style='width:50%;'><span id='widget_popup_content_parkinn_right_price'>1,095.00</span>&nbsp;<span id='widget_popup_content_parkinn_right_currency' style='font-size:25px;'>SEK</span><div id='widget_popup_content_parkinn_right_bottom' style='width:100%;'><span class='widget_popup_content_parkinn_right_bottom_t1' style='display:block;'>No extra fees.</span><span class='widget_popup_content_parkinn_right_bottom_t2'>No hidden charges.</span></div><div style='clear:both;'></div></div><div style='clear:both;'></div><div id='widget_popup_content_parkinn_text_bottom'>In other sites:</div></div><div id='widget_popup_content_middle'><img src='https://www.123compare.me/v1/images/loading.GIF' class='widget_content_loading'/><div id='widget_popup_loading_text'></div></div><div id='widget_popup_content_bottom'><a href='' id='boton_reservar_widget'><div id='widget_popup_content_bottom_button'>Book Now</div></a></div><div id='widget_copyright' style='padding-top:5px;'> <a href='http://www.123compare.me' style='text-decoration: none; float:right;'><span style='color:black;font-size:10px;text-align:right;width:auto;position:relative;letter-spacing:1px;'>Powered by 123Compare.me&#169;</span></a></div></div></div></div>");
-        if(utag_data.visitor_language == 'en' || utag_data.visitor_language == 'en_UK'){
+        if(lang == 'en' || lang == 'en_UK'){
             jQuery('#widget_top_price').find('#price').html((price.toFixed(2)).replace(',','.'));
             jQuery('#widget_popup_content_parkinn_right_price').html((price.toFixed(2)).replace(',','.'));
         } else{
