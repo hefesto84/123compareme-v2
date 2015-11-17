@@ -374,10 +374,7 @@ var hotelswidget = new (function(window, document, jQuery){
     this.diffDate = function (fini,fout){
     	    	var date1 = new Date(fini.slice(6,10),fini.slice(3,5),fini.slice(0,2));
 				var date2 = new Date(fout.slice(6,10),fout.slice(3,5),fout.slice(0,2));
-				console.log(fini);
-				console.log(fout);
 				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-				console.log(Math.ceil(timeDiff / (1000 * 3600 * 24)));
 				return diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     }
 
