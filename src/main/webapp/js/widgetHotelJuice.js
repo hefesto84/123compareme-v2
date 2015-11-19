@@ -12,7 +12,7 @@ var hotelswidget = new (function(window, document, $){
             var guests = parseInt($('#form_pax').find(":selected").html());
             var start = hotelswidget.dateConverse($('#form_startdate').val());
             var stop = hotelswidget.dateConverse($('#form_enddate').val());
-
+            var user = 3;
             var price = hotelswidget.findPrice();
 
             var currency = 'EUR';
