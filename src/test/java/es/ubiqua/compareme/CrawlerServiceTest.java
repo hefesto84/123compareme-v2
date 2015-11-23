@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.text.DecimalFormat;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -44,9 +45,31 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
+		 Connection.Response response = Jsoup.connect("http://es.venere.com/change_currency.html?currency=GBP").method(Connection.Method.GET).execute();
+		 
+		 Document doc = Jsoup.connect("http://es.venere.com/hotel/details.html?FPQ=2&WOE=4&q-localised-check-out=26/11/2015&WOD=3&q-room-0-children=0&pa=1&tab=description&JHR=1&q-localised-check-in=25/11/2015&hotel-id=217253&q-room-0-adults=2&YGF=2&MGT=1&ZSX=0&SYE=3").cookies(response.cookies()).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
+		 
+		 Elements e = doc.select("form");
+		 Map<String,String> data = new HashMap<String,String>();
+		 for(int i = 0; i<e.size(); i++){
+			 if(e.get(i).hasAttr("id")){
+				 if(e.get(i).attr("id").equals("room-1-rateplan-1")){
+					 Elements fields = e.get(i).select("input");
+					 for(int j = 0; j<fields.size(); j++){
+						 data.put(fields.get(j).attr("name"), fields.get(j).attr("value"));
+					 }
+				 }
+			 }
+		 }
+		 Document request = Jsoup.connect("https://ssl-fr.hotels.com/bookingInitialise.do").timeout(5000).ignoreHttpErrors(true).followRedirects(true).data(data).post();
+		 Elements rq = request.select("strong[id=financial-details-total-price]");
+		 
+		 String p =rq.text();
+		 
+		 System.out.println(p);
 		 //Utils.changeCurrency2("100f", "EUR","USD");
-		System.out.println(CurrencyConverter.getInstance().convertCurrency(100f, "GBP"));
-		System.out.println(CurrencyConverter.getInstance().convertCurrency("100", "GBP"));
+		//System.out.println(CurrencyConverter.getInstance().convertCurrency(100f, "GBP"));
+		//System.out.println(CurrencyConverter.getInstance().convertCurrency("100", "GBP"));
 		// Utils.LoadCurrencies();
 		 /*
 		 String price1 = "€ 60.50";

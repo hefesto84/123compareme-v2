@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -44,10 +45,16 @@ public class HotelsService  extends Service implements ServiceInterface{
 	public Price trackPrice() {
 		String url = "";
 		
+		try{
+			
+		Connection.Response response = Jsoup.connect("http://es.hoteles.com/change_currency.html?currency="+getCurrency(hotelId)).method(Connection.Method.GET).execute();
+		
 		url = "http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 	
-		try{
-			Document doc = Jsoup.connect(url).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
+		
+			//Document doc = Jsoup.connect("").timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
+			
+			Document doc = Jsoup.connect(url).cookies(response.cookies()).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
 			 Elements e = doc.select("form");
 			 Map<String,String> data = new HashMap<String,String>();
 			 for(int i = 0; i<e.size(); i++){
@@ -66,7 +73,7 @@ public class HotelsService  extends Service implements ServiceInterface{
 			 String p =rq.text();
 			 price.setPurePrice(p);
 				price.setPrice(String.valueOf(Utils.change(p)));
-				price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
+				//price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 				mOta.setQueryOk(1);
 				
 		} catch (IOException e) {

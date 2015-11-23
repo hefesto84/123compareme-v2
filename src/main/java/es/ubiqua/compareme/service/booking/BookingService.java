@@ -48,7 +48,7 @@ public class BookingService extends Service implements ServiceInterface{
 		}
 		
 		try {
-			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency=EUR&group_adults="+price.getGuests()+";room1=A%2CA&";
+			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency="+getCurrency(hotelId)+"&group_adults="+price.getGuests()+";room1=A%2CA&";
 			Document d = Jsoup.connect(url).get();
 			System.out.println(url);
 			if (d.select("strong[data-price-without-addons]")!=null) {
@@ -58,7 +58,7 @@ public class BookingService extends Service implements ServiceInterface{
 					price.setPurePrice(p);
 					price.setPrice(String.valueOf(Utils.change(p)));
 		
-					price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
+					//price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 					
 					mOta.setQueryOk(1);
 				}catch(Exception e){
