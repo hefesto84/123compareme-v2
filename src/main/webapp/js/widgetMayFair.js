@@ -10,6 +10,7 @@ var hotelswidget = new (function(window, document, $){
             var hotel = 'The May Fair Hotel';
             var rooms = parameters.rooms;
             var guests = parameters.guests;
+            var guests = 2;
             var start = parameters.start;
             var stop = parameters.stop;
             var currency = 'GBP';
@@ -23,7 +24,9 @@ var hotelswidget = new (function(window, document, $){
             }
 
             var url_post = domain + '/api/prices?currency='+currency+'&base=' + price + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
-
+            
+            currency = this.conversionCodeToSymbol(currency);
+            
             console.log(url_post);
 
 
@@ -398,5 +401,19 @@ var hotelswidget = new (function(window, document, $){
             }, 20 * 1000);
         });
     }
+    
+    this.conversionCodeToSymbol = function(code){
+
+        // Array
+        var conversion = {
+            GBP:'£',
+            EUR:'€'
+        };
+
+        // Array con las traducciones por idioma
+        return conversion[code];
+    
+    }
+    
 
 })(window, document, $);
