@@ -42,6 +42,7 @@ public class PriceDAO extends BaseDAO {
 		SqlSession session = sql.openSession();
 		try{
 			price = session.selectOne("SqlMapPrice.getByHash",price);
+			System.out.println("DAO: SELECT ONE: "+price);
 			return price;
 		}catch(Exception e){
 			Logger.getLogger(this.getClass()).error(e.getMessage());

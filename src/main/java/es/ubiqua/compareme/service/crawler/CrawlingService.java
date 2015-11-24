@@ -54,8 +54,10 @@ public class CrawlingService {
 		
 		for(Ota ota : otas){
 			Price p = new Price();
-		
+			
 			p.setHash(query.toHash(hotel.getId(), ota.getId()));
+			System.out.println("HASH: "+query.toHash(hotel.getId(), ota.getId()));
+			
 			p = priceManager.getByHash(p);
 			if(p==null){
 				p = crawlPrice(ota.getId(),query);

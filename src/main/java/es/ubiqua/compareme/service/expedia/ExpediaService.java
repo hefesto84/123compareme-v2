@@ -119,6 +119,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 				/*
 				price.setValoration(Integer.valueOf(d.select("span.recommend-percentage").text().replace("%", "")));
 				*/
+				price.setValoration(0);
 			}else{
 				price.setValoration(0);
 			}

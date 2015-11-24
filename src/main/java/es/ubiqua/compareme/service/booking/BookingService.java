@@ -69,22 +69,28 @@ public class BookingService extends Service implements ServiceInterface{
 					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");
+					price.setPurePrice("0");
 					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 					Logger.getLogger(this.getClass()).error(e.getMessage());
 				}
 			}else{
 				price.setPrice("0");
+				price.setPurePrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
 			
+			price.setValoration(0);
+			/*
 			if (d.select("span.average")!=null) {
 				price.setValoration(Integer.valueOf(d.select("span.average").get(0).text().replace(".", "").replace(",", "")));
 			}else{
 				price.setValoration(0);
 			}
+			*/
 			
 		} catch (IOException e) {
 			price.setPrice("0");
+			price.setPurePrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 			Logger.getLogger(this.getClass()).error(e.getMessage());
 		}

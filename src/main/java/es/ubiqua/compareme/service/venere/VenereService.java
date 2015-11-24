@@ -74,13 +74,26 @@ public class VenereService extends Service implements ServiceInterface{
 			 Elements rq = request.select("strong[id=financial-details-total-price]");
 			 
 			 String p =rq.text();
-			 price.setPurePrice(p);
-				price.setPrice(String.valueOf(Utils.change(p)));
+			 
+			 // Si el preu no es null i tampoc està buit, busca preu
+			 if(p!=null && p.length()>2){
+				 price.setPurePrice(p);
+				 price.setPrice(String.valueOf(Utils.change(p)));
+				//price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
+				
+			 }else{
+				 price.setPurePrice("0");
+				 price.setPrice("0");
+			 }
+			 
+			 //price.setPurePrice(p);
+			//	price.setPrice(String.valueOf(Utils.change(p)));
 				//price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 				mOta.setQueryOk(1);
 				
 		} catch (IOException e) {
 			price.setPrice("0");
+			price.setPurePrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 	
