@@ -44,6 +44,14 @@
 									<option value="nl">Dutch</option>
 								</select>
 							</div>
+							<div class="form-group">
+								<label for="currency">Currency:</label><br /> 
+				          		<select class="form-control" id="currency" name="currency">
+									<s:iterator value="currencies">
+									<option value="<s:property/>"><s:property/></option>
+									</s:iterator>
+								</select>
+							</div>
 						</div>
 					</div>
 					<div id="center_params">
@@ -75,7 +83,6 @@
 					</div>
 
 					<button type="submit" class="btn btn-success">Check Price</button>
-					<button type="submit" class="btn btn-success">Download Results</button>
 				</form>
 			</div>
 			<div id="results">
@@ -107,15 +114,8 @@
 								<td><s:property value="purePrice"/></td>	
 								<td><s:property value="basePrice" /></td>
 								<td>
-									<a href="
-											<s:url action="delete">
-												<s:param name="id">
-													<s:property value="id" />
-												</s:param>
-											</s:url>
-											">
-											Delete from Cache
-									</a>
+									<a href="<s:property value="query" />">View Query</a>
+											
 								</td>
 							</tr>
 						</s:iterator>

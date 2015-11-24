@@ -80,21 +80,25 @@ public class CrawlingService {
 	
 		case 1:
 			ExpediaService es = new ExpediaService();
-			p = es.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
+			p = es.setServiceParameters(query).trackPrice();
+			//p = es.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 2:
 			BookingService be = new BookingService();
-			p = be.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
+			p = be.setServiceParameters(query).trackPrice();
+			//p = be.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		
 		case 3:
 			HotelsService he = new HotelsService();
-			p = he.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
+			p = he.setServiceParameters(query).trackPrice();
+			//p = he.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		
 		case 4:
 			VenereService ve = new VenereService();
-			p = ve.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
+			p = ve.setServiceParameters(query).trackPrice();
+			//p = ve.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		
 		}

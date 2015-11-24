@@ -74,6 +74,11 @@
            <param name="encoding">UTF-8</param>
            <param name="contentType">application/json</param>
         </action>
+        <action name="logBooking" class="es.ubiqua.compareme.backend.actions.info.LogBookingBackendAction">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
     </package>
     
     <package name="login" namespace="/login" extends="struts-default">

@@ -10,7 +10,8 @@
 		<typeAlias alias="HotelOta" type="es.ubiqua.compareme.model.HotelOta"/>
 		<typeAlias alias="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel"/>
 		<typeAlias alias="Price" type="es.ubiqua.compareme.model.Price"/>
-		
+		<typeAlias alias="Domain" type="es.ubiqua.compareme.model.Domain"/>
+		<typeAlias alias="Booking" type="es.ubiqua.compareme.model.Booking"/>
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
@@ -34,6 +35,8 @@
 		<mapper resource="mapping/hotelota.xml"/>
 		<mapper resource="mapping/price.xml"/>
 		<mapper resource="mapping/log.xml"/>
+		<mapper resource="mapping/domain.xml"/>
+		<mapper resource="mapping/booking.xml"/>
 	</mappers>
 	
 </configuration>

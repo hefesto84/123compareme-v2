@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.text.DecimalFormat;
 
 import org.jsoup.Connection;
@@ -45,6 +46,9 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
+		 System.out.println(Utils.formatDate("Y/M/D","23/10/2016"));
+		
+		 /*
 		 Connection.Response response = Jsoup.connect("http://es.venere.com/change_currency.html?currency=GBP").method(Connection.Method.GET).execute();
 		 
 		 Document doc = Jsoup.connect("http://es.venere.com/hotel/details.html?FPQ=2&WOE=4&q-localised-check-out=26/11/2015&WOD=3&q-room-0-children=0&pa=1&tab=description&JHR=1&q-localised-check-in=25/11/2015&hotel-id=217253&q-room-0-adults=2&YGF=2&MGT=1&ZSX=0&SYE=3").cookies(response.cookies()).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
@@ -67,6 +71,7 @@ public class CrawlerServiceTest  extends TestCase{
 		 String p =rq.text();
 		 
 		 System.out.println(p);
+		 */
 		 //Utils.changeCurrency2("100f", "EUR","USD");
 		//System.out.println(CurrencyConverter.getInstance().convertCurrency(100f, "GBP"));
 		//System.out.println(CurrencyConverter.getInstance().convertCurrency("100", "GBP"));

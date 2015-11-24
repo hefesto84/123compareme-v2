@@ -10,9 +10,12 @@ import org.jsoup.select.Elements;
 import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
+import es.ubiqua.compareme.model.Domain;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.Service;
+import es.ubiqua.compareme.service.hotels.HotelsService;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
 import es.ubiqua.compareme.utils.DBLogger;
 import es.ubiqua.compareme.utils.Utils;
@@ -21,6 +24,24 @@ public class ExpediaService extends Service implements ServiceInterface{
 
 	private static String OTA = "Expedia";
 	private Ota mOta;
+	private String mDomain;
+	private String mDateIn;
+	private String mDateOut;
+	
+	public ExpediaService setServiceParameters(Query query){
+		currencyResponse = query.getCurrency();
+		Domain d = new Domain();
+		d.setCurrency(query.getCurrency());
+		d = domainManager.get(d);
+		if(d.getDomain()==null){
+			d.setDomain("www.expedia.es");
+		}
+		mDomain = d.getDomain();
+		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
+		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
+		
+		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
+	}
 	
 	public ExpediaService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut){
 		price = new Price();
@@ -47,16 +68,14 @@ public class ExpediaService extends Service implements ServiceInterface{
 		}
 		
 		try {
-			url = "https://www.expedia.es/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
+		
+			url = "https://"+mDomain+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
 			Document d = Jsoup.connect(url).get();
 			System.out.println("URL ++++++++++++++++++++++++++ "+url);
 			
 			Elements e1 = d.select("span.room-price.one-night-room-price");
 			Elements e2 = d.select("a.price.link-to-rooms");
-			
-			System.out.println(e1.size());
-			System.out.println(e2.size());
-			
+		
 			boolean priceDetected = false;
 			if(e1.size()!=0){
 				priceDetected = true;
@@ -64,7 +83,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 					String p = d.select("span.room-price.one-night-room-price").get(0).text();
 					price.setPurePrice(p);
 					price.setPrice(String.valueOf(Utils.change(p)));
-					price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
+					price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), currencyResponse));
 					mOta.setQueryOk(1);
 					
 				}catch(Exception e){
@@ -79,7 +98,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 					String p = d.select("a.price.link-to-rooms").get(0).text();
 					price.setPurePrice(p);
 					price.setPrice(String.valueOf(Utils.change(p)));
-					price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
+					//price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
 					mOta.setQueryOk(1);
 					
 				}catch(Exception e){
@@ -98,54 +117,13 @@ public class ExpediaService extends Service implements ServiceInterface{
 			}else{
 				price.setValoration(0);
 			}
-			
-			/*
-			if(d.select("span.room-price.one-night-room-price")!=null){
-				try{
-
-					String p = d.select("span.room-price.one-night-room-price").get(0).text();
-					price.setPurePrice(p);
-					price.setPrice(p);
-					p = price.getPrice();
-					p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
-					price.setPrice(p);
-					mOta.setQueryOk(1);
-					
-				}catch(Exception e){
-					price.setPrice("0");
-					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
-				}
-			}else if(d.select("a.price.link-to-rooms")!=null){
-				try{
-
-					String p = d.select("a.price.link-to-rooms").get(0).text();
-					price.setPurePrice(p);
-					price.setPrice(p);
-					p = price.getPrice();
-					p = Utils.changeCurrency(p,"EUR",getCurrency(hotelId));
-					price.setPrice(p);
-					mOta.setQueryOk(1);
-					
-				}catch(Exception e){
-					price.setPrice("0");
-					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
-				}
-			}
-			else{
-				price.setPrice("0");
-				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
-			}
 		
-			if (d.select("span.recommend-percentage")!=null) {
-				price.setValoration(Integer.valueOf(d.select("span.recommend-percentage").text().replace("%", "")));
-			}else{
-				price.setValoration(0);
-			}
-				*/
 		} catch (IOException e) {
 			price.setPrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
+		
+		price.setQuery(url);
 		price.setHash(price.toHash());
 		otaManager.update(mOta);
 		return price;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapDomain">
+    
+    <resultMap id="Domain" type="es.ubiqua.compareme.model.Domain">
+        <result property="id" column="id"/>
+        <result property="currency" column="currency"/>
+        <result property="domain" column="domain"/>
+        <result property="format" column="format"/>
+    </resultMap>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.Domain" resultMap="SqlMapDomain.Domain">
+        SELECT * FROM RepositoryDomain WHERE currency LIKE #{currency} OR id = #{id};
+    </select>
+   
+</mapper>

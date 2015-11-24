@@ -31,6 +31,8 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	private String dateIn;
 	private String dateOut;
 	private String lang;
+	private String currency;
+	private List<String> currencies;
 	
 	private String query;
 	private String ip;
@@ -45,13 +47,17 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		ip = Utils.getIP();
 		otas = otaManager.list();
 		hotels = hotelManager.list(getLoggedCustomer());
+		setCurrencies(Utils.LoadCurrencies());
+		
 		try{
-			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100");
-			CrawlingService service = new CrawlingService();
 			Hotel h = new Hotel();
 			h.setName(new String(hotelName.getBytes("iso-8859-1"),"UTF-8"));
 			h = hotelManager.get(h);
 			idHotel = h.getId();
+			
+			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100",currency);
+			CrawlingService service = new CrawlingService();
+			
 			setDatos(service.weaving(CrawlingService.MONOTHREAD_MODE, q));
 			this.query = new Gson().toJson(datos);
 		}catch(Exception e){
@@ -170,6 +176,22 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 
 	public void setIdHotel(int idHotel) {
 		this.idHotel = idHotel;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public List<String> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<String> currencies) {
+		this.currencies = currencies;
 	}
 
 }

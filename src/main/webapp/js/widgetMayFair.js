@@ -22,7 +22,7 @@ var hotelswidget = new (function(window, document, $){
                 var price = hotelswidget.findPrice();
             }
 
-            var url_post = domain + '/api/prices?base=' + price + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
+            var url_post = domain + '/api/prices?currency=GBP&base=' + price + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
             console.log(url_post);
 

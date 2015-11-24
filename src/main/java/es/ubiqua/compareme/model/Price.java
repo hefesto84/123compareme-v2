@@ -24,6 +24,7 @@ public class Price implements Serializable {
 	private String basePrice = "0";
 	private int valoration;
 	private String hash = "";
+	private String query;
 	
 	public String getLanguage() {
 		return language;
@@ -152,6 +153,14 @@ public class Price implements Serializable {
 	public String toDBLogger(){
 		String s = this.dateIn+"|"+this.dateOut+"|"+this.rooms+"|"+this.guests+"|"+this.hotelId+"|"+this.otaId+"|"+this.language;
 		return s;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 }

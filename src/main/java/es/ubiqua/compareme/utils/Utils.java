@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -113,6 +114,41 @@ public class Utils {
 			currencies.add(c.name());
 		}
 		return currencies;
+	}
+	
+	public static String formatDate(String format, String date){
+		String d = "";
+		
+		 StringTokenizer tokens = new StringTokenizer(date,"/");
+		 String[] array = new String[3];
+		 int i = 0;
+		 while(tokens.hasMoreTokens()){
+			array[i] = tokens.nextToken();
+			 i++;
+		 }
+		 
+		 tokens = new StringTokenizer(format, "/");
+		 String[] farray = new String[3];
+		 i = 0;
+		 while(tokens.hasMoreTokens()){
+			 farray[i] = tokens.nextToken();
+			 i++;
+		 }
+		 
+		 if(farray[0].equals("Y") && farray[1].equals("M") && farray[2].equals("D")   ){
+			d = array[2]+"/"+array[1]+"/"+array[0];
+		 }
+		 
+		 if(farray[0].equals("D") && farray[1].equals("M") && farray[2].equals("Y")   ){
+			 d = array[0]+"/"+array[1]+"/"+array[2];
+		 }
+ 
+		 if(farray[0].equals("M") && farray[1].equals("D") && farray[2].equals("Y")   ){
+			 d = array[1]+"/"+array[0]+"/"+array[2];
+		 }
+ 
+		 
+		return d;
 	}
 	
 	public static String changeCurrency2(String price, String currencyFrom, String currencyTo){

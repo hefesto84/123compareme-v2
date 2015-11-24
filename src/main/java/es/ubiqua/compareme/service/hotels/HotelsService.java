@@ -15,6 +15,7 @@ import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.Service;
 import es.ubiqua.compareme.service.booking.BookingService;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
@@ -25,6 +26,11 @@ public class HotelsService  extends Service implements ServiceInterface{
 
 	private static String OTA = "Hotels";
 	private Ota mOta;
+
+	public HotelsService setServiceParameters(Query query){
+		currencyResponse = query.getCurrency();
+		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
+	}
 	
 	public HotelsService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
@@ -47,7 +53,7 @@ public class HotelsService  extends Service implements ServiceInterface{
 		
 		try{
 			
-		Connection.Response response = Jsoup.connect("http://es.hoteles.com/change_currency.html?currency="+getCurrency(hotelId)).method(Connection.Method.GET).execute();
+		Connection.Response response = Jsoup.connect("http://es.hoteles.com/change_currency.html?currency="+currencyResponse).method(Connection.Method.GET).execute();
 		
 		url = "http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 	
@@ -81,6 +87,7 @@ public class HotelsService  extends Service implements ServiceInterface{
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 	
+		price.setQuery(url);
 		price.setHash(price.toHash());
 		otaManager.update(mOta);
 		return price;

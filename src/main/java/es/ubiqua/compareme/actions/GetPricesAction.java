@@ -3,8 +3,6 @@ package es.ubiqua.compareme.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.struts2.convention.annotation.Result;
-
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -33,10 +31,11 @@ public class GetPricesAction extends ActionSupport {
 	private String base;
 	private int rooms;
 	private int guests;
+	private String currency;
 	
     public String execute() {
     
-        Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base);
+        Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base,currency);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         //Utils.checkCoherence(code,datos);
@@ -86,6 +85,16 @@ public class GetPricesAction extends ActionSupport {
 
 	public void setBase(String base) {
 		this.base = base;
+	}
+
+
+	public String getCurrency() {
+		return currency;
+	}
+
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 }

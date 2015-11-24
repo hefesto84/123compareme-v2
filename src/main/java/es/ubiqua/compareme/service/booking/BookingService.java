@@ -12,6 +12,7 @@ import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.Service;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
 import es.ubiqua.compareme.utils.DBLogger;
@@ -21,6 +22,11 @@ public class BookingService extends Service implements ServiceInterface{
 
 	private static String OTA = "Booking";
 	private Ota mOta;
+	
+	public BookingService setServiceParameters(Query query){
+		currencyResponse = query.getCurrency();
+		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
+	}
 	
 	public BookingService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
@@ -48,7 +54,7 @@ public class BookingService extends Service implements ServiceInterface{
 		}
 		
 		try {
-			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency="+getCurrency(hotelId)+"&group_adults="+price.getGuests()+";room1=A%2CA&";
+			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency="+currencyResponse+"&group_adults="+price.getGuests()+";room1=A%2CA&";
 			Document d = Jsoup.connect(url).get();
 			System.out.println(url);
 			if (d.select("strong[data-price-without-addons]")!=null) {
@@ -82,7 +88,7 @@ public class BookingService extends Service implements ServiceInterface{
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 			Logger.getLogger(this.getClass()).error(e.getMessage());
 		}
-		
+		price.setQuery(url);
 		price.setHash(price.toHash());
 		otaManager.update(mOta);
 		return price;

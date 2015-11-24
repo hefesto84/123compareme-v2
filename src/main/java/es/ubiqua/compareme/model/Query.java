@@ -12,8 +12,9 @@ public class Query {
 	private String dateIn;
 	private String dateOut;
 	private String base;
+	private String currency;
 	
-	public Query(String customerId, String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base){
+	public Query(String customerId, String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base, String currency){
 		if(customerId==null){
 			this.customerId = "10000";
 		}else{
@@ -26,6 +27,11 @@ public class Query {
 		this.dateIn = dateIn;
 		this.dateOut = dateOut;
 		this.base = base;
+		if(currency==null){
+			this.currency = "EUR";
+		}else{
+			this.currency = currency;
+		}
 	}
 
 	public String getLang() {
@@ -82,6 +88,14 @@ public class Query {
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	public String getBase() {
