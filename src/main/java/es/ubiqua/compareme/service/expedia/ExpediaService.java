@@ -108,18 +108,24 @@ public class ExpediaService extends Service implements ServiceInterface{
 			}
 			
 			if(!priceDetected){
+				Elements soldout = d.select("span.badge.badge-urgent.badge-notification.soldOutMsg.soldOutGeneral");
+				System.out.println("SOLDOUT: "+soldout.html());
 				price.setPrice("0");
+				price.setPurePrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
 			
 			if (d.select("span.recommend-percentage")!=null) {
+				/*
 				price.setValoration(Integer.valueOf(d.select("span.recommend-percentage").text().replace("%", "")));
+				*/
 			}else{
 				price.setValoration(0);
 			}
 		
 		} catch (IOException e) {
 			price.setPrice("0");
+			price.setPurePrice("0");
 			DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
 		}
 		
