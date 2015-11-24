@@ -12,7 +12,7 @@ var hotelswidget = new (function(window, document, $){
             var guests = parameters.guests;
             var start = parameters.start;
             var stop = parameters.stop;
-            var currency = '£';
+            var currency = 'GBP';
             var lang = 'en';
             var device = 'isDesktop';
             if($('html').hasClass('mobile')){
@@ -22,7 +22,7 @@ var hotelswidget = new (function(window, document, $){
                 var price = hotelswidget.findPrice();
             }
 
-            var url_post = domain + '/api/prices?currency=GBP&base=' + price + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
+            var url_post = domain + '/api/prices?currency='+currency+'&base=' + price + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
             console.log(url_post);
 
