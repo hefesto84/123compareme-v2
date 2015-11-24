@@ -34,7 +34,7 @@
     </select>
     
     <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
-    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash = #{hash} LIMIT 1;
+    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash = #{hash} AND rp.otaId = ro.id;
     </select>
     
      
