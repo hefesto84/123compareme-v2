@@ -8,7 +8,12 @@
     <constant name="struts.devMode" value="true" />
  	<constant name="struts.configuration.xml.reload" value="true" />
  	<constant name="struts.mapper.action.prefix.enabled" value="true" />
-
+	
+	<package name="prova" namespace="/prova" extends="struts-default">
+        <action name="widgetParkinn" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="prova">
+            <result name="success">/WEB-INF/js/widgetParkinn.jsp</result>
+        </action>
+    </package> 
 	
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />
