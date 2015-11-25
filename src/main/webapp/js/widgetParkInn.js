@@ -262,13 +262,15 @@ var hotelswidget = new (function(window, document, jQuery){
     this.functionReservar = function(pHotelCode, pRateUni, pRedemptionRate, pClearEcertCode){
         _paq.push(['trackEvent', 'Widget', 'Click Book', 'Widget Reservar']);
         
-        if ($('staticPopup'))
+        if (jQuery('staticPopup'))
         {
         hideStaticDetailDivWithOverlay('staticPopup');
         } 
         var lForm = $('hiddenRateReviewForm');
         lForm['rateSelectForm.hotelCode'].value = pHotelCode;
         lForm['rateSelectForm.rateUni'].value = pRateUni;
+        jQuery(lForm).prepend('<input type="hidden" name="facilitatorID" value="REZIDORRATETABLE">');
+        jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
         
         
         if (pClearEcertCode)
