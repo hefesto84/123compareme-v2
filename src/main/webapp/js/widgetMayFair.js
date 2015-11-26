@@ -106,7 +106,7 @@ var hotelswidget = new (function(window, document, $){
 
                 var left = document.createElement("div");
                 left.setAttribute('id', 'element_left');
-                left.innerHTML = '<span class="nombre_ota">'+data.datos[i].site.replace('.png','')+'</span>';
+                left.innerHTML = '<span class="nombre_ota">'+data.datos[i].site.replace('.png','')+'</span><span class="extension_ota">.com</span>';
                 element.appendChild(left);
 
                 var right = document.createElement("div");
@@ -157,7 +157,7 @@ var hotelswidget = new (function(window, document, $){
 
                 var left = document.createElement("div");
                 left.setAttribute('id', 'element_left');
-                left.innerHTML = '<span class="nombre_ota">'+data.datos[i].site.replace('.png','')+'</span>';
+                left.innerHTML = '<span class="nombre_ota">'+data.datos[i].site.replace('.png','')+'</span><span class="extension_ota">.com</span>';
                 element.appendChild(left);
 
                 var right = document.createElement("div");
@@ -264,7 +264,8 @@ var hotelswidget = new (function(window, document, $){
             "#widget123_middle{margin-top: 0px;background-color: #212121;}" +
             "#element{padding: 10px; padding-left: 0px; padding-right: 0px; border-bottom: 1px solid #212121;color: #D7CBBC;}" +
             "#element:last-child{border-bottom: 0px}" +
-            "#element_left{width: 45%; float: left; text-align: right; font-size: 12px; text-transform: capitalize; line-height: 22px;}" +
+            "#element_left{width: 50%; float: left; text-align: right; font-size: 12px; text-transform: capitalize; line-height: 22px;}" +
+            ".extension_ota{text-transform: lowercase;}" +
             "#element_right{width: 50%; float: right; text-align: left;}" +
             "#element #element_right .priceWidgetElement {margin-left: 20px;line-height: 20px;color: #D7CBBC;font-size: 15px;}" +
             "#element #element_right .priceWidgetElement .priceWidgeElementCurrency{font-size: 12px;}" +
@@ -307,6 +308,7 @@ var hotelswidget = new (function(window, document, $){
             "#element{padding: 10px;border-bottom: 1px solid #EBEAEC;}" +
             "#element:last-child{border-bottom: 0px}" +
             "#element_left{width: 45%; float: left; text-align: right; font-size: 16px; text-transform: capitalize; line-height: 22px; color: #D7CBBC;}" +
+            ".extension_ota{text-transform: lowercase;}" +
             "#element_right{width: 50%; float: right; text-align: left; color: #D7CBBC;}" +
             "#element #element_right .priceWidgetElement {margin-left: 20px;line-height: 20px;font-size: 15px;}" +
             "#element #element_right .priceWidgetElement .priceWidgeElementCurrency{font-size: 12px;}" +
