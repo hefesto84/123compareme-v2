@@ -30,7 +30,7 @@ public class ManageHotelsBackendAction extends BaseBackendAction{
 		currencies = Utils.LoadCurrencies();
 		
 		try{
-			customers = customerManager.list();
+			customers = customerManager.list(getLoggedCustomer());
 			setHotels(hotelManager.list(getLoggedCustomer()));
 		}catch(Exception e){
 			System.out.println("error getting hotels...");
