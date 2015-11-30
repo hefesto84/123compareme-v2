@@ -1,6 +1,7 @@
 package es.ubiqua.compareme.model;
 
 public class WidgetData {
+	private String domain;
 	private int user;
 	private String hotel;
 	private int rooms;
@@ -78,6 +79,12 @@ public class WidgetData {
 	}
 	public void setDiffDay(int diffDay) {
 		this.diffDay = diffDay;
+	}
+	public String getDomain() {
+		return domain;
+	}
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 	
 	

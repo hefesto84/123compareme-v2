@@ -29,9 +29,11 @@ public class JavascriptsAction extends ActionSupport {
 	
 	public String text;
 	public String datos;
+	private WidgetData data;
 	private Gson gson = new Gson();
 	private String CSS;
 	private String HTML;
+	
 	
 	private Hotel hotel;
 	
@@ -53,7 +55,7 @@ public class JavascriptsAction extends ActionSupport {
 	
 	public String widget(){
 		
-		WidgetData data = gson.fromJson(datos, WidgetData.class);
+		data = gson.fromJson(datos, WidgetData.class);
 		
 		hotel = new Hotel();
 		hotel.setName(data.getHotel());
@@ -125,6 +127,16 @@ public class JavascriptsAction extends ActionSupport {
 	
 		return html_encoded;
 		
+	}
+
+
+	public WidgetData getData() {
+		return data;
+	}
+
+
+	public void setData(WidgetData data) {
+		this.data = data;
 	}
 
 }
