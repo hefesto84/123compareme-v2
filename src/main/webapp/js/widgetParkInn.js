@@ -12,7 +12,8 @@ var hotelswidget = new (function(window, document, jQuery){
         } else {
             var conversion = 1;
             var user = 1;
-            var hotel = this.hotelName(jQuery('.innername').find("a").text());
+            //var hotel = this.hotelName(jQuery('.innername').find("a").text());
+            var hotel = jQuery('.innername').find("a").text();
             var rooms = jQuery('[name="rateSearchForm.numberRooms"]').val();
             //var guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
             var guests = 2;
@@ -132,7 +133,7 @@ var hotelswidget = new (function(window, document, jQuery){
         data = datos;
         if (data.datos.length == 0){
             _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
-            jQuery('#widget_popup_content_middle').append("<div id='no_otas'>No rooms found for these dates in other sites</div>");
+            jQuery('#widget_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
             return 0;
         }
         var content_middle = document.getElementById("widget_popup_content_middle");
@@ -166,7 +167,7 @@ var hotelswidget = new (function(window, document, jQuery){
             }
         }
         if (count === 0){
-            jQuery('#widget_popup_content_middle').append("<div id='no_otas'>No rooms found for these dates in other sites</div>");
+            jQuery('#widget_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
             _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
         } else {
             _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
