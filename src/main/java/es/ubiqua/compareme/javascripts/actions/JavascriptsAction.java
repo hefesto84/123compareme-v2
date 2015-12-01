@@ -1,41 +1,30 @@
 package es.ubiqua.compareme.javascripts.actions;
 
-import java.net.URLEncoder;
-import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import org.eclipse.jetty.util.URIUtil;
-import org.json.JSONObject;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 
-import es.ubiqua.compareme.exceptions.CustomerException;
-import es.ubiqua.compareme.exceptions.ExpediaServiceException;
 import es.ubiqua.compareme.manager.HotelManager;
-import es.ubiqua.compareme.manager.PriceManager;
-import es.ubiqua.compareme.manager.TestManager;
+import es.ubiqua.compareme.manager.WidgetTranslationsManager;
 import es.ubiqua.compareme.model.Hotel;
-import es.ubiqua.compareme.model.Price;
-import es.ubiqua.compareme.model.Query;
-import es.ubiqua.compareme.model.Test;
 import es.ubiqua.compareme.model.WidgetData;
-import es.ubiqua.compareme.service.crawler.CrawlingService;
-import es.ubiqua.compareme.service.expedia.ExpediaService;
-import es.ubiqua.compareme.utils.Utils;
+import es.ubiqua.compareme.model.WidgetTranslations;
 
 public class JavascriptsAction extends ActionSupport {
 	
-	public String text;
 	public String datos;
 	private WidgetData data;
 	private Gson gson = new Gson();
 	private String CSS;
 	private String HTML;
-	
-	
 	private Hotel hotel;
+	private List<WidgetTranslations> traducciones;
+	private String translation;
 	
     public String execute() {
     
@@ -43,11 +32,7 @@ public class JavascriptsAction extends ActionSupport {
     }
 
     
-	public String prova(){
-		
-		System.out.println("LEO MESSI");
-		
-		text = "LEO MESSI BALON DE ORO";
+	public String widgetParkinn(){
 		
 		return SUCCESS;
 		
@@ -63,22 +48,19 @@ public class JavascriptsAction extends ActionSupport {
 		
 		HTML = hotel.getModel();
 		CSS = hotel.getCss();
+		traducciones = new WidgetTranslationsManager().listByCustomerAndLang(hotel.getCustomerId(),data.getLang());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		for (WidgetTranslations trans : traducciones){
+			map.put(trans.getLabel(), trans.getTranslation());
+		}
 		
 		HTML = this.replaceBreakLines(HTML);
 		CSS = this.replaceBreakLines(CSS);
+		translation = new Gson().toJson(map);
 		
 		return SUCCESS;
 		
-	}
-
-
-	public String getText() {
-		return text;
-	}
-
-
-	public void setText(String text) {
-		this.text = text;
 	}
 
 
@@ -137,6 +119,16 @@ public class JavascriptsAction extends ActionSupport {
 
 	public void setData(WidgetData data) {
 		this.data = data;
+	}
+
+
+	public String getTranslation() {
+		return translation;
+	}
+
+
+	public void setTranslation(String translation) {
+		this.translation = translation;
 	}
 
 }
