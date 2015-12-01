@@ -10,6 +10,7 @@ public class WidgetData {
 	private String stop;
 	private String currency;
 	private String lang;
+	private String defaultLang;
 	private Float price;
 	private String device;
 	private int diffDay;
@@ -86,6 +87,11 @@ public class WidgetData {
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
-	
+	public String getDefaultLang() {
+		return defaultLang;
+	}
+	public void setDefaultLang(String defaultLang) {
+		this.defaultLang = defaultLang;
+	}
 	
 }

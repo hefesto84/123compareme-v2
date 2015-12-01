@@ -19,6 +19,7 @@ var hotelswidget = new (function(window, document, jQuery){
 		    datos.stop = hotelswidget.dateConverse(jQuery('[name="rateSearchForm.checkoutDate"]').val());
 		    datos.currency = jQuery('.ratecurrency').first().text().trim();
 		    datos.lang = jQuery('html').attr('lang');
+		    datos.defaultLang = "en";
 		    datos.price = hotelswidget.priceConverse(jQuery('.rateamount').first().text().trim(), datos.lang);
 		    datos.device = 'isDesktop';
 		    datos.diffDay = hotelswidget.diffDate(datos.start,datos.stop);

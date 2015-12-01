@@ -1,7 +1,5 @@
 package es.ubiqua.compareme.javascripts.actions;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +47,10 @@ public class JavascriptsAction extends ActionSupport {
 		HTML = hotel.getModel();
 		CSS = hotel.getCss();
 		traducciones = new WidgetTranslationsManager().listByCustomerAndLang(hotel.getCustomerId(),data.getLang());
+		
+		if(traducciones.size() == 0){
+			traducciones = new WidgetTranslationsManager().listByCustomerAndLang(hotel.getCustomerId(),data.getDefaultLang());
+		}
 		
 		Map<String, String> map = new HashMap<String, String>();
 		for (WidgetTranslations trans : traducciones){
