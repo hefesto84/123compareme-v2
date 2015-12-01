@@ -178,7 +178,7 @@ var hotelswidget = new (function(window, document, $){
             }
         }
         if (count === 0){
-            $('#widget123_popup_content_middle').append("<div id='no_otas'>No rooms found for these dates in other sites</div>");
+            $('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
             _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
         } else {
             _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
