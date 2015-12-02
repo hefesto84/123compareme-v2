@@ -13,10 +13,8 @@ var hotelswidget = new (function(window, document, jQuery){
             var conversion = 1;
             var user = 1;
             var hotel = this.hotelName(jQuery('.innername').find("a").text());
-            //var hotel = jQuery('.innername').find("a").text();
             var rooms = jQuery('[name="rateSearchForm.numberRooms"]').val();
-            //var guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
-            var guests = 2;
+            var guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
             var start = this.dateConverse(jQuery('[name="rateSearchForm.checkinDate"]').val());
             var stop = this.dateConverse(jQuery('[name="rateSearchForm.checkoutDate"]').val());
             var currency = jQuery('.ratecurrency').first().text().trim();
@@ -60,7 +58,10 @@ var hotelswidget = new (function(window, document, jQuery){
                 } else {
                     hotelswidget.setWidget(datos,price,conversion, currency, diffDays);
                 }
-            }//,
+            },
+        	error: function (respuesta){
+        		hotelswidget.setErrorDataProblem();
+        	}//,
             //async: false
         });
     }
@@ -131,7 +132,12 @@ var hotelswidget = new (function(window, document, jQuery){
         jQuery('.widget_content_loading').hide();
         jQuery('#widget_popup_loading_text').hide();
         data = datos;
-        if (data.datos.length == 0){
+        if(data.currency === 'XXX'){
+        	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
+            jQuery('#widget_popup_content_middle').append("<div id='no_otas'>Comparison not available in this currency</div>");
+            return 0;
+        }
+        if ((data.datos === null) || (data.datos.length === 0)){
             _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
             jQuery('#widget_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
             return 0;
@@ -176,7 +182,12 @@ var hotelswidget = new (function(window, document, jQuery){
     }
 
     this.setWidgetMobile = function(datos,price,conversion, currency){
-
+    }
+    
+    this.setErrorDataProblem = function(){
+        jQuery('.widget_content_loading').hide();
+        jQuery('#widget_popup_loading_text').hide();
+        jQuery('#widget_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
     }
 
     this.setJavaScript = function(){
