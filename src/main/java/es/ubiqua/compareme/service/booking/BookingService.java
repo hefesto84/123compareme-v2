@@ -30,7 +30,7 @@ public class BookingService extends Service implements ServiceInterface{
 		mOta = otaManager.get(new Ota(OTA));
 		currencyResponse = query.getCurrency();
 		
-		/*
+		
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());
 		d.setIdOta(mOta.getId());
@@ -39,14 +39,13 @@ public class BookingService extends Service implements ServiceInterface{
 		
 		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
 		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
-		*/
 		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}
 	
 	public BookingService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
-		//mOta = otaManager.get(new Ota(OTA));
+		mOta = otaManager.get(new Ota(OTA));
 		mOta.setQueryOk(0);
 		price.setOtaId(mOta.getId());
 		price.setLanguage(language);

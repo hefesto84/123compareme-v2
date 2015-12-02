@@ -311,6 +311,7 @@ public class Utils {
 		DomainManager dm = new DomainManager();
 		Domain d = new Domain();
 		d.setCurrency(currency);
+		d.setIdOta(1);
 	   try {
 		   d = dm.get(d);
 		   if(d==null){
