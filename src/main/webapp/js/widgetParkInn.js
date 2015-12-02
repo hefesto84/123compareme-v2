@@ -12,8 +12,8 @@ var hotelswidget = new (function(window, document, jQuery){
         } else {
             var conversion = 1;
             var user = 1;
-            //var hotel = this.hotelName(jQuery('.innername').find("a").text());
-            var hotel = jQuery('.innername').find("a").text();
+            var hotel = this.hotelName(jQuery('.innername').find("a").text());
+            //var hotel = jQuery('.innername').find("a").text();
             var rooms = jQuery('[name="rateSearchForm.numberRooms"]').val();
             //var guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
             var guests = 2;
@@ -220,14 +220,9 @@ var hotelswidget = new (function(window, document, jQuery){
             .replace(/[^\w-]+/g,'')
             ;
     }
-
+    
     this.hotelName = function(name){
-        var n = name.indexOf(',');
-        if (n > 0){
-            hotelName = name.slice(0,n);
-        } else {
-            hotelName = name;
-        }
+    	hotelName = name.replace('&','');
         return hotelName;
     }
 
