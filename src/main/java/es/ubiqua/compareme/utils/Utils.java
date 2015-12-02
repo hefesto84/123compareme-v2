@@ -9,6 +9,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,10 @@ import com.tunyk.currencyconverter.api.CurrencyConverter;
 import com.tunyk.currencyconverter.api.CurrencyConverterException;
 import com.tunyk.currencyconverter.api.CurrencyNotSupportedException;
 
+import es.ubiqua.compareme.exceptions.CurrencyException;
+import es.ubiqua.compareme.manager.CurrencyManager;
+import es.ubiqua.compareme.manager.DomainManager;
+import es.ubiqua.compareme.model.Domain;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 
@@ -300,5 +305,43 @@ public class Utils {
 		
 		//result = new Gson().toJson(data);
 		return data;
+	}
+	
+	public static boolean isCurrencyAvailable(String currency){
+		DomainManager dm = new DomainManager();
+		Domain d = new Domain();
+		d.setCurrency(currency);
+	   try {
+		   d = dm.get(d);
+		   if(d==null){
+			   return false;
+		   }
+		} catch (Exception e) {
+			return false;
+		}
+	   return true;
+	}
+	
+	// TODO
+	public static BookingPair getBookingBestPrice(Elements elements){
+
+		BookingPair bp = new BookingPair();
+		
+		float[] values = new float[elements.size()];
+		
+		for(int i = 0; i<elements.size(); i++){
+			values[i] = Utils.change(elements.get(i).html());
+		}
+		Arrays.sort(values);
+		
+		bp.fprice = String.valueOf(values[0]);
+		bp.sprice = String.valueOf(values[0]);
+		
+		return bp;
+	}
+	
+	public static class BookingPair{
+		public String sprice;
+		public String fprice;
 	}
 }

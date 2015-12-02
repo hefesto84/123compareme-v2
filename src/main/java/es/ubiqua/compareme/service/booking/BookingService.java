@@ -17,6 +17,7 @@ import es.ubiqua.compareme.service.Service;
 import es.ubiqua.compareme.service.interfaces.ServiceInterface;
 import es.ubiqua.compareme.utils.DBLogger;
 import es.ubiqua.compareme.utils.Utils;
+import es.ubiqua.compareme.utils.Utils.BookingPair;
 
 public class BookingService extends Service implements ServiceInterface{
 
@@ -60,12 +61,15 @@ public class BookingService extends Service implements ServiceInterface{
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
 					
-					String p = d.select("strong[data-price-without-addons]").get(0).text();
-					price.setPurePrice(p);
-					price.setPrice(String.valueOf(Utils.change(p)));
-		
-					//price.setPrice(CurrencyConverter.getInstance().convertCurrency(price.getPrice(), getCurrency(hotelId)));
+					//String p = d.select("strong[data-price-without-addons]").get(0).text();
+					//String  p = Utils.getBookingBestPrice( d.select("strong[data-price-without-addons]"));
 					
+					BookingPair bp = Utils.getBookingBestPrice(d.select("strong[data-price-without-addons]"));
+					
+					price.setPurePrice(bp.sprice);
+					price.setPrice(bp.fprice);
+					//price.setPrice(String.valueOf(Utils.change(p)));
+		
 					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");

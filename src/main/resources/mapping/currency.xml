@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapCurrency">
+    
+    <resultMap id="Currency" type="es.ubiqua.compareme.model.Currency">
+        <result property="id" column="id"/>
+        <result property="currency" column="currency"/>
+        <result property="idOta" column="idOta"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapCurrency.Currency">
+        SELECT * FROM RepositoryCurrency;
+    </select>
+
+    <select id="get" parameterType="es.ubiqua.compareme.model.Currency" resultMap="SqlMapCurrency.Currency">
+        SELECT * FROM RepositoryCurrency WHERE id = #{id} OR (currency LIKE #{currency} AND idOta = ${idOta});
+    </select>
+
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Currency" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryCurrency (currency,idOta) 
+        	VALUES (
+        		#{currency},
+        		#{idOta}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+    
+    <delete id="del" parameterType="es.ubiqua.compareme.model.Currency">
+    	DELETE FROM RepositoryCurrency WHERE id = #{id}
+    </delete>
+</mapper>
