@@ -8,10 +8,11 @@
         <result property="currency" column="currency"/>
         <result property="domain" column="domain"/>
         <result property="format" column="format"/>
+        <result property="idOta" column="idOta"/>
     </resultMap>
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Domain" resultMap="SqlMapDomain.Domain">
-        SELECT * FROM RepositoryDomain WHERE currency LIKE #{currency} OR id = #{id};
+        SELECT * FROM RepositoryDomain WHERE (currency LIKE #{currency} AND idOta = #{idOta}) OR id = #{id};
     </select>
    
 </mapper>

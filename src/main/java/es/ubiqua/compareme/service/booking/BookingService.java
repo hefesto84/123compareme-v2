@@ -10,6 +10,7 @@ import org.jsoup.nodes.Element;
 import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
+import es.ubiqua.compareme.model.Domain;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
@@ -23,15 +24,29 @@ public class BookingService extends Service implements ServiceInterface{
 
 	private static String OTA = "Booking";
 	private Ota mOta;
+	private String mDomain;
 	
 	public BookingService setServiceParameters(Query query){
+		mOta = otaManager.get(new Ota(OTA));
 		currencyResponse = query.getCurrency();
+		
+		/*
+		Domain d = new Domain();
+		d.setCurrency(query.getCurrency());
+		d.setIdOta(mOta.getId());
+		d = domainManager.get(d);
+		mDomain = d.getDomain();
+		
+		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
+		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
+		*/
+		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}
 	
 	public BookingService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
-		mOta = otaManager.get(new Ota(OTA));
+		//mOta = otaManager.get(new Ota(OTA));
 		mOta.setQueryOk(0);
 		price.setOtaId(mOta.getId());
 		price.setLanguage(language);
@@ -60,16 +75,12 @@ public class BookingService extends Service implements ServiceInterface{
 			System.out.println(url);
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
-					
-					//String p = d.select("strong[data-price-without-addons]").get(0).text();
-					//String  p = Utils.getBookingBestPrice( d.select("strong[data-price-without-addons]"));
-					
+				
 					BookingPair bp = Utils.getBookingBestPrice(d.select("strong[data-price-without-addons]"));
 					
 					price.setPurePrice(bp.sprice);
 					price.setPrice(bp.fprice);
-					//price.setPrice(String.valueOf(Utils.change(p)));
-		
+				
 					mOta.setQueryOk(1);
 				}catch(Exception e){
 					price.setPrice("0");
@@ -84,13 +95,7 @@ public class BookingService extends Service implements ServiceInterface{
 			}
 			
 			price.setValoration(0);
-			/*
-			if (d.select("span.average")!=null) {
-				price.setValoration(Integer.valueOf(d.select("span.average").get(0).text().replace(".", "").replace(",", "")));
-			}else{
-				price.setValoration(0);
-			}
-			*/
+		
 			
 		} catch (IOException e) {
 			price.setPrice("0");

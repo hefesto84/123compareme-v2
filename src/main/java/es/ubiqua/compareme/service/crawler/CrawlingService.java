@@ -86,10 +86,10 @@ public class CrawlingService {
 		
 		DomainManager dm = new DomainManager();
 		Domain d = new Domain();
-	    d.setCurrency("EUR");
+	    d.setCurrency(query.getCurrency());
+	    d.setIdOta(otaId);
 		d = dm.get(d);
 
-		System.out.println(new Gson().toJson(d));
 		if(d==null){
 			p.setHash("0");
 			return p;

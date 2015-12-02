@@ -30,6 +30,7 @@ import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.model.Currency;
 import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Domain;
+import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
@@ -49,7 +50,18 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
-		 Utils.getBookingBestPrice(null);
+		 /*
+		 Ota ota = new OtaManager().get(new Ota("Venere"));
+		 Domain d = new Domain();
+			d.setCurrency("GBP");
+			d.setIdOta(ota.getId());
+			
+			d = new DomainManager().get(d);
+			
+			String mDomain = d.getDomain();
+			System.out.println("DOMAIN: "+mDomain);
+			*/
+		 //Utils.getBookingBestPrice(null);
 		 
 		 //System.out.println(Utils.formatDate("Y/M/D","23/10/2016"));
 		
@@ -115,14 +127,15 @@ public class CrawlerServiceTest  extends TestCase{
 		 p.setPrice(price);
 		
 		 System.out.println(Utils.changeCurrency(p.getPrice(), "EUR", "EUR"));
-
-		 Query query = new Query("2","es","The May Fair Hotel",1,2,"06/08/2016","10/08/2016","179,10");
+		
+			
+		 Query query = new Query("2","es","The May Fair Hotel",1,2,"06/08/2016","10/08/2016","179,10","EUR");
 
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 */
+	 
 		 
 		 // data = Utils.searchHotelIdentifiers("Radisson Blu Edwardian Bloomsbury Street");
 		 //System.out.println(result);
