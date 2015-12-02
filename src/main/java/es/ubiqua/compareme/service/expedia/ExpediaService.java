@@ -29,12 +29,17 @@ public class ExpediaService extends Service implements ServiceInterface{
 	private String mDateOut;
 	
 	public ExpediaService setServiceParameters(Query query){
+		mOta = otaManager.get(new Ota(OTA));
 		currencyResponse = query.getCurrency();
+		
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());
+		d.setIdOta(mOta.getId());
+		
 		d = domainManager.get(d);
 		
 		mDomain = d.getDomain();
+		System.out.println("DOMAIN: "+mDomain);
 		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
 		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
 		
@@ -43,7 +48,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 	
 	public ExpediaService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut){
 		price = new Price();
-		mOta = otaManager.get(new Ota(OTA));
+		//mOta = otaManager.get(new Ota(OTA));
 		mOta.setQueryOk(0);
 		price.setOtaId(mOta.getId());
 		price.setLanguage(language);

@@ -30,6 +30,7 @@ public class Domain {
 	private String currency;
 	private String domain;
 	private String format;
+	private int idOta;
 	
 	public Domain(){
 		
@@ -41,5 +42,13 @@ public class Domain {
 
 	public void setFormat(String format) {
 		this.format = format;
+	}
+
+	public int getIdOta() {
+		return idOta;
+	}
+
+	public void setIdOta(int idOta) {
+		this.idOta = idOta;
 	}
 }
