@@ -92,4 +92,3 @@ function htmlDecode(input){
   e.innerHTML = input;
   return e.childNodes[0].nodeValue;
 }
-
