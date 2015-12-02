@@ -47,9 +47,29 @@
 							<div class="form-group">
 								<label for="currency">Currency:</label><br /> 
 				          		<select class="form-control" id="currency" name="currency">
-									<s:iterator value="currencies">
-									<option value="<s:property/>"><s:property/></option>
-									</s:iterator>
+									<option value="EUR" selected>EUR</option>
+									<option value="GBP">GBP</option>
+									<option value="USD">USD</option>
+									<option value="ARS">ARS</option>
+									<option value="AUD">AUD</option>
+									<option value="BRL">BRL</option>
+									<option value="CHF">CHF</option>
+									<option value="CAD">CAD</option>
+									<option value="DKK">DKK</option>
+									<option value="HKD">HKD</option>
+									<option value="INR">INR</option>
+									<option value="JPY">JPY</option>
+									<option value="KRW">KRW</option>
+									<option value="MYR">MYR</option>
+									<option value="MXN">MXN</option>
+									<option value="NZD">NZD</option>
+									<option value="NOK">NOK</option>
+									<option value="PHP">PHP</option>
+									<option value="SGD">SGD</option>
+									<option value="SEK">SEK</option>
+									<option value="TWD">TWD</option>
+									<option value="THB">THB</option>
+									<option value="VND">VND</option>
 								</select>
 							</div>
 						</div>
