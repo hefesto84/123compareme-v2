@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.frozenbullets.api.currencyconverter.CurrencyConverter;
+import com.google.gson.Gson;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Domain;
@@ -30,15 +31,17 @@ public class BookingService extends Service implements ServiceInterface{
 		mOta = otaManager.get(new Ota(OTA));
 		currencyResponse = query.getCurrency();
 		
-		
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());
 		d.setIdOta(mOta.getId());
 		d = domainManager.get(d);
 		mDomain = d.getDomain();
 		
-		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
-		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
+		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+new Gson().toJson(d));
+		
+		
+		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn(),mOta.getId()));
+		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut(),mOta.getId()));
 		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}
@@ -71,7 +74,7 @@ public class BookingService extends Service implements ServiceInterface{
 		try {
 			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency="+currencyResponse+"&group_adults="+price.getGuests()+";room1=A%2CA&";
 			Document d = Jsoup.connect(url).get();
-			System.out.println(url);
+			//System.out.println(url);
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
 				

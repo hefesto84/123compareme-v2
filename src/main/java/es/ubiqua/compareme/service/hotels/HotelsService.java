@@ -11,8 +11,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import com.frozenbullets.api.currencyconverter.CurrencyConverter;
+import com.google.gson.Gson;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
+import es.ubiqua.compareme.model.Domain;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
@@ -26,15 +28,30 @@ public class HotelsService  extends Service implements ServiceInterface{
 
 	private static String OTA = "Hotels";
 	private Ota mOta;
-
+	private String mDomain;
+	
 	public HotelsService setServiceParameters(Query query){
+		mOta = otaManager.get(new Ota(OTA));
 		currencyResponse = query.getCurrency();
+		
+		
+		Domain d = new Domain();
+		d.setCurrency(query.getCurrency());
+		d.setIdOta(mOta.getId());
+		d = domainManager.get(d);
+		mDomain = d.getDomain();
+		
+		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+new Gson().toJson(d));
+		
+		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn(),mOta.getId()));
+		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut(),mOta.getId()));
+		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}
 	
 	public HotelsService setServiceParameters(String language, String name, int guests, int rooms, String dateIn, String dateOut) {
 		price = new Price();
-		mOta = otaManager.get(new Ota(OTA));
+		
 		mOta.setQueryOk(0);
 		price.setOtaId(mOta.getId());
 		price.setLanguage(language);

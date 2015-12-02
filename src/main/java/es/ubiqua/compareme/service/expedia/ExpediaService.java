@@ -40,8 +40,8 @@ public class ExpediaService extends Service implements ServiceInterface{
 		
 		mDomain = d.getDomain();
 		
-		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
-		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
+		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn(),mOta.getId()));
+		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut(),mOta.getId()));
 		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}

@@ -121,7 +121,7 @@ public class Utils {
 		return currencies;
 	}
 	
-	public static String formatDate(String format, String date){
+	public static String formatDate(String format, String date, int otaId){
 		String d = "";
 		
 		 StringTokenizer tokens = new StringTokenizer(date,"/");
@@ -154,6 +154,17 @@ public class Utils {
  
 		 
 		return d;
+	}
+	
+	public static String sanitizeDateForBooking(String date, String currency){	
+		String output = "";	
+		if(date.contains("/") && !currency.equals("USD") && !currency.equals("JPY")){
+			output = date.substring(6) + "-" + date.substring(3,5)+"-"+ date.substring(0,2);
+		}else{
+			// MM/DD/AAAA
+			//output = date.substring(3, 5) + "-" + date.substring(0, 2) + 
+		}
+		return output;
 	}
 	
 	public static String changeCurrency2(String price, String currencyFrom, String currencyTo){
