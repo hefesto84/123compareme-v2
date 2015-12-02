@@ -35,10 +35,15 @@ public class GetPricesAction extends ActionSupport {
 	
     public String execute() {
     
+    	if(!Utils.isCurrencyAvailable(currency)){
+    		setCurrency("XXX");
+    		return SUCCESS;
+    	}
+    	
         Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base,currency);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
-        //Utils.checkCoherence(code,datos);
+       
         return SUCCESS;
     }
 

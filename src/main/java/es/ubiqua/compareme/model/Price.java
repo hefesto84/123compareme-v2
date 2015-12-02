@@ -25,6 +25,7 @@ public class Price implements Serializable {
 	private int valoration;
 	private String hash = "";
 	private String query;
+	private int backend;
 	
 	public String getLanguage() {
 		return language;
@@ -161,6 +162,14 @@ public class Price implements Serializable {
 
 	public void setQuery(String query) {
 		this.query = query;
+	}
+
+	public int getBackend() {
+		return backend;
+	}
+
+	public void setBackend(int backend) {
+		this.backend = backend;
 	}
 
 }

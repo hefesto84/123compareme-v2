@@ -8,7 +8,7 @@
     <name>123CompareMe-v2</name>
 	<description>123CompareMe-v2</description>
 	
-    <properties>
+    <properties> 
         <struts2.version>2.3.24</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

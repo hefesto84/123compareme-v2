@@ -22,11 +22,14 @@ import org.jsoup.select.Elements;
 
 import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 import com.google.gson.Gson;
-import com.tunyk.currencyconverter.api.Currency;
 
+import es.ubiqua.compareme.manager.CurrencyManager;
 import es.ubiqua.compareme.manager.CustomerManager;
+import es.ubiqua.compareme.manager.DomainManager;
 import es.ubiqua.compareme.manager.OtaManager;
+import es.ubiqua.compareme.model.Currency;
 import es.ubiqua.compareme.model.Customer;
+import es.ubiqua.compareme.model.Domain;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
@@ -46,7 +49,9 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
-		 System.out.println(Utils.formatDate("Y/M/D","23/10/2016"));
+		 Utils.getBookingBestPrice(null);
+		 
+		 //System.out.println(Utils.formatDate("Y/M/D","23/10/2016"));
 		
 		 /*
 		 Connection.Response response = Jsoup.connect("http://es.venere.com/change_currency.html?currency=GBP").method(Connection.Method.GET).execute();

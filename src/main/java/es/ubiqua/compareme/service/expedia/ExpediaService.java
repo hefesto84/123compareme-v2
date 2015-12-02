@@ -33,9 +33,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());
 		d = domainManager.get(d);
-		if(d.getDomain()==null){
-			d.setDomain("www.expedia.es");
-		}
+		
 		mDomain = d.getDomain();
 		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn()));
 		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut()));
@@ -69,7 +67,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 		
 		try {
 		
-			url = "https://"+mDomain+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm1=a2";
+			url = "https://"+mDomain+"/"+hotelName+".Informacion-Hotel?chkin="+price.getDateIn()+"&chkout="+price.getDateOut()+"&rm"+price.getRooms()+"=a"+price.getGuests()+"";
 			Document d = Jsoup.connect(url).get();
 			System.out.println("URL ++++++++++++++++++++++++++ "+url);
 			

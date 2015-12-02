@@ -5,11 +5,15 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import es.ubiqua.compareme.manager.CurrencyManager;
 import es.ubiqua.compareme.manager.CustomerManager;
+import es.ubiqua.compareme.manager.DomainManager;
 import es.ubiqua.compareme.manager.HotelManager;
 import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.manager.PriceManager;
+import es.ubiqua.compareme.model.Currency;
 import es.ubiqua.compareme.model.Customer;
+import es.ubiqua.compareme.model.Domain;
 import es.ubiqua.compareme.model.Hotel;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
@@ -27,11 +31,13 @@ public class CrawlingService {
 	private PriceManager priceManager;
 	private OtaManager otaManager;
 	private CustomerManager customerManager;
+	private CurrencyManager currencyManager;
 	
 	public CrawlingService(){
 		priceManager = new PriceManager();
 		otaManager = new OtaManager();
 		customerManager = new CustomerManager();
+		currencyManager = new CurrencyManager();
 	}
 	
 	public List<Price> weaving(int mode, Query query){
@@ -56,7 +62,6 @@ public class CrawlingService {
 			Price p = new Price();
 			
 			p.setHash(query.toHash(hotel.getId(), ota.getId()));
-			System.out.println("HASH: "+query.toHash(hotel.getId(), ota.getId()));
 			
 			p = priceManager.getByHash(p);
 			if(p==null){
@@ -75,9 +80,21 @@ public class CrawlingService {
 	
 	private Price crawlPrice(int otaId, Query query){
 		Price p = new Price();
+		
 		Ota o = new Ota();
 		o.setId(otaId);
 		
+		DomainManager dm = new DomainManager();
+		Domain d = new Domain();
+	    d.setCurrency("EUR");
+		d = dm.get(d);
+
+		System.out.println(new Gson().toJson(d));
+		if(d==null){
+			p.setHash("0");
+			return p;
+		}
+
 		switch(otaId){
 	
 		case 1:
@@ -104,7 +121,7 @@ public class CrawlingService {
 			break;
 		
 		}
-		
+		p.setBackend(Integer.valueOf(query.getCustomerId()));
 		p.setSite(otaManager.get(o).getIcon());
 		p.setBasePrice(query.getBase());
 		priceManager.add(p);
