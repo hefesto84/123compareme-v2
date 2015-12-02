@@ -32,9 +32,6 @@ var hotelswidget = new (function(window, document, jQuery){
 				 data: { datos: json },
 				 dataType: "script",
 				 success: function(msg) {
-				 	alert('In Ajax');
-				 	alert(msg);
-				 	msg;
 				 }
 			});
 				

@@ -1,7 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 var html = htmlDecode("<s:property value="HTML"/>");
-alert(html);
 var css = "<s:property value="CSS"/>";
 
 domain = "<s:property value="data.domain"/>";
@@ -82,10 +81,9 @@ function setTranslate123(lang){
 	var translation =  "<s:property value="translation"/>";
 	translation  = htmlDecode(translation);
 	var obj = JSON.parse(translation);
-	for(var key in obj) {
-    var value = obj[key];
-    	jQuery("#"+key+"").html(value);
-	}
+	jQuery('[data-translation]').each(function(){
+		jQuery(this).html(obj[jQuery(this).attr('data-translation')]);
+	});
 }
 
 
