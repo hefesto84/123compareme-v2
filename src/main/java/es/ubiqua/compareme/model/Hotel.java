@@ -1,8 +1,5 @@
 package es.ubiqua.compareme.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Hotel {
 	
 	private int id;
@@ -11,6 +8,9 @@ public class Hotel {
 	private String customerName;
 	private int otaId;
 	private String currency;
+	private int modelWidget;
+	private String model;
+	private String css;
 	
 	public Hotel(){
 		
@@ -62,6 +62,30 @@ public class Hotel {
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+
+	public int getModelWidget() {
+		return modelWidget;
+	}
+
+	public void setModelWidget(int modelWidget) {
+		this.modelWidget = modelWidget;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getCss() {
+		return css;
+	}
+
+	public void setCss(String css) {
+		this.css = css;
 	}
 
 }

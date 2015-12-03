@@ -32,6 +32,10 @@ public class HotelManager {
 		return hotelDao.get(hotel);
 	}
 	
+	public Hotel getHotelByHotelName(Hotel hotel){
+		return hotelDao.getHotelByHotelName(hotel);
+	}
+	
 	public Hotel add(Hotel hotel){
 		return hotelDao.add(hotel);
 	}

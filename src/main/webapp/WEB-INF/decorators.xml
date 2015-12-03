@@ -12,6 +12,7 @@
         <pattern>/prices*</pattern>
         <pattern>/api/*</pattern>
         <pattern>/login/*</pattern>
+        <pattern>/widgets/new/*</pattern>
     </excludes>
 
     <decorator name="header" page="header.jsp">

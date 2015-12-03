@@ -11,6 +11,7 @@ var hotelswidget = new (function(window, document, $){
             var conversion = 1;
             var user = 2;
             var hotel = $('#barra_datos_reserva_va').find('div.name').html();
+            hotel = normalize(hotel);
             var rooms = $('#number_rooms').val();
             var guests = $('#number_guests').val();
             var start = hotelswidget.dateConverse($('#date_ini').val());
@@ -316,5 +317,27 @@ var hotelswidget = new (function(window, document, $){
             }
         });
     }
+    
+    var normalize = (function() {
+    	  var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç", 
+    	      to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc",
+    	      mapping = {};
+    	 
+    	  for(var i = 0, j = from.length; i < j; i++ )
+    	      mapping[ from.charAt( i ) ] = to.charAt( i );
+    	 
+    	  return function( str ) {
+    	      var ret = [];
+    	      for( var i = 0, j = str.length; i < j; i++ ) {
+    	          var c = str.charAt( i );
+    	          if( mapping.hasOwnProperty( str.charAt( i ) ) )
+    	              ret.push( mapping[ c ] );
+    	          else
+    	              ret.push( c );
+    	      }      
+    	      return ret.join( '' );
+    	  }
+    	 
+    	})();
 
 })(window, document, $);

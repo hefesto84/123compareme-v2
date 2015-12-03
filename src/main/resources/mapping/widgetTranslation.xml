@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapWidgetTranslations">
+    
+    <resultMap id="WidgetTranslations" type="es.ubiqua.compareme.model.WidgetTranslations">
+        <result property="id" column="id"/>
+        <result property="customer" column="customer"/>
+        <result property="lang" column="lang"/>
+        <result property="label" column="label"/>
+        <result property="translation" column="translation"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id ORDER BY rh.customerId;
+    </select>
+    
+    <select id="listByCustomer" parameterType="int" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT * FROM RepositoryTranslations WHERE customer = #{id} ORDER BY lang;
+    </select>
+    
+    <select id="listLangByCustomer" parameterType="int" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT lang FROM RepositoryTranslations WHERE customer = #{id} GROUP BY lang ORDER BY lang;
+    </select>
+    
+    <select id="listByCustomerAndLang"  parameterType="java.util.Map" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT label,translation FROM RepositoryTranslations WHERE customer = #{id} AND lang LIKE #{lang} ORDER BY lang;
+    </select>
+   
+ </mapper>
