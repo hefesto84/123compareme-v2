@@ -85,7 +85,7 @@ var hotelswidget = new (function(window, document, jQuery){
             		(hotel === 'Park Inn by Radisson Donetsk') ||
             		(hotel === 'Park Inn By Radisson Nice Airport') ||
             		(hotel === 'Park Inn Danube, Bratislava') ||
-            		(hotel === 'Park Inn By Radisson Sarvar Resort & Spa') ||
+            		(hotel === 'Park Inn By Radisson Sarvar Resort  Spa') ||
             		(hotel === 'Park Inn By Radisson Zurich Airport') ||
             		(hotel === 'Park Inn By Radisson Cologne City-West') ||
             		(hotel === 'Park Inn By Radisson Weimar') ||
