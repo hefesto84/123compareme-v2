@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapModelHTMLWidget">
+    
+    <resultMap id="ModelHTMLWidget" type="es.ubiqua.compareme.model.ModelHTMLWidget">
+        <result property="id" column="id"/>
+        <result property="customerId" column="customerId"/>
+        <result property="identifier" column="identifier"/>
+        <result property="model" column="model"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapModelHTMLWidget.ModelHTMLWidget">
+        SELECT * FROM RepositoryModelWidget ORDER BY identifier;
+    </select>
+    
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapModelHTMLWidget.ModelHTMLWidget">
+        SELECT * FROM RepositoryModelWidget WHERE customerId LIKE #{identifier} ORDER BY identifier;
+    </select>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.ModelHTMLWidget" resultMap="SqlMapModelHTMLWidget.ModelHTMLWidget">
+        SELECT * FROM RepositoryModelWidget WHERE id = #{id};
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.ModelHTMLWidget" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryModelWidget (customerId,identifier,model) 
+        	VALUES (
+        		#{customerId},
+        		#{identifier},
+        		#{model}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+    
+    <update id="update" parameterType="es.ubiqua.compareme.model.ModelHTMLWidget">
+    	UPDATE RepositoryModelWidget SET
+    		identifier = #{identifier},
+    		model = #{model}
+    	WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="es.ubiqua.compareme.model.ModelHTMLWidget">
+	  	delete from RepositoryModelWidget where id = #{id}
+	</delete>
+
+ </mapper>
