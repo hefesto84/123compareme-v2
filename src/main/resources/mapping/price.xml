@@ -68,4 +68,53 @@
 	  	</selectKey>
 	  	
     </insert>
+
+    <select id="graph1" parameterType="es.ubiqua.compareme.model.Price"  resultMap="SqlMapPrice.Price"><![CDATA[
+        SELECT
+            a.id,
+            a.hotelId,
+            a.language,
+            a.dateIn,
+            a.dateOut,
+            a.guests,
+            a.rooms,
+            a.otaId,
+            AVG(a.price) price,
+            a.purePrice,
+            AVG(a.basePrice) basePrice,
+            a.valoration,
+            a.hash,
+            a.idCustomer,
+            a.date,
+        FROM (
+            SELECT
+                DATEDIFF(str_to_date(dateIn, '%d/%m/%Y'), str_to_date(#{dateIn})) AS id,
+                0 AS hotelId,
+                'es' AS language,
+                dateIn,
+                dateIn AS dateOut,
+                1 AS guests,
+                1 AS rooms,
+                otaId,
+                price / (guests * rooms * DATEDIFF(str_to_date(dateOut, '%d/%m/%Y'), str_to_date(dateIn, '%d/%m/%Y'))) AS price,
+                '0' AS purePrice,
+                basePrice / (guests * rooms * DATEDIFF(str_to_date(dateOut, '%d/%m/%Y'), str_to_date(dateIn, '%d/%m/%Y'))) AS basePrice,
+                100 AS valoration,
+                '' AS hash,
+                '10000' AS idCustomer,
+                '0' AS date
+            FROM
+                RepositoryPrice
+            WHERE
+                (basePrice != 100) AND
+                (hotelId = #{hotelId} OR 0 = #{hotelId}) AND
+                (otaId = #{otaId} OR 0 = #{otaId}) AND
+                (str_to_date(dateIn, '%d/%m/%Y') >= str_to_date('#{dateIn}', '%d/%m/%Y')) AND
+                (str_to_date(dateOut, '%d/%m/%Y') <= str_to_date('#{dateOut}', '%d/%m/%Y'))
+            ) AS a
+        GROUP BY
+            a.dateIn,
+            a.otaId
+        ;
+    ]]></select>
 </mapper>

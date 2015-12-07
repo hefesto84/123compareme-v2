@@ -77,4 +77,17 @@ public class PriceDAO extends BaseDAO {
 		}
 		return prices;
 	}
+
+	public List<Price> getMediumPrices() {
+		List<Price> prices = new ArrayList<Price>();
+        SqlSession session = sql.openSession();
+        try {
+            prices = session.selectList("SqlMapPrice.graph1");
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass()).error(e.getMessage());
+        }finally{
+            session.close();
+        }
+        return prices;
+	}
 }

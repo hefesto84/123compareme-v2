@@ -35,5 +35,9 @@ public class PriceManager {
 	public Price add(Price price){
 		return priceDao.add(price);
 	}
+
+    public List<Price> getMediumPrices(Price price) {
+        return priceDao.getMediumPrices();
+    }
 	
 }

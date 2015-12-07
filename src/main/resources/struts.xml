@@ -44,6 +44,26 @@
         	<param name="encoding">UTF-8</param>
         	<param name="contentType">application/json</param>
         </action>
+        <action name="otasgraph1" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph1BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph2" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph2BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph3" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph3BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph4" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph4BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
         <action name="pricesinfo" class="es.ubiqua.compareme.backend.actions.info.PricesByHotelInformationBackendAction">
            <result type="json"/>
         	<param name="encoding">UTF-8</param>
