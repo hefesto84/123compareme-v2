@@ -1,8 +1,9 @@
 package es.ubiqua.compareme.model;
 
-public class ModelWidget {
+public class ModelHTMLWidget {
 	private int id;
-	private String  identifier;
+	private String customerId;
+	private String identifier;
 	private String model;
 	
 	public int getId() {
@@ -27,6 +28,14 @@ public class ModelWidget {
 	
 	public void setModel(String model) {
 		this.model = model;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
 	}
 	
 }
