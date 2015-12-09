@@ -9,7 +9,6 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import es.ubiqua.compareme.manager.CustomerManager;
 import es.ubiqua.compareme.model.Customer;
-import es.ubiqua.compareme.model.ModelCSSWidget;
 
 public class BaseBackendAction extends ActionSupport{
 
@@ -47,6 +46,9 @@ public class BaseBackendAction extends ActionSupport{
 			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
 		}
 		
+		if (c.getAdmin() == 1){
+			return true;
+		}
 		if (c.getIdentifier().equals(widget)){
 			return true;
 		}

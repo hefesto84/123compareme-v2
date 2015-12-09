@@ -60,7 +60,7 @@
         <ul class="dropdown-menu">
           <li><a href="<s:url value='/backend/widget-custom-css/list'/>">Custom CSS</a></li>
           <li><a href="<s:url value='/backend/widget-custom-html/list'/>">Custom HTML</a></li>
-          <!-- <li><a href="widget_translations">Translations</a></li> -->
+          <li><a href="<s:url value='/backend/widget-translations/list'/>">Translations</a></li>
         </ul>
       </li>
     </ul>

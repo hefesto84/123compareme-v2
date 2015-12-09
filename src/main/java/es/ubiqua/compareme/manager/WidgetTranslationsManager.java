@@ -17,6 +17,10 @@ public class WidgetTranslationsManager {
 		return widgetTranslationsDao.list();
 	}
 
+	public List<WidgetTranslations> listOnlyByCustomer(int id){
+		return widgetTranslationsDao.listOnlyByCustomer(id);
+	}
+
 	public List<WidgetTranslations> listByCustomer(int id){
 		return widgetTranslationsDao.listByCustomer(id);
 	}
@@ -27,6 +31,22 @@ public class WidgetTranslationsManager {
 	
 	public List<WidgetTranslations> listByCustomerAndLang(int id, String lang){
 		return widgetTranslationsDao.listByCustomerAndLang(id, lang);
+	}
+	
+	public WidgetTranslations get(WidgetTranslations widgetTranslation){
+		return widgetTranslationsDao.get(widgetTranslation);
+	}
+	
+	public WidgetTranslations add(WidgetTranslations widgetTranslation){
+		return widgetTranslationsDao.add(widgetTranslation);
+	}
+	
+	public void update(WidgetTranslations widgetTranslation){
+		widgetTranslationsDao.update(widgetTranslation);
+	}
+	
+	public void delete(WidgetTranslations widgetTranslation){
+		widgetTranslationsDao.delete(widgetTranslation);
 	}
 	
 }

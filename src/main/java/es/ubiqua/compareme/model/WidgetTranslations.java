@@ -6,6 +6,7 @@ public class WidgetTranslations {
 	private String lang;
 	private String label;
 	private String translation;
+	private String name;
 	
 	public int getId() {
 		return id;
@@ -36,6 +37,12 @@ public class WidgetTranslations {
 	}
 	public void setTranslation(String translation) {
 		this.translation = translation;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

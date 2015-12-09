@@ -2,8 +2,6 @@ package es.ubiqua.compareme.manager;
 
 import java.util.List;
 
-import com.google.gson.Gson;
-
 import es.ubiqua.compareme.dao.ModelCSSWidgetDAO;
 import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.ModelCSSWidget;
@@ -39,13 +37,5 @@ public class ModelCSSWidgetManager {
 	public void delete(ModelCSSWidget modelCSSWidget){
 		modelCSSWidgetDao.delete(modelCSSWidget);
 	}
-	
-	/*public Hotel getHotelByHotelName(Hotel hotel){
-		return hotelDao.getHotelByHotelName(hotel);
-	}
-	
-	public Hotel add(Hotel hotel){
-		return hotelDao.add(hotel);
-	}*/
 	
 }

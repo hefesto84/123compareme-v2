@@ -25,6 +25,19 @@ public class WidgetTranslationsDAO extends BaseDAO {
 		return widgetTranslations;
 	}
 	
+	public List<WidgetTranslations> listOnlyByCustomer(int id){
+		List<WidgetTranslations> widgetTranslations = new ArrayList<WidgetTranslations>();
+		SqlSession session = sql.openSession();
+		try{
+			widgetTranslations = session.selectList("SqlMapWidgetTranslations.listOnlyByCustomer",id);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return widgetTranslations;
+	}
+	
 	public List<WidgetTranslations> listByCustomer(int id){
 		List<WidgetTranslations> widgetTranslations = new ArrayList<WidgetTranslations>();
 		SqlSession session = sql.openSession();
@@ -65,6 +78,55 @@ public class WidgetTranslationsDAO extends BaseDAO {
 			session.close();
 		}
 		return langTranslations;
+	}
+	
+	public WidgetTranslations get(WidgetTranslations widgetTranslations){
+		SqlSession session = sql.openSession();
+		try{
+			widgetTranslations = session.selectOne("SqlMapWidgetTranslations.get",widgetTranslations);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return widgetTranslations;
+	}
+	
+	public WidgetTranslations add(WidgetTranslations widgetTranslations){
+		SqlSession session = sql.openSession();
+		try{
+			session.insert("SqlMapWidgetTranslations.add",widgetTranslations);
+			session.commit();
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return widgetTranslations;
+	}
+	
+	public void update(WidgetTranslations widgetTranslations){
+		SqlSession session = sql.openSession();
+		try{
+			session.update("SqlMapWidgetTranslations.update",widgetTranslations);
+			session.commit();
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+	}
+	
+	public void delete(WidgetTranslations widgetTranslations){
+		SqlSession session = sql.openSession();
+		try{
+			session.delete("SqlMapWidgetTranslations.delete",widgetTranslations);
+			session.commit();
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
 	}
 	
 }
