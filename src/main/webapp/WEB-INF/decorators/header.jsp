@@ -79,7 +79,7 @@
         
       </li>
       -->
-      <li><a href="../login/signout"><b><font color="#FF8C00">Logout</font></b></a></li>
+      <li><a href="<s:url value='/login/signout'/>"><b><font color="#FF8C00">Logout</font></b></a></li>
     </ul>
   </div>
 </nav>
