@@ -35,7 +35,7 @@ var hotelswidget = new (function(window, document, $){
             var lang = $('html').attr('lang');
             var device = 'isMobile';
 
-            var url_post = domain + '/api/prices?currency'+currency+'&base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
+            var url_post = domain + '/api/prices?currency='+currency+'&base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
             console.log(url_post);
 
