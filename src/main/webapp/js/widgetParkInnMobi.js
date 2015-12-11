@@ -11,7 +11,6 @@ var hotelswidget = new (function(window, document, $){
         	} else {
         		var show = 0;
         	}
-            var conversion = 1;
             var user = 1;
             var hotel = jQuery('header.criteria').find('a:eq(1)').children('div').children('div').html();
             var rooms = jQuery('[name="rateSearchForm.numberRooms"]').val();
@@ -20,7 +19,7 @@ var hotelswidget = new (function(window, document, $){
             var stop = this.dateConverse(jQuery('[name="rateSearchForm.checkoutDate"]').val());
             var lang = utag_data.visitor_language;
             var price = this.priceConverse(jQuery('.rate-amount').first().html().trim().substring(1,jQuery('.rate-amount').first().html().trim().indexOf('<')).trim(),lang);
-            var currency = jQuery('.rate-amount').first().find('span.currency').html();
+            var currency = jQuery('.rate-amount').first().find('span.currency').html().trim();
             var device = 'isMobile';
 
             var diffDay = this.diffDate(start,stop);
@@ -28,13 +27,92 @@ var hotelswidget = new (function(window, document, $){
             var url_post = domain + '/api/prices?currency='+ currency + '&base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
             console.log(url_post);
+            
+            if ((hotel === 'Park Inn By Radisson Aberdeen') ||
+            		(hotel === 'Park Inn by Radisson Amsterdam Airport Schiphol') ||
+            		(hotel === 'Park Inn by Radisson Ankara Cankaya') ||
+            		(hotel === 'Park Inn By Radisson Antwerpen') ||
+            		(hotel === 'Park Inn by Radisson Astana') ||
+            		(hotel === 'Park Inn By Radisson Bedford') ||
+            		(hotel === 'Park Inn By Radisson Belfast') ||
+            		(hotel === 'Park Inn By Radisson Berlin City-West') ||
+            		(hotel === 'Park Inn by Radisson Bielefeld') ||
+            		(hotel === 'Park Inn by Radisson Birmingham Walsall') ||
+            		(hotel === 'Park Inn by Radisson Birmingham West, M5 J1') ||
+            		(hotel === 'Park Inn by Radisson Bucharest Hotel') ||
+            		(hotel === 'Park Inn by Radisson Budapest') ||
+            		(hotel === 'Park Inn by Radisson Cardiff North') ||
+            		(hotel === 'Park Inn by Radisson Vilnius') ||
+            		(hotel === 'Park Inn by Radisson Copenhagen Airport') ||
+            		(hotel === 'Park Inn By Radisson Uppsala') ||
+            		(hotel === 'Park Inn by Radisson Doncaster') ||
+            		(hotel === 'Park Inn By Radisson Uno City, Vienna') ||
+            		(hotel === 'Park Inn By Radisson Thurrock') ||
+            		(hotel === 'Park Inn Tete') ||
+            		(hotel === 'Park Inn By RadissonTelford') ||
+            		(hotel === 'Park Inn By Radisson Stockholm Hammarby Sjostad') ||
+            		(hotel === 'Park Inn By Radisson Stavanger') ||
+            		(hotel === 'Park Inn By Radisson Sofia') ||
+            		(hotel === 'Park Inn By Radisson Sharm El Sheikh Resort') ||
+            		(hotel === 'Park Inn By Radisson Shannon Airport') ||
+            		(hotel === 'Park Inn By Radisson Peterborough') ||
+            		(hotel === 'Park Inn By Radisson Papenburg') ||
+            		(hotel === 'Park Inn By Radisson Nuernberg') ||
+            		(hotel === 'Park Inn By Radisson Nottingham') ||
+            		(hotel === 'Park Inn by Radisson Neumarkt') ||
+            		(hotel === 'Park Inn By Radisson Munich') ||
+            		(hotel === 'Park Inn By Radisson Munich-East') ||
+            		(hotel === 'Park Inn by Radisson Meriton Conference  Spa Hotel Tallinn (Estonia)') ||
+            		(hotel === 'Park Inn By Radisson Malmo') ||
+            		(hotel === 'Park Inn By Radisson Mainz') ||
+            		(hotel === 'Park Inn by Radisson Lubeck') ||
+            		(hotel === 'Park Inn by Radisson Luxembourg City') ||
+            		(hotel === 'Park Inn by Radisson Lund') ||
+            		(hotel === 'Park Inn By Radisson Lully') ||
+            		(hotel === 'Park Inn by Radisson Lille Grand Stade') ||
+            		(hotel === 'Park Inn By Radisson Liege Airport') ||
+            		(hotel === 'Park Inn by Radisson Leuven') ||
+            		(hotel === 'Park Inn By Radisson Krakow') ||
+            		(hotel === 'Park Inn By Radisson Klaipeda') ||
+            		(hotel === 'Park Inn By Radisson Kaunas') ||
+            		(hotel === 'Park Inn by Radisson Istanbul Ataturk Airport') ||
+            		(hotel === 'Park Inn by Radisson Haugesund Airport') ||
+            		(hotel === 'Park Inn By Radisson Harlow') ||
+            		(hotel === 'Park Inn By Radisson Hamburg Nord') ||
+            		(hotel === 'Park Inn by Radisson Gottingen') ||
+            		(hotel === 'Park Inn by Radisson Glasgow City Centre') ||
+            		(hotel === 'Park Inn By Radisson Erfurt-Apfelstadt') ||
+            		(hotel === 'Park Inn By Radisson Dusseldorf Sud') ||
+            		(hotel === 'Park Inn By Radisson Dresden') ||
+            		(hotel === 'Park Inn by Radisson Donetsk') ||
+            		(hotel === 'Park Inn By Radisson Nice Airport') ||
+            		(hotel === 'Park Inn Danube, Bratislava') ||
+            		(hotel === 'Park Inn By Radisson Sarvar Resort  Spa') ||
+            		(hotel === 'Park Inn By Radisson Zurich Airport') ||
+            		(hotel === 'Park Inn By Radisson Cologne City-West') ||
+            		(hotel === 'Park Inn By Radisson Weimar') ||
+            		(hotel === 'Park Inn By Radisson Mannheim') ||
+            		(hotel === 'Park Inn By Radisson Linz')){
+            	
+            	if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
+                    price = parseFloat(price);
 
-            if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
-                price = parseFloat(price);
-
-                if (currency != 'EUR'){
-                    conversion = hotelswidget.getCurrencyConversion(currency);
+                    hotelswidget.setCSS();
+                    if(device === 'isDesktop'){
+                        hotelswidget.setHtml(price,currency);
+                    } else {
+                        hotelswidget.setHtmlMobile(price,currency,show);
+                    }
+                    hotelswidget.setTranslate(lang);
+                    setTimeout(function() {
+                        hotelswidget.getDatos(url_post,device,price,currency,lang, diffDay);
+                    },1000) ;
                 }
+            	
+            }
+
+            /*if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
+                price = parseFloat(price);
 
                 hotelswidget.setCSS();
                 if(device === 'isDesktop'){
@@ -44,13 +122,13 @@ var hotelswidget = new (function(window, document, $){
                 }
                 hotelswidget.setTranslate(lang);
                 setTimeout(function() {
-                    hotelswidget.getDatos(url_post,device,price,conversion,currency,lang, diffDay);
+                    hotelswidget.getDatos(url_post,device,price,currency,lang, diffDay);
                 },1000) ;
-            }
+            }*/
         }
     }
 
-    this.getDatos = function(url_post,device,price,conversion,currency,lang, diffDays){
+    this.getDatos = function(url_post,device,price,currency,lang, diffDays){
         var datos;
         $.ajax({
             type: "GET",
@@ -59,9 +137,9 @@ var hotelswidget = new (function(window, document, $){
                 console.log(respuesta);
                 datos = respuesta;
                 if (device === 'isMobile'){
-                    hotelswidget.setWidgetMobile(datos,price,conversion, currency, diffDays);
+                    hotelswidget.setWidgetMobile(datos,price,currency, diffDays);
                 } else {
-                    hotelswidget.setWidget(datos,price,conversion, currency);
+                    hotelswidget.setWidget(datos,price,currency);
                 }
             }//,
             //async: false
@@ -117,15 +195,20 @@ var hotelswidget = new (function(window, document, $){
 
     }
 
-    this.setWidget = function(datos,price,conversion, currency) {
+    this.setWidget = function(datos,price,currency) {
 
     }
 
-    this.setWidgetMobile = function(datos,price,conversion, currency, diffDay){
+    this.setWidgetMobile = function(datos,price,currency,diffDay){
         var href = hotelswidget.setUrlHref();
         $('.widget_content_loading').hide();
         $('#widget_popup_loading_text').hide();
         data = datos;
+        if(data.currency === 'XXX'){
+        	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
+            jQuery('#widget_popup_content_middle').append("<div id='no_otas'>Comparison not available in this currency</div>");
+            return 0;
+        }
         if (data.datos.length == 0){
             _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
             return 0;
@@ -134,7 +217,7 @@ var hotelswidget = new (function(window, document, $){
         var count = 0;
         for (var i = 0; i < data.datos.length; i++) {
 
-            var precio_convertido = (parseFloat(data.datos[i].price.replace(',','.')) * conversion);
+            var precio_convertido = (parseFloat(data.datos[i].price.replace(',','.')));
             precio_convertido = precio_convertido / diffDay;
 
             if (((price - 1) < precio_convertido || (price - 1) == precio_convertido) &&  (count < 5)) {
@@ -314,10 +397,10 @@ var hotelswidget = new (function(window, document, $){
             "var _paq = _paq || [];" +
             "_paq.push(['trackPageView']);" +
             "_paq.push(['enableLinkTracking']);" +
-            "(function() {var u='//www.123compare.me/piwik/';_paq.push(['setTrackerUrl', u+'piwik.php']);_paq.push(['setSiteId', 2]);var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);" +
+            "(function() {var u='//www.123compare.me/piwik/';_paq.push(['setTrackerUrl', u+'piwik.php']);_paq.push(['setSiteId', 1]);var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);" +
             "})();" +
             "</script>" +
-            "<noscript><p><img src='//www.123compare.me/piwik/piwik.php?idsite=2' style='border:0;' alt='' /></p></noscript>");
+            "<noscript><p><img src='//www.123compare.me/piwik/piwik.php?idsite=1' style='border:0;' alt='' /></p></noscript>");
     }
 
     this.setAnimation = function(time){
@@ -345,5 +428,3 @@ var hotelswidget = new (function(window, document, $){
     }
 
 })(window, document, $);
-
-//$(window).bind('orientationchange', hotelswidget.establecerOrientacion);
