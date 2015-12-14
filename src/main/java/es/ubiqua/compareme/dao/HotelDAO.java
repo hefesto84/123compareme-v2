@@ -54,6 +54,18 @@ public class HotelDAO extends BaseDAO {
 		return hotel;
 	}
 	
+	public Hotel getHotelByHotelName(Hotel hotel){
+		SqlSession session = sql.openSession();
+		try{
+			hotel = session.selectOne("SqlMapHotel.getHotelByHotelName",hotel);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return hotel;
+	}
+	
 	public Hotel add(Hotel hotel){
 		SqlSession session = sql.openSession();
 		try{

@@ -8,7 +8,15 @@
     <constant name="struts.devMode" value="true" />
  	<constant name="struts.configuration.xml.reload" value="true" />
  	<constant name="struts.mapper.action.prefix.enabled" value="true" />
-
+	
+	<package name="prova" namespace="/widgets/new" extends="struts-default">
+        <action name="widgetParkinn" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetParkinn">
+            <result name="success">/WEB-INF/js/widgetParkinn.jsp</result>
+        </action>
+        <action name="widget" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widget">
+            <result name="success">/WEB-INF/js/widget.jsp</result>
+        </action>
+    </package> 
 	
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index" />
@@ -157,7 +165,116 @@
     		<result name="success">/WEB-INF/jsp/backend/widget_configuration.jsp</result>
     		<result name="error" type="redirect">../login/</result>
     	</action>
-    		
     </package>
-
+    
+    <package name="widget_custom_css" namespace="/backend/widget-custom-css" extends="json-default">
+		<default-action-ref name="list" />
+		<action name="list" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_css.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="edit" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="editAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_css_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="new" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="newAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_css_new.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="add" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="addAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="modify" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="modifyAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="delete" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="deleteAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+	</package>
+	
+	<package name="widget_custom_html" namespace="/backend/widget-custom-html" extends="json-default">
+		<default-action-ref name="list" />
+		<action name="list" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_html.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="edit" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="editAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_html_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="new" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="newAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_html_new.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="add" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="addAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="modify" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="modifyAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="delete" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="deleteAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+	</package>
+	
+	<package name="widget_translations" namespace="/backend/widget-translations" extends="json-default">
+		<default-action-ref name="list" />
+		<action name="list" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_translations.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="edit" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="editAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_translations_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="new" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="newAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_translations_new.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="add" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="addAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="modify" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="modifyAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="delete" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="deleteAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+	</package>
 </struts>

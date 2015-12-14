@@ -36,4 +36,23 @@ public class BaseBackendAction extends ActionSupport{
 		return c;
 	}
 	
+	public boolean isCorrectCustomer(String widget){
+		Customer c = new Customer();
+		Integer id = (Integer)ActionContext.getContext().getSession().get("sid");
+		c.setId(id);
+		try{
+			c = new CustomerManager().get(c);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(/*e.getMessage()*/e);
+		}
+		
+		if (c.getAdmin() == 1){
+			return true;
+		}
+		if (c.getIdentifier().equals(widget)){
+			return true;
+		}
+		return false;
+	}
+	
 }

@@ -20,6 +20,10 @@
         SELECT * FROM RepositoryCustomer;
     </select>
     
+    <select id="listAllCustomers" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE admin != 1 ORDER BY name;
+    </select>
+    
     <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
         SELECT * FROM RepositoryCustomer WHERE id = #{id};
     </select>

@@ -9,6 +9,9 @@
         <result property="customerId" column="customerId"/>
         <result property="customerName" column="customerName"/>
         <result property="currency" column="currency"/>
+        <result property="modelWidget" column="modelWidget"/>
+        <result property="model" column="model"/>
+        <result property="css" column="css"/>
     </resultMap>
     
     <select id="list" resultMap="SqlMapHotel.Hotel">
@@ -21,6 +24,10 @@
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
         SELECT * FROM RepositoryHotel WHERE id = #{id} OR name LIKE #{name};
+    </select>
+    
+    <select id="getHotelByHotelName" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rmw.model, rcw.css FROM RepositoryHotel rh, RepositoryModelWidget rmw, RepositoryCSSWidget rcw WHERE name LIKE #{name} AND rh.modelWidget = rmw.id AND rh.cssWidget = rcw.id;
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Hotel" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

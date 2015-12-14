@@ -11,15 +11,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="../js/jquery-2.1.4.min.js"></script>
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<script src="<s:url value='/js/jquery-2.1.4.min.js'/>">"></script>
+<link rel="stylesheet" href="<s:url value='/css/bootstrap.min.css'/>">
+<link rel="stylesheet" href="<s:url value='/css/bootstrap-theme.min.css'/>">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="../css/main.css">
-<script src="../js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<s:url value='/css/main.css'/>">
+<script src="<s:url value='/js/bootstrap.min.js'/>"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="../js/jquery-ui-datapicker-es.js"></script>
-<script src="../js/Chart.min.js"></script>
+<script src="<s:url value='/js/jquery-ui-datapicker-es.js'/>"></script>
+<script src="<s:url value='/js/Chart.min.js'/>"></script>
 <title>123Compare.me v.2</title>
 </head>
 <body  style="margin:1em;">
@@ -53,6 +53,16 @@
           <li><a href="ht_manage_otas">OTA Status</a></li>
         </ul>
       </li>
+      <li class="dropdown">
+        <a href="widget" class="dropdown-toggle" data-toggle="dropdown">
+          Widget <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="<s:url value='/backend/widget-custom-css/list'/>">Custom CSS</a></li>
+          <li><a href="<s:url value='/backend/widget-custom-html/list'/>">Custom HTML</a></li>
+          <li><a href="<s:url value='/backend/widget-translations/list'/>">Translations</a></li>
+        </ul>
+      </li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
@@ -69,7 +79,7 @@
         
       </li>
       -->
-      <li><a href="../login/signout"><b><font color="#FF8C00">Logout</font></b></a></li>
+      <li><a href="<s:url value='/login/signout'/>"><b><font color="#FF8C00">Logout</font></b></a></li>
     </ul>
   </div>
 </nav>

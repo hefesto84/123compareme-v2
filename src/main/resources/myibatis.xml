@@ -13,6 +13,9 @@
 		<typeAlias alias="Domain" type="es.ubiqua.compareme.model.Domain"/>
 		<typeAlias alias="Booking" type="es.ubiqua.compareme.model.Booking"/>
 		<typeAlias alias="Currency" type="es.ubiqua.compareme.model.Currency"/>
+		<typeAlias alias="WidgetTranslations" type="es.ubiqua.compareme.model.WidgetTranslations"/>
+		<typeAlias alias="ModelCSSWidget" type="es.ubiqua.compareme.model.ModelCSSWidget"/>
+		<typeAlias alias="ModelHTMLWidget" type="es.ubiqua.compareme.model.ModelHTMLWidget"/>
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
@@ -39,6 +42,9 @@
 		<mapper resource="mapping/domain.xml"/>
 		<mapper resource="mapping/booking.xml"/>
 		<mapper resource="mapping/currency.xml"/>
+		<mapper resource="mapping/widgetTranslation.xml"/>
+		<mapper resource="mapping/modelCSSWidget.xml"/>
+		<mapper resource="mapping/modelHTMLWidget.xml"/>
 	</mappers>
 	
 </configuration>

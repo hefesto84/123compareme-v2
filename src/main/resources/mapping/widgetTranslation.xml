@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapWidgetTranslations">
+    
+    <resultMap id="WidgetTranslations" type="es.ubiqua.compareme.model.WidgetTranslations">
+        <result property="id" column="id"/>
+        <result property="customer" column="customer"/>
+        <result property="lang" column="lang"/>
+        <result property="label" column="label"/>
+        <result property="translation" column="translation"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT rt.*, rc.name as name FROM RepositoryTranslations rt, RepositoryCustomer rc WHERE rc.identifier LIKE rt.customer ORDER BY lang;
+    </select>
+    
+    <select id="listOnlyByCustomer" parameterType="int" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT rt.*, rc.name as name FROM RepositoryTranslations rt, RepositoryCustomer rc WHERE rt.customer LIKE #{id} AND rc.identifier LIKE rt.customer ORDER BY lang;
+    </select>
+    
+    <select id="listByCustomer" parameterType="int" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT * FROM RepositoryTranslations WHERE customer = #{id} ORDER BY lang;
+    </select>
+    
+    <select id="listLangByCustomer" parameterType="int" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT lang FROM RepositoryTranslations WHERE customer = #{id} GROUP BY lang ORDER BY lang;
+    </select>
+    
+    <select id="listByCustomerAndLang"  parameterType="java.util.Map" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT label,translation FROM RepositoryTranslations WHERE customer = #{id} AND lang LIKE #{lang} ORDER BY lang;
+    </select>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.WidgetTranslations" resultMap="SqlMapWidgetTranslations.WidgetTranslations">
+        SELECT * FROM RepositoryTranslations WHERE id = #{id};
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.WidgetTranslations" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryTranslations (customer,lang,label,translation) 
+        	VALUES (
+        		#{customer},
+        		#{lang},
+        		#{label},
+        		#{translation}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+    
+    <update id="update" parameterType="es.ubiqua.compareme.model.WidgetTranslations">
+    	UPDATE RepositoryTranslations SET
+    		lang = #{lang},
+    		label = #{label},
+    		translation = #{translation}
+    	WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="es.ubiqua.compareme.model.WidgetTranslations">
+	  	delete from RepositoryTranslations where id = #{id}
+	</delete>
+   
+ </mapper>
