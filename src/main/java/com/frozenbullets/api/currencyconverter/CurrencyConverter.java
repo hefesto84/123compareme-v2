@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.google.gson.Gson;
+import com.tunyk.currencyconverter.api.CurrencyNotSupportedException;
 
 import uk.ltd.getahead.dwr.util.Logger;
 
@@ -28,7 +29,8 @@ public class CurrencyConverter {
 	private CurrencyConverter(){
 		try{
 			
-			fXmlFile = Resources.getResourceAsFile("eurofxref-daily.xml");
+			fXmlFile = new File("/home/hefesto/eurofxref-daily.xml");
+			
 			dbFactory = DocumentBuilderFactory.newInstance();
 			dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.parse(fXmlFile);
@@ -70,23 +72,53 @@ public class CurrencyConverter {
     	throw new CloneNotSupportedException(); 
 	}
 	
-	public String convertCurrency(float price, String to){
-		float v = price* currencyMap.get(to);
-		return String.format("%.2f", v);
+	public String convertCurrency(float price, String to)  throws CurrencyNotSupportedException{
+		if(isCurrencyAvailable(to)){
+			float v = price* currencyMap.get(to);
+			return String.format("%.2f", v);
+		}
+		return null;
 	}
 	
-	public String convertCurrency(String price, String to){
-		float v = Float.valueOf(price) * currencyMap.get(to);
-		return String.format("%.2f", v);
+	public String convertCurrency(String price, String to)  throws CurrencyNotSupportedException{
+		if(isCurrencyAvailable(to)){
+			float v = Float.valueOf(price) * currencyMap.get(to);
+			return String.format("%.2f", v);
+		}
+		return null;
 	}
 	
-	public String convertCurrency(String price, String from, String to){
-		float v = Float.valueOf(price) * currencyMap.get(to);
-		return String.format("%.2f", v);
+	public String convertCurrency(String price, String from, String to) throws CurrencyNotSupportedException{
+		if(isCurrencyAvailable(to)){
+			float v = Float.valueOf(price) * currencyMap.get(to);
+			return String.format("%.2f", v);
+		}
+		return null;
 	}
 	
-	public String convertCurrency(float price, String from, String to){
-		float v = price * currencyMap.get(to);
-		return String.format("%.2f", v);
+	public String convertCurrency(float price, String from, String to) throws CurrencyNotSupportedException{
+		if(isCurrencyAvailable(to)){
+			float v = price * currencyMap.get(to);
+			return String.format("%.2f", v);
+		}
+		return null;
+	}
+	
+	public boolean isCurrencyAvailable(String c){
+		if (currencyMap.get(c) == null){
+			return false;
+		}
+		return true;
+	}
+	
+	class CurrencyNotSupported extends Exception{
+
+		private static final long serialVersionUID = 4009099796690324522L;
+
+		@Override
+		public String getMessage() {
+			return "Currency not supported";
+		}
+		
 	}
 }

@@ -50,6 +50,7 @@ public class CrawlerServiceTest  extends TestCase{
 	
 	 public void testMail() throws Exception {
 		
+		 //CurrencyConverter.getInstance().convertCurrency("69.07", "EUR", "EUR");
 		 /*
 		 Ota ota = new OtaManager().get(new Ota("Venere"));
 		 Domain d = new Domain();
