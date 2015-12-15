@@ -9,7 +9,7 @@
  	<constant name="struts.configuration.xml.reload" value="true" />
  	<constant name="struts.mapper.action.prefix.enabled" value="true" />
 	
-	<package name="prova" namespace="/widgets/new" extends="struts-default">
+	<package name="widget" namespace="/widget" extends="struts-default">
         <action name="widgetParkinn" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetParkinn">
             <result name="success">/WEB-INF/js/widgetParkinn.jsp</result>
         </action>

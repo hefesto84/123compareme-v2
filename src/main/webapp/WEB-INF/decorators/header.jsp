@@ -53,7 +53,7 @@
           <li><a href="ht_manage_otas">OTA Status</a></li>
         </ul>
       </li>
-      <li class="dropdown">
+      <!-- <li class="dropdown">
         <a href="widget" class="dropdown-toggle" data-toggle="dropdown">
           Widget <b class="caret"></b>
         </a>
@@ -62,7 +62,7 @@
           <li><a href="<s:url value='/backend/widget-custom-html/list'/>">Custom HTML</a></li>
           <li><a href="<s:url value='/backend/widget-translations/list'/>">Translations</a></li>
         </ul>
-      </li>
+      </li> -->
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
