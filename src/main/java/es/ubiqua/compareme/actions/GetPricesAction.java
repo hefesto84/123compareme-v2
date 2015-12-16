@@ -3,8 +3,12 @@ package es.ubiqua.compareme.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.frozenbullets.api.currencyconverter.CurrencyConverter;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
+import com.tunyk.currencyconverter.api.CurrencyConverterException;
 
 import es.ubiqua.compareme.exceptions.CustomerException;
 import es.ubiqua.compareme.exceptions.ExpediaServiceException;
@@ -35,15 +39,37 @@ public class GetPricesAction extends ActionSupport {
 	
     public String execute() {
     
+    	boolean useCurrencyConverter = false;
+    	String originalCurrency = "";
+    	
     	if(!Utils.isCurrencyAvailable(currency)){
-    		setCurrency("XXX");
-    		return SUCCESS;
+    		if(CurrencyConverter.getInstance().isCurrencyAvailable(currency)){
+    			useCurrencyConverter = true;
+        		originalCurrency = currency;
+        		currency = "EUR";
+    		}else{
+    			currency = "XXX";
+    			return SUCCESS;
+    		}
+    		
     	}
+
     	
         Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base,currency);
         CrawlingService service = new CrawlingService();
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
-       
+        
+        if(useCurrencyConverter){
+        	for(Price p : datos){
+        		try{
+	        		String newPrice = CurrencyConverter.getInstance().convertCurrency(p.getPrice(), "EUR", originalCurrency);
+	        		p.setPrice(newPrice);
+        		}catch(CurrencyConverterException e){
+        			Logger.getLogger(this.getClass()).error("Error converting: "+e.getMessage());
+        		}
+        	}
+        }
+        
         return SUCCESS;
     }
 
