@@ -111,22 +111,6 @@ var hotelswidget = new (function(window, document, jQuery){
             	
             }
 
-            /*console.log(url_post);
-
-            if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
-                price = parseFloat(price);
-
-                hotelswidget.setCSS();
-                if(device === 'isDesktop'){
-                    hotelswidget.setHtml(price,currency,lang);
-                } else {
-                    hotelswidget.setHtmlMobile(price,currency,show);
-                }
-                hotelswidget.setTranslate(lang);
-                setTimeout(function() {
-                    hotelswidget.getDatos(url_post,device,price,conversion,currency,lang,diffDay);
-                },1000) ;
-            }*/
         }
     }
 
@@ -296,6 +280,9 @@ var hotelswidget = new (function(window, document, jQuery){
 
 
         jQuery('#widget').click(function(){
+        	var lForm = $('hiddenRateReviewForm');
+            jQuery(lForm).prepend('<input type="hidden" name="facilitatorId" value="REZIDORRATETABLE">');
+            jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
             jQuery('#widget_popup').show();
             _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
         });
@@ -361,8 +348,8 @@ var hotelswidget = new (function(window, document, jQuery){
         var lForm = $('hiddenRateReviewForm');
         lForm['rateSelectForm.hotelCode'].value = pHotelCode;
         lForm['rateSelectForm.rateUni'].value = pRateUni;
-        jQuery(lForm).prepend('<input type="hidden" name="facilitatorId" value="REZIDORRATETABLE">');
-        jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
+        //jQuery(lForm).prepend('<input type="hidden" name="facilitatorId" value="REZIDORRATETABLE">');
+        //jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
         
         
         if (pClearEcertCode)
