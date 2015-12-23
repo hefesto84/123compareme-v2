@@ -51,6 +51,7 @@ function setHtmlMobile123(price,currency, time) {
 }
 
 function getDatosWidget123(url_post,device,price,currency,lang,diffDays){
+	console.log(url_post);
     var datos;
     jQuery.ajax({
         type: "GET",
