@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -18,6 +19,7 @@ import java.text.DecimalFormat;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.frozenbullets.api.currencyconverter.CurrencyConverter;
@@ -26,10 +28,12 @@ import com.google.gson.Gson;
 import es.ubiqua.compareme.manager.CurrencyManager;
 import es.ubiqua.compareme.manager.CustomerManager;
 import es.ubiqua.compareme.manager.DomainManager;
+import es.ubiqua.compareme.manager.ExchangeManager;
 import es.ubiqua.compareme.manager.OtaManager;
 import es.ubiqua.compareme.model.Currency;
 import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Domain;
+import es.ubiqua.compareme.model.Exchange;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
@@ -49,146 +53,49 @@ public class CrawlerServiceTest  extends TestCase{
 	}
 	
 	 public void testMail() throws Exception {
+		 
+		 ExchangeManager em = new ExchangeManager();
+		 //Document d = Jsoup.connect("http://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=NZD").userAgent(String.valueOf(Calendar.getInstance().getTimeInMillis())).get();
+		 
+		 //Elements e = d.select("tr.uccRes").select("td.rightCol");
+		 //System.out.println(e.html().substring(0, e.html().indexOf("&")));
 		
-		 //CurrencyConverter.getInstance().convertCurrency("69.07", "EUR", "EUR");
-		 /*
-		 Ota ota = new OtaManager().get(new Ota("Venere"));
-		 Domain d = new Domain();
-			d.setCurrency("GBP");
-			d.setIdOta(ota.getId());
-			
-			d = new DomainManager().get(d);
-			
-			String mDomain = d.getDomain();
-			System.out.println("DOMAIN: "+mDomain);
-			*/
-		 //Utils.getBookingBestPrice(null);
-		 
-		 //System.out.println(Utils.formatDate("Y/M/D","23/10/2016"));
+		 Document list = Jsoup.connect("http://www.xe.com/currency/").userAgent(String.valueOf(Calendar.getInstance().getTimeInMillis())).get();
+		 Elements currencies = list.select("ul#popCurr").select("a");
 		
-		 /*
-		 Connection.Response response = Jsoup.connect("http://es.venere.com/change_currency.html?currency=GBP").method(Connection.Method.GET).execute();
-		 
-		 Document doc = Jsoup.connect("http://es.venere.com/hotel/details.html?FPQ=2&WOE=4&q-localised-check-out=26/11/2015&WOD=3&q-room-0-children=0&pa=1&tab=description&JHR=1&q-localised-check-in=25/11/2015&hotel-id=217253&q-room-0-adults=2&YGF=2&MGT=1&ZSX=0&SYE=3").cookies(response.cookies()).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
-		 
-		 Elements e = doc.select("form");
-		 Map<String,String> data = new HashMap<String,String>();
-		 for(int i = 0; i<e.size(); i++){
-			 if(e.get(i).hasAttr("id")){
-				 if(e.get(i).attr("id").equals("room-1-rateplan-1")){
-					 Elements fields = e.get(i).select("input");
-					 for(int j = 0; j<fields.size(); j++){
-						 data.put(fields.get(j).attr("name"), fields.get(j).attr("value"));
-					 }
-				 }
-			 }
+		 for(Element e : currencies){
+			 String currencyISO = e.html().substring(0,3);
+			 String currencyName = e.html().substring(6);
+			 
+			 Document value = Jsoup.connect("http://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To="+currencyISO).userAgent(String.valueOf(Calendar.getInstance().getTimeInMillis())).get();
+			 Elements v = value.select("tr.uccRes").select("td.rightCol");
+			 float currencyValue = Float.valueOf(v.html().substring(0, v.html().indexOf("&")).replace(",", "")).floatValue();
+			 System.out.println(currencyISO+"|"+currencyName+"|"+v.html().substring(0, v.html().indexOf("&")));
+			 em.add(new Exchange(currencyISO,currencyValue,currencyName));
 		 }
-		 Document request = Jsoup.connect("https://ssl-fr.hotels.com/bookingInitialise.do").timeout(5000).ignoreHttpErrors(true).followRedirects(true).data(data).post();
-		 Elements rq = request.select("strong[id=financial-details-total-price]");
-		 
-		 String p =rq.text();
-		 
-		 System.out.println(p);
-		 */
-		 //Utils.changeCurrency2("100f", "EUR","USD");
-		//System.out.println(CurrencyConverter.getInstance().convertCurrency(100f, "GBP"));
-		//System.out.println(CurrencyConverter.getInstance().convertCurrency("100", "GBP"));
-		// Utils.LoadCurrencies();
 		 /*
-		 String price1 = "€ 60.50";
-		 String price2 = "1 060";
-		 String price3 = "1 060 €";
-		 String price4 = "1,060 €";
-		 String price5 = "1.060 €";
-		 String price6 = "1.060,40 €";
-		 String price7 = "1,060.18 €";
-		 String price8 = "1 060.31 €";
-		 String price9 = "1 060,03 €";
-		 String price10 = "850,02 €";
-		 String price11 = "180 €";
-		 
-		 System.out.println(change(price1));
-		 System.out.println(change(price2));
-		 System.out.println(change(price3));
-		 System.out.println(change(price4));
-		 System.out.println(change(price5));
-		 System.out.println(change(price6));
-		 System.out.println(change(price7));
-		 System.out.println(change(price8));
-		 System.out.println(change(price9));
-		 System.out.println(change(price11));
-		
-		
-		 NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMANY);
-		 ((DecimalFormat)nf).setParseBigDecimal(true);
-		 
-		 
-		 System.out.println("PRICE: "+(BigDecimal)nf.parse(price));
-		 Price p = new Price();
-		 p.setPrice(price);
-		
-		 System.out.println(Utils.changeCurrency(p.getPrice(), "EUR", "EUR"));
-		
-			
-		 Query query = new Query("2","es","The May Fair Hotel",1,2,"06/08/2016","10/08/2016","179,10","EUR");
+		 Query query = new Query("10000","es","Park Inn By Radisson Nice Airport",1,2,"06/08/2016","10/08/2016","179,10","EUR");
 
 	        CrawlingService service = new CrawlingService();
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
 	        
 	        System.out.println(new Gson().toJson(datos));
-	 
+		
 		 
-		 // data = Utils.searchHotelIdentifiers("Radisson Blu Edwardian Bloomsbury Street");
-		 //System.out.println(result);
+		 Exchange e = new Exchange("EUR",1);
+		 Exchange e1 = new Exchange("GBP", 1.6f);
 		 
-	
+		 ExchangeManager em = new ExchangeManager();
+		 em.add(e1);
+		 em.add(e);
+		
 		 
-		 //String exp = "https://www.expedia.com/London-Hotels-Radisson-Blu-Edwardian-Bloomsbury-Street-Hotel.h19825.Hotel-Information";
-		 //String book = "http://www.booking.com/hotel/gb/radissonedwardianmarlborough.es.html";
-
-		 //System.out.println(exp.substring(exp.indexOf("com/")+4, exp.lastIndexOf(".")));
-		 
-		 //int from = book.indexOf("com/")+4;
-		 //book = book.substring(from);
-		 //int to = book.indexOf(".");
-		 
-		 //System.out.println(book.substring(0,to));
-		// System.out.println(book.substring(from,to));
-		//CustomerManager m = new CustomerManager();
-	     // Customer c = new Customer();
-	      //c.setUsername("nhhotels");
-	      //c.setPassword("nhhotels");
-	      //System.out.println(new Gson().toJson(m.login(c)));
-	        //System.out.println(Utils.changeCurrency(datos.get(0).getPrice(), "EUR", "GBP"));
-		//System.out.println(Utils.createOtaStatusJavascriptContent(new OtaManager().list()));
-		 /*
-		 if(Currency.AUD.toString().equals("AUD")){
-			 System.out.println(Currency.AUD);
-		 }else{
-			 System.out.println("KO");
+		 //em.update();
+		 List<String> c = new ArrayList<String>();
+		 for(Exchange e : em.list()){
+			 c.add(e.getCurrency());
 		 }
-		*/
-		 
-		// String p = "100";
-		// System.out.println(Utils.changeCurrency(p, "GBP","EUR"));
-		 
-		 /*
-		 Document doc = Jsoup.connect("http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in=29/03/2016&hotel-id=355619&q-room-0-adults=2&YGF=0&MGT=2&WOE=6&q-localised-check-out=30/03/2016&WOD=4&ZSX=0&SYE=3&q-room-0-children=0").get();
-		 Elements e = doc.select("form");
-		 Map<String,String> data = new HashMap<String,String>();
-		 for(int i = 0; i<e.size(); i++){
-			 if(e.get(i).hasAttr("id")){
-				 if(e.get(i).attr("id").equals("room-1-rateplan-1")){
-					 Elements fields = e.get(i).select("input");
-					 for(int j = 0; j<fields.size(); j++){
-						 data.put(fields.get(j).attr("name"), fields.get(j).attr("value"));
-					 }
-				 }
-			 }
-		 }
-		 Document request = Jsoup.connect("https://ssl-fr.hotels.com/bookingInitialise.do").data(data).post();
-		 Elements rq = request.select("strong[id=financial-details-total-price]");
-		 System.out.println(rq.text());
-		 */
+		 System.out.println(new Gson().toJson(c));
+		  */
 	 }
 }

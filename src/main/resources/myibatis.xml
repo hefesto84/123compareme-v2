@@ -16,6 +16,7 @@
 		<typeAlias alias="WidgetTranslations" type="es.ubiqua.compareme.model.WidgetTranslations"/>
 		<typeAlias alias="ModelCSSWidget" type="es.ubiqua.compareme.model.ModelCSSWidget"/>
 		<typeAlias alias="ModelHTMLWidget" type="es.ubiqua.compareme.model.ModelHTMLWidget"/>
+		<typeAlias alias="Exchange" type="es.ubiqua.compareme.model.Exchange"/>
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
@@ -45,6 +46,7 @@
 		<mapper resource="mapping/widgetTranslation.xml"/>
 		<mapper resource="mapping/modelCSSWidget.xml"/>
 		<mapper resource="mapping/modelHTMLWidget.xml"/>
+		<mapper resource="mapping/exchange.xml"/>
 	</mappers>
 	
 </configuration>

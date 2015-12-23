@@ -107,6 +107,11 @@
            <param name="encoding">UTF-8</param>
            <param name="contentType">application/json</param>
         </action>
+        <action name="updateExchange" class="es.ubiqua.compareme.actions.UpdateExchangeRatesAction">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
     </package>
     
     <package name="login" namespace="/login" extends="struts-default">

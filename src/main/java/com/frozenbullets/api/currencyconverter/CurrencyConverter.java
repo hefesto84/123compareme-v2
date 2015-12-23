@@ -1,6 +1,8 @@
 package com.frozenbullets.api.currencyconverter;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -55,6 +57,7 @@ public class CurrencyConverter {
 			Logger.getLogger(this.getClass()).error("Error parsing currency");
 		}
 	}
+
 	
 	public static CurrencyConverter getInstance(){
 		if(INSTANCE==null){

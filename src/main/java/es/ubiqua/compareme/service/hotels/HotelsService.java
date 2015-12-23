@@ -32,19 +32,18 @@ public class HotelsService  extends Service implements ServiceInterface{
 	
 	public HotelsService setServiceParameters(Query query){
 		mOta = otaManager.get(new Ota(OTA));
-		currencyResponse = query.getCurrency();
-		
-		
+		currencyResponse = query.getCurrency();	
+	
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());
 		d.setIdOta(mOta.getId());
 		d = domainManager.get(d);
 		mDomain = d.getDomain();
 		
-		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+new Gson().toJson(d));
-		
 		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn(),mOta.getId()));
 		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut(),mOta.getId()));
+		
+		Logger.getLogger(this.getClass()).debug("Crawling service hotels");
 		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}
@@ -74,8 +73,6 @@ public class HotelsService  extends Service implements ServiceInterface{
 		
 		url = "http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
 	   
-			//Document doc = Jsoup.connect("").timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
-			
 			Document doc = Jsoup.connect(url).cookies(response.cookies()).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
 			 Elements e = doc.select("form");
 			 Map<String,String> data = new HashMap<String,String>();

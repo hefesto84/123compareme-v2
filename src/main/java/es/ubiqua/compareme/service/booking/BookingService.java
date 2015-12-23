@@ -37,11 +37,10 @@ public class BookingService extends Service implements ServiceInterface{
 		d = domainManager.get(d);
 		mDomain = d.getDomain();
 		
-		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+new Gson().toJson(d));
-		
-		
 		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn(),mOta.getId()));
 		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut(),mOta.getId()));
+		
+		Logger.getLogger(this.getClass()).debug("Crawling service booking");
 		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}
@@ -74,7 +73,7 @@ public class BookingService extends Service implements ServiceInterface{
 		try {
 			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency="+currencyResponse+"&group_adults="+price.getGuests()+";room1=A%2CA&";
 			Document d = Jsoup.connect(url).get();
-			//System.out.println(url);
+			
 			if (d.select("strong[data-price-without-addons]")!=null) {
 				try{
 				

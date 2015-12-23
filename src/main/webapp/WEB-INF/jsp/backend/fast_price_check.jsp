@@ -33,43 +33,24 @@
 							<div class="form-group">
 								<label for="lang">Select language:</label> <select
 									class="form-control" id="lang" name="lang">
-									<option value="es">Spanish</option>
-									<option value="en">English</option>
-									<option value="fr">French</option>
-									<option value="de">German</option>
-									<option value="it">Italian</option>
-									<option value="ru">Russian</option>
-									<option value="pt">Portuguese</option>
-									<option value="dk">Dansk</option>
-									<option value="nl">Dutch</option>
+									<option value="es" <s:if test="%{lastLanguage == 'es'}">selected</s:if>>Spanish</option>
+									<option value="en" <s:if test="%{lastLanguage == 'en'}">selected</s:if>>English</option>
+									<option value="fr" <s:if test="%{lastLanguage == 'fr'}">selected</s:if>>French</option>
+									<option value="de" <s:if test="%{lastLanguage == 'de'}">selected</s:if>>German</option>
+									<option value="it" <s:if test="%{lastLanguage == 'it'}">selected</s:if>>Italian</option>
+									<option value="ru" <s:if test="%{lastLanguage == 'ru'}">selected</s:if>>Russian</option>
+									<option value="pt" <s:if test="%{lastLanguage == 'pt'}">selected</s:if>>Portuguese</option>
+									<option value="dk" <s:if test="%{lastLanguage == 'dk'}">selected</s:if>>Dansk</option>
+									<option value="nl" <s:if test="%{lastLanguage == 'nl'}">selected</s:if>>Dutch</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="currency">Currency:</label><br /> 
 				          		<select class="form-control" id="currency" name="currency">
-									<option value="EUR" selected>EUR</option>
-									<option value="GBP">GBP</option>
-									<option value="USD">USD</option>
-									<option value="ARS">ARS</option>
-									<option value="AUD">AUD</option>
-									<option value="BRL">BRL</option>
-									<option value="CHF">CHF</option>
-									<option value="CAD">CAD</option>
-									<option value="DKK">DKK</option>
-									<option value="HKD">HKD</option>
-									<option value="INR">INR</option>
-									<option value="JPY">JPY</option>
-									<option value="KRW">KRW</option>
-									<option value="MYR">MYR</option>
-									<option value="MXN">MXN</option>
-									<option value="NZD">NZD</option>
-									<option value="NOK">NOK</option>
-									<option value="PHP">PHP</option>
-									<option value="SGD">SGD</option>
-									<option value="SEK">SEK</option>
-									<option value="TWD">TWD</option>
-									<option value="THB">THB</option>
-									<option value="VND">VND</option>
+									<s:iterator value="currencies">
+									<option value="<s:property value="currency"/>" <s:if test="%{lastCurrency == currency}">selected</s:if> /><s:property value="currency"/> | <s:property value="name" /></option>
+									<!--  <option value="<s:property value="name"/>" <s:if test="%{id == idHotel}">selected</s:if>><s:property value="name" /></option> -->
+									</s:iterator>
 								</select>
 							</div>
 						</div>
@@ -130,7 +111,7 @@
 								<td><s:property value="dateOut" /></td>
 								<td><s:property value="guests" /></td>
 								<td><s:property value="rooms" /></td>
-								<td><s:property value="price" /></td>
+								<td><s:property value="price" /> <s:property value="currency"/></td>
 								<td><s:property value="purePrice"/></td>	
 								<td><s:property value="basePrice" /></td>
 								<td>

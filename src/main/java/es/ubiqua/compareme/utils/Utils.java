@@ -55,6 +55,7 @@ public class Utils {
 	  
 	public static String sanitizeDateForBooking(String date){	
 		String output = "";	
+		//System.out.println("DATE: "+date);
 		if(date.contains("/")){
 			output = date.substring(6) + "-" + date.substring(3,5)+"-"+ date.substring(0,2);
 		}
@@ -63,6 +64,7 @@ public class Utils {
 	
 	public static String sanitizeDateForHotels(String date){
 		String output = "";
+		System.out.println("DATE: "+date);
 		if(date.contains("/")){
 			output = date.substring(0,2) + "-" + date.substring(3,5) + "-" + date.substring(6);
 		}

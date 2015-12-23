@@ -34,19 +34,17 @@ public class VenereService extends Service implements ServiceInterface{
 	public VenereService setServiceParameters(Query query){
 		mOta = otaManager.get(new Ota(OTA));
 		currencyResponse = query.getCurrency();
-		
-		
-		
+
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());
 		d.setIdOta(mOta.getId());
 		d = domainManager.get(d);
 		mDomain = d.getDomain();
-		
-		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: "+new Gson().toJson(d));
-		
+	
 		query.setDateIn(Utils.formatDate(d.getFormat(), query.getDateIn(),mOta.getId()));
 		query.setDateOut(Utils.formatDate(d.getFormat(), query.getDateOut(),mOta.getId()));
+		
+		Logger.getLogger(this.getClass()).debug("Crawling service venere");
 		
 		return setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(), query.getRooms(), query.getDateIn(), query.getDateOut());
 	}

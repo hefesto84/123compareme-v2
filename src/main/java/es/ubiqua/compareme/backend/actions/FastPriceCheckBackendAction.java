@@ -6,8 +6,10 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 
+import es.ubiqua.compareme.manager.ExchangeManager;
 import es.ubiqua.compareme.manager.HotelManager;
 import es.ubiqua.compareme.manager.OtaManager;
+import es.ubiqua.compareme.model.Exchange;
 import es.ubiqua.compareme.model.Hotel;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
@@ -22,6 +24,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	private List<Hotel> hotels;
 	private OtaManager otaManager = new OtaManager();
 	private HotelManager hotelManager = new HotelManager();
+	private ExchangeManager exchangeManager = new ExchangeManager();
 	 private List<Price> datos = new ArrayList<Price>();
 	 
 	private String rooms;
@@ -32,7 +35,9 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	private String dateOut;
 	private String lang;
 	private String currency;
-	private List<String> currencies;
+	private String lastCurrency;
+	private String lastLanguage;
+	private List<Exchange> currencies = new ArrayList<Exchange>();
 	
 	private String query;
 	private String ip;
@@ -47,18 +52,42 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		ip = Utils.getIP();
 		otas = otaManager.list();
 		hotels = hotelManager.list(getLoggedCustomer());
-		setCurrencies(Utils.LoadCurrencies());
 		
+		currencies = exchangeManager.list();
+		
+		lastCurrency = currency;
+		lastLanguage = lang;
+	
 		try{
 			Hotel h = new Hotel();
 			h.setName(new String(hotelName.getBytes("iso-8859-1"),"UTF-8"));
 			h = hotelManager.get(h);
 			idHotel = h.getId();
 			
+			boolean needToBeConverted = false;
 			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100",currency);
 			CrawlingService service = new CrawlingService();
 			
-			setDatos(service.weaving(CrawlingService.MONOTHREAD_MODE, q));
+			if(exchangeManager.isCurrencyRestrictive(currency)){
+				needToBeConverted = false;
+			}else{
+				if(!exchangeManager.isCurrencyAvailable(currency)){		
+					currency = "XXX";
+					return SUCCESS;
+				}else{
+					needToBeConverted = true;
+					q.setCurrency("EUR");
+				}
+			}
+
+	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, q);
+	        
+	        if(needToBeConverted){
+	        	for(Price p : datos){
+		        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+	        	}
+	        }
+	  
 			this.query = new Gson().toJson(datos);
 		}catch(Exception e){
 			
@@ -186,12 +215,28 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		this.currency = currency;
 	}
 
-	public List<String> getCurrencies() {
+	public List<Exchange> getCurrencies() {
 		return currencies;
 	}
 
-	public void setCurrencies(List<String> currencies) {
+	public void setCurrencies(List<Exchange> currencies) {
 		this.currencies = currencies;
+	}
+
+	public String getLastCurrency() {
+		return lastCurrency;
+	}
+
+	public void setLastCurrency(String lastCurrency) {
+		this.lastCurrency = lastCurrency;
+	}
+
+	public String getLastLanguage() {
+		return lastLanguage;
+	}
+
+	public void setLastLanguage(String lastLanguage) {
+		this.lastLanguage = lastLanguage;
 	}
 
 }

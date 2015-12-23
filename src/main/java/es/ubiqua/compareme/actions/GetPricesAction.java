@@ -12,6 +12,7 @@ import com.tunyk.currencyconverter.api.CurrencyConverterException;
 
 import es.ubiqua.compareme.exceptions.CustomerException;
 import es.ubiqua.compareme.exceptions.ExpediaServiceException;
+import es.ubiqua.compareme.manager.ExchangeManager;
 import es.ubiqua.compareme.manager.PriceManager;
 import es.ubiqua.compareme.manager.TestManager;
 import es.ubiqua.compareme.model.Price;
@@ -36,40 +37,35 @@ public class GetPricesAction extends ActionSupport {
 	private int rooms;
 	private int guests;
 	private String currency;
-	
-    public String execute() {
-    
-    	boolean useCurrencyConverter = false;
-    	String originalCurrency = "";
-    	
-    	if(!Utils.isCurrencyAvailable(currency)){
-    		if(CurrencyConverter.getInstance().isCurrencyAvailable(currency)){
-    			useCurrencyConverter = true;
-        		originalCurrency = currency;
-        		currency = "EUR";
-    		}else{
-    			currency = "XXX";
-    			return SUCCESS;
-    		}
-    		
-    	}
 
+    public String execute() {
     	
-        Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base,currency);
-        CrawlingService service = new CrawlingService();
+		ExchangeManager exchangeManager = new ExchangeManager();
+	
+		CrawlingService service = new CrawlingService();
+		Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base,currency);
+		boolean needToBeConverted = false;
+		
+		if(exchangeManager.isCurrencyRestrictive(currency)){
+			needToBeConverted = false;
+		}else{
+			if(!exchangeManager.isCurrencyAvailable(currency)){		
+				currency = "XXX";
+				return SUCCESS;
+			}else{
+				needToBeConverted = true;
+				query.setCurrency("EUR");
+			}
+		}
+
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         
-        if(useCurrencyConverter){
+        if(needToBeConverted){
         	for(Price p : datos){
-        		try{
-	        		String newPrice = CurrencyConverter.getInstance().convertCurrency(p.getPrice(), "EUR", originalCurrency);
-	        		p.setPrice(newPrice);
-        		}catch(CurrencyConverterException e){
-        			Logger.getLogger(this.getClass()).error("Error converting: "+e.getMessage());
-        		}
+	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
         	}
         }
-        
+     
         return SUCCESS;
     }
 

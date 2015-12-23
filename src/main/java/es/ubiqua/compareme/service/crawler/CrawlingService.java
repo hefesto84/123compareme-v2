@@ -32,6 +32,8 @@ public class CrawlingService {
 	private OtaManager otaManager;
 	private CustomerManager customerManager;
 	private CurrencyManager currencyManager;
+	private String dateIn = "";
+	private String dateOut = "";
 	
 	public CrawlingService(){
 		priceManager = new PriceManager();
@@ -41,6 +43,10 @@ public class CrawlingService {
 	}
 	
 	public List<Price> weaving(int mode, Query query){
+		
+		dateIn = query.getDateIn();
+		dateOut = query.getDateOut();
+		
 		prices = new ArrayList<Price>();
 		Customer c = new Customer();
 		c.setIdentifier(query.getCustomerId());
@@ -99,25 +105,29 @@ public class CrawlingService {
 	
 		case 1:
 			ExpediaService es = new ExpediaService();
+			query.setDateIn(dateIn);
+			query.setDateOut(dateOut);
 			p = es.setServiceParameters(query).trackPrice();
-			//p = es.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		case 2:
 			BookingService be = new BookingService();
+			query.setDateIn(dateIn);
+			query.setDateOut(dateOut);
 			p = be.setServiceParameters(query).trackPrice();
-			//p = be.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		
 		case 3:
 			HotelsService he = new HotelsService();
+			query.setDateIn(dateIn);
+			query.setDateOut(dateOut);
 			p = he.setServiceParameters(query).trackPrice();
-			//p = he.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		
 		case 4:
 			VenereService ve = new VenereService();
+			query.setDateIn(dateIn);
+			query.setDateOut(dateOut);
 			p = ve.setServiceParameters(query).trackPrice();
-			//p = ve.setServiceParameters(query.getLang(), query.getHotel(), query.getGuests(),query.getRooms(),query.getDateIn(), query.getDateOut()).trackPrice();
 			break;
 		
 		}
