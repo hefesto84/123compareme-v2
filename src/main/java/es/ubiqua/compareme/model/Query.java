@@ -107,6 +107,8 @@ public class Query {
 	}
 
 	public String toHash(int hotelId,int otaId){
-		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+hotelId+otaId+this.lang);
+		String hash = Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+hotelId+otaId);
+		System.out.println("HASH: "+hash);
+		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+hotelId+otaId);
 	}
 }

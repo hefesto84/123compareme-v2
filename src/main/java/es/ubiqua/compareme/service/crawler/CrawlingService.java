@@ -134,6 +134,8 @@ public class CrawlingService {
 		p.setBackend(Integer.valueOf(query.getCustomerId()));
 		p.setSite(otaManager.get(o).getIcon());
 		p.setBasePrice(query.getBase());
+		p.setDateIn(dateIn);
+		p.setDateOut(dateOut);
 		priceManager.add(p);
 	
 		return p;

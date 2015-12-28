@@ -1,6 +1,7 @@
 package es.ubiqua.compareme.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.google.gson.Gson;
 
@@ -26,6 +27,7 @@ public class Price implements Serializable {
 	private String hash = "";
 	private String query;
 	private int backend;
+	private Date date;
 	
 	public String getLanguage() {
 		return language;
@@ -170,6 +172,14 @@ public class Price implements Serializable {
 
 	public void setBackend(int backend) {
 		this.backend = backend;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

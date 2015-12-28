@@ -35,8 +35,12 @@
         SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id ORDER BY rp.otaId ASC;
     </select>
     
+    <select id="cached" parameterType="es.ubiqua.compareme.model.Query" resultMap="SqlMapPrice.Price">
+    
+    </select>
+    
     <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
-    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash = #{hash} AND rp.otaId = ro.id;
+    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash LIKE #{hash} AND rp.otaId = ro.id LIMIT 1;
     </select>
     
      
