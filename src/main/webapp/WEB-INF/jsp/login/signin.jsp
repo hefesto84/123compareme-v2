@@ -84,7 +84,8 @@
                                 -->    
                             </form>     
                         </div>                     
-                    </div>  
+                    </div>
+                    <div id="toc" style="position: relative; margin-top: 3.5em; float: left; text-align: center; width: 100%;">You're using 123compare.me service under <a href="../doc/toc_en.pdf" target="_blank">this terms and conditions</a></div>  
         </div>
         <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="panel panel-info">

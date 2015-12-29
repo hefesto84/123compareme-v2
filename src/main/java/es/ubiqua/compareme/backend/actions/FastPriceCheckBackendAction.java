@@ -82,11 +82,11 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, q);
 	        
-	        if(needToBeConverted){
+	        //if(needToBeConverted){
 	        	for(Price p : datos){
 		        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
 	        	}
-	        }
+	        //}
 	  
 			this.query = new Gson().toJson(datos);
 		}catch(Exception e){
