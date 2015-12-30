@@ -69,10 +69,10 @@ public class CrawlingService {
 			
 			p.setHash(query.toHash(hotel.getId(), ota.getId()));
 			
-			p = priceManager.getByHash(p);
-			if(p==null){
+			//p = priceManager.getByHash(p);
+			//if(p==null){
 				p = crawlPrice(ota.getId(),query);
-			}
+			//}
 			
 			addPriceToResponse(p);
 		}

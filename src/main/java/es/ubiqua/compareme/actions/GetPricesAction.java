@@ -60,11 +60,11 @@ public class GetPricesAction extends ActionSupport {
 
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         
-       // if(needToBeConverted){
+       if(needToBeConverted){
         	for(Price p : datos){
 	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
         	}
-        //}
+        }
      
         return SUCCESS;
     }
