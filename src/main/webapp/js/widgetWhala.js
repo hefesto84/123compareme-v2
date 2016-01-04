@@ -9,13 +9,13 @@ var hotelswidget = new (function(window, document, jQuery){
         } else {
         	hotelswidget.setAnalytics();
         	datos.domain = domain;
-        	datos.hotel = $( "#selectorhoteles option:selected" ).html();
+        	datos.hotel = hotelswidget.getHotelName();
         	datos.rooms = 1;
 		    datos.guests = parseInt($( "[name='adultos'] option:selected" ).html());
-		    datos.start = hotelswidget.dateConverse($('#fini').val());
-		    datos.stop = hotelswidget.dateConverse($('#fout').val());
+		    datos.start = hotelswidget.dateConverse($("[name='datein']").val());
+		    datos.stop = hotelswidget.dateConverse($("[name='dateout']").val());
 		    datos.currency = properties.currency;
-		    datos.lang = $('.social-language').find('.language').html().toLowerCase();
+		    datos.lang =  $('li.languages').find('ul.languages-menu').find('li.active').find('a').html().toLowerCase();
 		    datos.defaultLang = 'en';
 		    datos.price = properties.price;
 		    datos.device = 'isDesktop';
@@ -178,6 +178,18 @@ var hotelswidget = new (function(window, document, jQuery){
 
 
     this.functionReservar = function(pHotelCode, pRateUni, pRedemptionRate, pClearEcertCode){
+    }
+    
+    this.getHotelName = function(){
+    	var url = window.location.href;
+    	var patt = /whalabeach/g;
+    	var hotel = '';
+    	if (patt.test(url)){
+    		hotel = 'Whala!Beach';
+    	} else {
+    		hotel = 'Whala!Bavaro';
+    	}
+    	return hotel;
     }
     
 })(window, document,jQuery);
