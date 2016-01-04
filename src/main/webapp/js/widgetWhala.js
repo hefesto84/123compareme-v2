@@ -1,7 +1,7 @@
 var hotelswidget = new (function(window, document, jQuery){
     var domain = 'https://www.123compare.me/v2'
     var datos = {};
-    datos.user = 8;
+    datos.user = 10;
     
     this.init = function (showWidget,properties) {
     	if(showWidget === false){
@@ -56,9 +56,6 @@ var hotelswidget = new (function(window, document, jQuery){
     
     this.setJavascript = {
     	setPriceInWidget : function(price,currency){
-    		$('#widget123_top_bottom_price').find('#price').html(price.toFixed(2));
-    		$('#widget123_top_bottom_price').find('#currency').html(currency);
-    		
     		$('#widget123_responsive_left_price').find('.price').html(Math.floor(price));
     		$('#widget123_responsive_left_price').find('.currency').html((price + "").split(".")[1]+currency);
     		
@@ -68,23 +65,8 @@ var hotelswidget = new (function(window, document, jQuery){
     	setWidgetJavascript : function(){
     		
     		var widget_responsive = $('#widget123_responsive_div').html();
-    		$(widget_responsive).insertBefore('.wrap-frame');
+    		$(widget_responsive).insertBefore('.wrap-iframe');
     		
-    		var widget_width = $('.wrap-cols').find('.col-text').width() + parseInt($('.wrap-cols').find('.col-text').css('padding-left')) + parseInt($('.wrap-cols').find('.col-text').css('padding-right'));
-    		var position_right = $('body').width() - ($('.wrap-cols').find('.col-text').offset().left + widget_width);
-    		var widget_top = $('.wrap-cols').find('.col-text').height() + parseInt($('.wrap-cols').find('.col-text').css('padding-top')) + parseInt($('.wrap-cols').find('.col-text').css('padding-bottom')) + $('.wrap-cols').find('.col-text').offset().top + 10;
-    		$('#widget123').css({
-    			'width' : widget_width,
-    			'right' : position_right,
-    			'top' : widget_top
-    		});
-    		$('#widget123_top').click(function(){
-                if ($('#widget123_middle').is(':hidden')){
-                    $('#widget123_middle').slideDown(1000);
-                } else {
-                    $('#widget123_middle').slideUp(1000);
-                }
-            });
     		$('#widget123_responsive').click(function(){
                 $('#widget123_popup').show();
                 _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
@@ -107,43 +89,17 @@ var hotelswidget = new (function(window, document, jQuery){
                 $('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
                 return 0;
             }
-            var content_middle = document.getElementById("widget123_middle");
-            var count = 0;
-            for (var i = 0; i < data.datos.length; i++) {
-
-                var precio_convertido = parseFloat(data.datos[i].price);
-                precio_convertido = precio_convertido / diffDay;
-
-                if (((Math.round(price) - 1) < Math.round(precio_convertido) || (Math.round(price) - 1) == Math.round(precio_convertido)) &&  (count < 5)) {
-                    count = count + 1;
-                    var element = document.createElement("div");
-                    element.setAttribute('id', 'element');
-
-                    var image = document.createElement('img');
-                    image.setAttribute('src', domain + '/img/' + data.datos[i].site);
-                    element.appendChild(image);
-
-                    var span = document.createElement('span');
-                    span.setAttribute('class', 'priceWidgetElement');
-                    span.innerHTML = precio_convertido.toFixed(2) + '<span class="currency">' + currency + '</span>';
-                    element.appendChild(span);
-
-                    var clear = document.createElement('div');
-                    clear.setAttribute('style', 'clear:both;');
-                    element.appendChild(clear);
-
-                    content_middle.appendChild(element);
-                }
-            }
-            
+          
             var content_middle_popup = document.getElementById("widget123_popup_content_middle");
+            var count = 0;
             for (var j = 0; j < data.datos.length; j++) {
 
                 var precio_convertido = parseFloat(data.datos[j].price);
                 precio_convertido = precio_convertido / diffDay;
 
                 if (((Math.round(price) - 1) < Math.round(precio_convertido) || (Math.round(price) - 1) == Math.round(precio_convertido))){
-                    var element = document.createElement("div");
+                	count = count + 1;
+                	var element = document.createElement("div");
                     element.setAttribute('id', 'element_popup');
 
                     var image = document.createElement('img');
@@ -168,7 +124,6 @@ var hotelswidget = new (function(window, document, jQuery){
             } else {
             	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
                 _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
-                $('#widget123').show();
             }
     	}
     }

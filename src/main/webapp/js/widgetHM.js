@@ -7,13 +7,20 @@ var hotelswidget = new (function(window, document, jQuery){
     	if(showWidget === false){
             hotelswidget.setAnalytics();
         } else {
+        	var type = hotelswidget.typeHotel();
         	hotelswidget.setAnalytics();
         	datos.domain = domain;
-        	datos.hotel = $( "#selectorhoteles option:selected" ).html();
+		    if (type === 'Whala'){
+		    	datos.hotel = $( "[name='hotel'] option:selected" ).val();
+        		datos.start = hotelswidget.dateConverse($('#from').val());
+        		datos.stop = hotelswidget.dateConverse($('#to').val());
+        	} else {
+        		datos.hotel = $( "#selectorhoteles option:selected" ).html();
+        		datos.start = hotelswidget.dateConverse($('#fini').val());
+        		datos.stop = hotelswidget.dateConverse($('#fout').val());
+        	}
         	datos.rooms = 1;
 		    datos.guests = parseInt($( "[name='adultos'] option:selected" ).html());
-		    datos.start = hotelswidget.dateConverse($('#fini').val());
-		    datos.stop = hotelswidget.dateConverse($('#fout').val());
 		    datos.currency = properties.currency;
 		    datos.lang = $('.social-language').find('.language').html().toLowerCase();
 		    datos.defaultLang = 'en';
@@ -176,8 +183,17 @@ var hotelswidget = new (function(window, document, jQuery){
     this.setUrlHref = function(){
     }
 
-
     this.functionReservar = function(pHotelCode, pRateUni, pRedemptionRate, pClearEcertCode){
+    }
+    
+    this.typeHotel = function(){
+    	type = 'HM';
+    	var url = window.location.href;
+    	var patt = /whala/g;
+    	if (patt.test(url)){
+    		type = 'Whala';
+    	}
+    	return type;
     }
     
 })(window, document,jQuery);
