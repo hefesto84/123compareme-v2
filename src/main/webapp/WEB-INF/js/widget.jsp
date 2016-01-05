@@ -39,6 +39,7 @@ function setCSS123(){
 }
 
 function setCSSMobile123(){
+	jQuery('body').append('<style>'+css+'</style>');
 }
 
 function setHtml123(price,currency,lang) {
@@ -48,6 +49,9 @@ function setHtml123(price,currency,lang) {
 }
 
 function setHtmlMobile123(price,currency, time) {
+	jQuery('body').append(html);  
+	hotelswidget.setJavascript.setPriceInWidget(price,currency,lang);
+	hotelswidget.setJavascript.setWidgetJavascript();
 }
 
 function getDatosWidget123(url_post,device,price,currency,lang,diffDays){
@@ -75,7 +79,7 @@ function setWidget123(datos,price,currency,diffDay) {
 }
 
 function setWidgetMobile123(datos,price,currency){
-
+	hotelswidget.setJavascript.setWidgetData(datos,price,currency,diffDay);
 }
 
 function setTranslate123(lang){
