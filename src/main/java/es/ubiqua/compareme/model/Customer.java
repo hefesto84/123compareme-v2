@@ -12,6 +12,7 @@ public class Customer {
 	private String mpassword;
 	private String mhost;
 	private String contact;
+	private String token;
 	
 	public Customer(){
 		
@@ -95,6 +96,14 @@ public class Customer {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	

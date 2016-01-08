@@ -14,6 +14,7 @@
         <result property="mpassword" column="mpassword"/>
         <result property="mhost" column="mhost"/>
         <result property="contact" column="contact"/>
+        <result property="token" column="token"/>
     </resultMap>
     
     <select id="list" resultMap="SqlMapCustomer.Customer">
@@ -37,7 +38,7 @@
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Customer" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO RepositoryCustomer (name,identifier,username,password,musername,mpassword,mhost,contact) 
+        INSERT INTO RepositoryCustomer (name,identifier,username,password,musername,mpassword,mhost,contact,token) 
         	VALUES (
         		#{name},
         		#{identifier},
@@ -46,7 +47,8 @@
         		#{musername},
         		#{mpassword},
         		#{mhost},
-        		#{contact}
+        		#{contact},
+        		#{token}
         	)
         	
         <selectKey keyProperty="id" resultType="int" order="AFTER">

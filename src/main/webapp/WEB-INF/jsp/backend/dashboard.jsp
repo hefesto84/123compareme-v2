@@ -63,7 +63,8 @@
 		</div>
 		<div class="panel-body">
 			<div style="width: 100%">
-				<canvas id="cnvEvolution" ></canvas>
+					<iframe src="http://www.123compare.me/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=MultiSites&actionToWidgetize=standalone&idSite=1&period=week&date=yesterday" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
+
 			</div>
 		</div>
 	</div>
