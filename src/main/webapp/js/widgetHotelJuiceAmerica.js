@@ -6,40 +6,38 @@ var hotelswidget = new (function(window, document, $){
         if(showWidget === false){
             hotelswidget.setAnalytics();
         } else {
-            var conversion = 1;
-            var hotel = 'Hotel America Barcelona';
-            var rooms = 1;
-            var guests = $('a.addroomaction').first().attr('data-adults');
-            var user = 3;
-            //var start = hotelswidget.dateConverse($('#form_startdate').val());
-            //var stop = hotelswidget.dateConverse($('#form_enddate').val());
-            var start = $('ul.dates li:eq(0)').find('.date-value').html().trim();
-            var stop = $('ul.dates li:eq(1)').find('.date-value').html().trim();
-            var price = hotelswidget.findPrice();
-            var currency = 'EUR';
-            var lang = $('html').attr('lang');
-            var device = 'isDesktop';
+        	setTimeout(function(){
+        		var conversion = 1;
+                var hotel = 'Hotel America Barcelona';
+                var rooms = 1;
+                var guests = $('a.addroomaction').first().attr('data-adults');
+                var user = 3;
+                var start = $('ul.dates li:eq(0)').find('.date-value').html().trim();
+                var stop = $('ul.dates li:eq(1)').find('.date-value').html().trim();
+                var price = hotelswidget.findPrice();
+                var currency = 'EUR';
+                var lang = $('html').attr('lang');
+                var device = 'isDesktop';
 
-            var url_post = domain + '/api/prices?currency='+ currency + '&base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
+                var url_post = domain + '/api/prices?currency='+ currency + '&base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
 
-            console.log(url_post);
+                console.log(url_post);
 
-            //hotelswidget.setRotation();
+                if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
+                    price = parseFloat(price);
 
-            if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
-                price = parseFloat(price);
-
-                hotelswidget.setCSS();
-                if(device === 'isDesktop'){
-                    hotelswidget.setHtml(price,currency);
-                } else {
-                    hotelswidget.setHtmlMobile(price,currency,show);
+                    hotelswidget.setCSS();
+                    if(device === 'isDesktop'){
+                        hotelswidget.setHtml(price,currency);
+                    } else {
+                        hotelswidget.setHtmlMobile(price,currency,show);
+                    }
+                    hotelswidget.setTranslate(lang);
+                    setTimeout(function() {
+                        hotelswidget.getDatos(url_post,device,price,conversion,currency,lang);
+                    },1000) ;
                 }
-                hotelswidget.setTranslate(lang);
-                setTimeout(function() {
-                    hotelswidget.getDatos(url_post,device,price,conversion,currency,lang);
-                },1000) ;
-            }
+        	},500);
         }
     }
 
@@ -263,11 +261,12 @@ var hotelswidget = new (function(window, document, $){
                     "</a>" +
                 "</div>" +
             "</div>");
-        if($('html').attr('lang') === 'en'){
+        /*if($('html').attr('lang') === 'en'){
             $('#widget123_top_bottom_price').find('#price').html((price.toFixed(2)).replace('.',','));
         } else{
             $('#widget123_top_bottom_price').find('#price').html((price.toFixed(2)).replace('.',','));
-        }
+        }*/
+        $('#widget123_top_bottom_price').find('#price').html(price);
         $('#widget123_top_bottom_price').find('#currency').html(currency);
         hotelswidget.setJavaScript();
     }
@@ -289,12 +288,12 @@ var hotelswidget = new (function(window, document, $){
     this.findPrice = function(){
         var cheap_price = '';
         $('table.detailroom').each(function(){
-            var price = parseFloat($(this).find('span.roomlist-price').html().substring(0,$(this).find('span.roomlist-price').html().indexOf('<')).replace(',','.'));
+            var price = parseFloat($(this).find('span.roomlist-price').html().substring(0,$(this).find('span.roomlist-price').html().indexOf('<')).replace('.','').replace(',','.'));
             if ((cheap_price === '') || (price < cheap_price)){
                 cheap_price = price;
             }
         });
-        return cheap_price;
+        return cheap_price;         
     }
 
 })(window, document, $);

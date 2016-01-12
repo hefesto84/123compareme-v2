@@ -41,18 +41,18 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
       <li class="active"><a href="dashboard">Dashboard</a></li>
-      <li><a href="widget_configuration">Configuration</a></li>
+      <li><a href="fast_price_check">Fast Price Check</a></li>
       <li class="dropdown">
         <a href="tools" class="dropdown-toggle" data-toggle="dropdown">
           Tools <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
           <li><a href="download_statistics">Download Statistics</a></li>
-          <li><a href="fast_price_check">Fast Price Check</a></li>
           <li><a href="ht_manage_hotels">Manage Hotels</a></li>
           <li><a href="ht_manage_otas">OTA Status</a></li>
         </ul>
       </li>
+      <li><a href="widget_configuration">Configuration</a></li>
       <!-- <li class="dropdown">
         <a href="widget" class="dropdown-toggle" data-toggle="dropdown">
           Widget <b class="caret"></b>
