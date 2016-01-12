@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
 </head>
 <body>
 <div id="section1">
@@ -61,14 +60,26 @@
 				<b>Price Evolution</b>
 			</h3>
 		</div>
-		<div class="panel-body">
-			<div style="width: 100%">
-					<iframe src="http://www.123compare.me/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=MultiSites&actionToWidgetize=standalone&idSite=1&period=week&date=yesterday" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
-
+		<div class="panel-body" style="height:270px;">
+			<div style="width: 100%; height: 250px;">
+				<iframe id="piwik_iframe" src="http://www.123compare.me/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=MultiSites&actionToWidgetize=standalone&idSite=1&period=week&date=yesterday&token_auth=<s:property value='customer.token'/>" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
 			</div>
 		</div>
 	</div>
 </div>
 <script src="../js/information.js"></script>
+<!--<script type="text/javascript">
+	$('#piwik_iframe').on("load", function() {
+		var height = $('#piwik_iframe').contents().height();
+		$('#section2').find('panel-body').css({
+			'height':height
+		})
+	    //alert($(this).find('body').height());
+	    //this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
+	    //alert(this.contentWindow.document.body.offsetHeight + 'px');
+	    //alert($('#piwik_iframe').contents().height() + 'is the height');
+	    console.log(height + 'is the height');
+	});
+</script>-->	
 </body>
 </html>

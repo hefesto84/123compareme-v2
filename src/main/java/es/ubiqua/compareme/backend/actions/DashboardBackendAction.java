@@ -18,6 +18,7 @@ public class DashboardBackendAction extends BaseBackendAction{
 	private List<Hotel> hotels;
 	private OtaManager otaManager = new OtaManager();
 	private Customer customer;
+	private String token;
 	
 	private int numOtas = 0;
 	
@@ -73,6 +74,14 @@ public class DashboardBackendAction extends BaseBackendAction{
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

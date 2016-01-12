@@ -3,6 +3,8 @@ package es.ubiqua.compareme.backend.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -25,7 +27,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	private OtaManager otaManager = new OtaManager();
 	private HotelManager hotelManager = new HotelManager();
 	private ExchangeManager exchangeManager = new ExchangeManager();
-	 private List<Price> datos = new ArrayList<Price>();
+	private List<Price> datos = new ArrayList<Price>();
 	 
 	private String rooms;
 	private String guests;
@@ -63,6 +65,9 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 			h.setName(new String(hotelName.getBytes("iso-8859-1"),"UTF-8"));
 			h = hotelManager.get(h);
 			idHotel = h.getId();
+			
+			dateIn = converseDate(dateIn);
+			dateOut = converseDate(dateOut);
 			
 			boolean needToBeConverted = false;
 			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100",currency);
@@ -238,6 +243,34 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 
 	public void setLastLanguage(String lastLanguage) {
 		this.lastLanguage = lastLanguage;
+	}
+	
+	private String converseDate(String date){
+				
+		int primeraAparicion = StringUtils.ordinalIndexOf(date, "/", 1);
+		int segundaAparicion = StringUtils.ordinalIndexOf(date, "/", 2);
+		
+		int day = Integer.parseInt(date.substring(0,primeraAparicion));
+		int month = Integer.parseInt(date.substring(primeraAparicion + 1,segundaAparicion));
+		String year = date.substring(segundaAparicion + 1,segundaAparicion + 5);
+		String dayText;
+		String monthText;
+		
+		if (day < 10){
+			dayText = "0"+day;
+		} else {
+			dayText = ""+day;
+		}
+		
+		if (month < 10){
+			monthText = "0"+month;
+		} else {
+			monthText = ""+month;
+		}
+		
+		String dateConverted = dayText+"/"+monthText+"/"+year;
+		
+		return dateConverted;
 	}
 
 }

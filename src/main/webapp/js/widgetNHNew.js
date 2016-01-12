@@ -87,10 +87,11 @@ var hotelswidget = new (function(window, document, $){
             for (var i = 0; i < data.datos.length; i++) {
 
                 var precio_convertido = parseFloat(data.datos[i].price);
+                precio_convertido = Math.round(precio_convertido);
 
-                if (((Math.round(price) - 1) < Math.round(precio_convertido) || (Math.round(price) - 1) == Math.round(precio_convertido)) &&  (count < 5)) {
+                if (((Math.round(price) - 1) < Math.round(precio_convertido) || (Math.round(price) - 1) == Math.round(precio_convertido))) {
                     count = count + 1;
-                    
+                    console.log("Count = "+count);
                     var element = document.createElement("div");
                     element.setAttribute('class','ota');
                     element.setAttribute('data-ota',count);
@@ -100,16 +101,15 @@ var hotelswidget = new (function(window, document, $){
                     name.innerHTML = data.datos[i].site.replace('.png','');
                     element.appendChild(name)
                     
-                    var price = document.createElement("div");
-                    price.setAttribute('id','ota_price');
-                    price.innerHTML = '<span id="ota_price_price">' + precio_convertido + '</span>&nbsp;<span id="ota_price_currency">' + currency + '</span>';
-                    element.appendChild(price);
+                    var precio = document.createElement("div");
+                    precio.setAttribute('id','ota_price');
+                    precio.innerHTML = '<span id="ota_price_price">' + precio_convertido + '</span>&nbsp;<span id="ota_price_currency">' + currency + '</span>';
+                    element.appendChild(precio);
                     
                     content.appendChild(element);
                 
                 }
             }
-            
             
             if (count === 0){
                 _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
