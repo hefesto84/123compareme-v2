@@ -73,11 +73,12 @@ public class BookingService extends Service implements ServiceInterface{
 		try {
 			url = "http://www.booking.com/"+hotelName+"."+"es"+".html?aid=303651;sid=3e29979d6d50cf92f6cf2d9108161dc0;dcid=1;checkin="+Utils.sanitizeDateForBooking(price.getDateIn())+";checkout="+Utils.sanitizeDateForBooking(price.getDateOut())+";dist=0;selected_currency="+currencyResponse+"&group_adults="+price.getGuests()+";room1=A%2CA&";
 			Document d = Jsoup.connect(url).get();
+						
+			String querySelect = "tr[data-occupancy]";
 			
-			if (d.select("strong[data-price-without-addons]")!=null) {
+			if (d.select(querySelect)!=null){
 				try{
-				
-					BookingPair bp = Utils.getBookingBestPrice(d.select("strong[data-price-without-addons]"));
+					BookingPair bp = Utils.getBookingBestPrice(d.select(querySelect),price.getGuests());
 					
 					price.setPurePrice(bp.sprice);
 					price.setPrice(bp.fprice);
@@ -94,6 +95,27 @@ public class BookingService extends Service implements ServiceInterface{
 				price.setPurePrice("0");
 				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
 			}
+			
+			/*if (d.select("strong[data-price-without-addons]")!=null) {
+				try{
+					System.out.println("MESSI");
+					BookingPair bp = Utils.getBookingBestPrice(d.select("strong[data-price-without-addons]"));
+					
+					price.setPurePrice(bp.sprice);
+					price.setPrice(bp.fprice);
+				
+					mOta.setQueryOk(1);
+				}catch(Exception e){
+					price.setPrice("0");
+					price.setPurePrice("0");
+					DBLogger.getLogger().Error(getClass().getName()+"|"+url+" ERROR: "+e.getMessage());
+					Logger.getLogger(this.getClass()).error(e.getMessage());
+				}
+			}else{
+				price.setPrice("0");
+				price.setPurePrice("0");
+				DBLogger.getLogger().Warning(getClass().getName()+"|"+url+" WARNING: Weird Behaviour");
+			}*/
 			
 			price.setValoration(0);
 		

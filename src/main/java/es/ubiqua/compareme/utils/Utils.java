@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -337,19 +338,26 @@ public class Utils {
 	}
 	
 	// TODO
-	public static BookingPair getBookingBestPrice(Elements elements){
+	public static BookingPair getBookingBestPrice(Elements elements, int guests){
 
 		BookingPair bp = new BookingPair();
 		
-		float[] values = new float[elements.size()];
+		List<Float> valuesList = new ArrayList<Float>();
 		
 		for(int i = 0; i<elements.size(); i++){
-			values[i] = Utils.change(elements.get(i).html());
+			
+			int occupancy = Integer.parseInt(elements.get(i).getElementsByAttribute("data-occupancy").attr("data-occupancy"));
+			
+			if (occupancy >= guests){
+				valuesList.add(Utils.change(elements.get(i).select("strong[data-price-without-addons]").html()));
+			}
+			
 		}
-		Arrays.sort(values);
 		
-		bp.fprice = String.valueOf(values[0]);
-		bp.sprice = String.valueOf(values[0]);
+		Collections.sort(valuesList);
+		
+		bp.fprice = String.valueOf(valuesList.get(0));
+		bp.sprice = String.valueOf(valuesList.get(0));
 		
 		return bp;
 	}
