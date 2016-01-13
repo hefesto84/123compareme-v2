@@ -66,35 +66,13 @@ public class CrawlingService {
 	
 		hotel = new HotelManager().get(hotel);
 		
-		long init = System.currentTimeMillis();  // Instante inicial del procesamiento
-		
-		ExecutorService executor = Executors.newFixedThreadPool(otas.size());
-		
 		for(Ota ota : otas){
 			
-			final Query queryParameter = query;
-			final Hotel hotelParameter = hotel;
-			final Ota otaParameter = ota;
-			
-			Runnable run = new Runnable() { public void run() { 
-				
-				Price p = new Price();
-				p.setHash(queryParameter.toHash(hotelParameter.getId(), otaParameter.getId()));
-				p = crawlPrice(otaParameter.getId(),queryParameter);
-				addPriceToResponse(p);
-				
-			} };
-			executor.execute(run);
-			
+			Price p = new Price();
+			p.setHash(query.toHash(hotel.getId(), ota.getId()));
+			p = crawlPrice(ota.getId(),query);
+			addPriceToResponse(p);
 		}
-		executor.shutdown();
-        while (!executor.isTerminated()) {
-        	// Espero a que terminen de ejecutarse todos los procesos 
-        	// para pasar a las siguientes instrucciones 
-        }
-        
-        long fin = System.currentTimeMillis();	// Instante final del procesamiento
-        System.out.println("Tiempo total de procesamiento: "+(fin-init)/1000+" Segundos");
 		
 		return prices;
 	}
