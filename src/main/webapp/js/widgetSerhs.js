@@ -73,13 +73,13 @@ var hotelswidget = new (function(window, document, jQuery){
     		$('#widget123_top_bottom_price').find('#currency').html(currency);
     	},
     	setWidgetJavascript : function(){
-    		$('#widget123_top').click(function(){
+    		/*$('#widget123_top').click(function(){
                 if ($('#widget123_middle').is(':hidden')){
                     $('#widget123_middle').slideDown(1000);
                 } else {
                     $('#widget123_middle').slideUp(1000);
                 }
-            });
+            });*/
     	},
     	setWidgetData : function(datos,price,currency,diffDay){
     		data = datos;
