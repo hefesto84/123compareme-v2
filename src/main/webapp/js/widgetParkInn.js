@@ -25,73 +25,124 @@ var hotelswidget = new (function(window, document, jQuery){
             var diffDay = this.diffDate(start,stop);
 
             var url_post = domain + '/api/prices?currency='+ currency + '&base=' + price + '&code=' + user + '&hotel=' + encodeURI(hotel) + '&rooms=' + rooms + '&guests=' + guests + '&fin=' + start + '&fout=' + stop + '&lang=' + lang;
-            
-            if ((hotel === 'Park Inn By Radisson Aberdeen') ||
-            		(hotel === 'Park Inn by Radisson Amsterdam Airport Schiphol') ||
-            		(hotel === 'Park Inn by Radisson Ankara Cankaya') ||
-            		(hotel === 'Park Inn By Radisson Antwerpen') ||
-            		(hotel === 'Park Inn by Radisson Astana') ||
-            		(hotel === 'Park Inn By Radisson Bedford') ||
-            		(hotel === 'Park Inn By Radisson Belfast') ||
-            		(hotel === 'Park Inn By Radisson Berlin City-West') ||
-            		(hotel === 'Park Inn by Radisson Bielefeld') ||
-            		(hotel === 'Park Inn by Radisson Birmingham Walsall') ||
-            		(hotel === 'Park Inn by Radisson Birmingham West, M5 J1') ||
-            		(hotel === 'Park Inn by Radisson Bucharest Hotel') ||
-            		(hotel === 'Park Inn by Radisson Budapest') ||
-            		(hotel === 'Park Inn by Radisson Cardiff North') ||
-            		(hotel === 'Park Inn by Radisson Vilnius') ||
-            		(hotel === 'Park Inn by Radisson Copenhagen Airport') ||
-            		(hotel === 'Park Inn By Radisson Uppsala') ||
-            		(hotel === 'Park Inn by Radisson Doncaster') ||
-            		(hotel === 'Park Inn By Radisson Uno City, Vienna') ||
-            		(hotel === 'Park Inn By Radisson Thurrock') ||
-            		(hotel === 'Park Inn Tete') ||
-            		(hotel === 'Park Inn By RadissonTelford') ||
-            		(hotel === 'Park Inn By Radisson Stockholm Hammarby Sjostad') ||
-            		(hotel === 'Park Inn By Radisson Stavanger') ||
-            		(hotel === 'Park Inn By Radisson Sofia') ||
-            		(hotel === 'Park Inn By Radisson Sharm El Sheikh Resort') ||
-            		(hotel === 'Park Inn By Radisson Shannon Airport') ||
-            		(hotel === 'Park Inn By Radisson Peterborough') ||
-            		(hotel === 'Park Inn By Radisson Papenburg') ||
-            		(hotel === 'Park Inn By Radisson Nuernberg') ||
-            		(hotel === 'Park Inn By Radisson Nottingham') ||
-            		(hotel === 'Park Inn by Radisson Neumarkt') ||
-            		(hotel === 'Park Inn By Radisson Munich') ||
-            		(hotel === 'Park Inn By Radisson Munich-East') ||
-            		(hotel === 'Park Inn by Radisson Meriton Conference  Spa Hotel Tallinn (Estonia)') ||
-            		(hotel === 'Park Inn By Radisson Malmo') ||
-            		(hotel === 'Park Inn By Radisson Mainz') ||
-            		(hotel === 'Park Inn by Radisson Lubeck') ||
-            		(hotel === 'Park Inn by Radisson Luxembourg City') ||
-            		(hotel === 'Park Inn by Radisson Lund') ||
-            		(hotel === 'Park Inn By Radisson Lully') ||
-            		(hotel === 'Park Inn by Radisson Lille Grand Stade') ||
-            		(hotel === 'Park Inn By Radisson Liege Airport') ||
-            		(hotel === 'Park Inn by Radisson Leuven') ||
-            		(hotel === 'Park Inn By Radisson Krakow') ||
-            		(hotel === 'Park Inn By Radisson Klaipeda') ||
-            		(hotel === 'Park Inn By Radisson Kaunas') ||
-            		(hotel === 'Park Inn by Radisson Istanbul Ataturk Airport') ||
-            		(hotel === 'Park Inn by Radisson Haugesund Airport') ||
-            		(hotel === 'Park Inn By Radisson Harlow') ||
-            		(hotel === 'Park Inn By Radisson Hamburg Nord') ||
-            		(hotel === 'Park Inn by Radisson Gottingen') ||
-            		(hotel === 'Park Inn by Radisson Glasgow City Centre') ||
-            		(hotel === 'Park Inn By Radisson Erfurt-Apfelstadt') ||
-            		(hotel === 'Park Inn By Radisson Dusseldorf Sud') ||
-            		(hotel === 'Park Inn By Radisson Dresden') ||
-            		(hotel === 'Park Inn by Radisson Donetsk') ||
-            		(hotel === 'Park Inn By Radisson Nice Airport') ||
-            		(hotel === 'Park Inn Danube, Bratislava') ||
-            		(hotel === 'Park Inn By Radisson Sarvar Resort  Spa') ||
-            		(hotel === 'Park Inn By Radisson Zurich Airport') ||
-            		(hotel === 'Park Inn By Radisson Cologne City-West') ||
-            		(hotel === 'Park Inn By Radisson Weimar') ||
-            		(hotel === 'Park Inn By Radisson Mannheim') ||
-            		(hotel === 'Park Inn By Radisson Linz')){
             	
+        	if ((hotel === 'Park Inn By Radisson Nice Airport') ||
+    			(hotel === 'Park Inn Danube, Bratislava') ||
+    			(hotel === 'Park Inn By Radisson Sarvar Resort  Spa') ||
+    			(hotel === 'Park Inn Prague') ||
+    			(hotel === 'Park Inn by Radisson Zurich Airport') ||
+    			(hotel === 'Park Inn by Radisson Cologne City-West') ||
+    			(hotel === 'Park Inn by Radisson Weimar') ||
+    			(hotel === 'Park Inn by Radisson Ostrava') ||
+    			(hotel === 'Park Inn by Radisson Mannheim') ||
+    			(hotel === 'Park Inn by Radisson Linz') ||
+    			(hotel === 'Park Inn by Radisson Sochi City Centre') ||
+    			(hotel === 'Park Inn By Radisson York City Centre') ||
+    			(hotel === 'Park Inn By Radisson Yaroslavl') ||
+    			(hotel === 'Park Inn by Radisson Volgograd') ||
+    			(hotel === 'Park Inn By Radisson Aberdeen') ||
+    			(hotel === 'Park Inn By Radisson Abu Dhabi, Yas Island') ||
+    			(hotel === 'Park Inn by Radisson Al Khobar') ||
+    			(hotel === 'Park Inn by Radisson Amsterdam Airport Schiphol') ||
+    			(hotel === 'Park Inn by Radisson Ankara Cankaya') ||
+    			(hotel === 'Park Inn By Radisson Antwerpen') ||
+    			(hotel === 'Park Inn by Radisson Astana') ||
+    			(hotel === 'Park Inn by Radisson, Astrakhan') ||
+    			(hotel === 'Park Inn By Radisson Azerbaijan, Baku') ||
+    			(hotel === 'Park Inn By Radisson Bedford') ||
+    			(hotel === 'Park Inn By Radisson Belfast') ||
+    			(hotel === 'Park Inn by Radisson Berlin Alexanderplatz') ||
+    			(hotel === 'Park Inn By Radisson Berlin City-West') ||
+    			(hotel === 'Park Inn by Radisson Bielefeld') ||
+    			(hotel === 'Park Inn by Radisson Birmingham Walsall') ||
+    			(hotel === 'Park Inn by Radisson Birmingham West, M5 J1') ||
+    			(hotel === 'Park Inn by Radisson Brussels Midi') ||
+    			(hotel === 'Park Inn by Radisson Bucharest Hotel') ||
+    			(hotel === 'Park Inn by Radisson Budapest') ||
+    			(hotel === 'Park Inn by Radisson Cape Town Foreshore') ||
+    			(hotel === 'Park Inn by Radisson Cape Town Newlands') ||
+    			(hotel === 'Park Inn By Radisson Cardiff City Centre') ||
+    			(hotel === 'Park Inn by Radisson Cardiff North') ||
+    			(hotel === 'Park Inn by Radisson Central Tallinn') ||
+    			(hotel === 'Park Inn by Radisson Vilnius') ||
+    			(hotel === 'Park Inn by Radisson Copenhagen Airport') ||
+    			(hotel === 'Park Inn by Radisson, Veliky Novgorod') ||
+    			(hotel === 'Park Inn By Radisson Uppsala') ||
+    			(hotel === 'Park Inn by Radisson Dammam') ||
+    			(hotel === 'Park Inn by Radisson Doncaster') ||
+    			(hotel === 'Park Inn By Radisson Uno City, Vienna') ||
+    			(hotel === 'PARK INN BY RADISSON TRYSIL MOUNTAIN RESORT') ||
+    			(hotel === 'Park Inn By Radisson Thurrock') ||
+    			(hotel === 'Park Inn Tete') ||
+    			(hotel === 'Park Inn By RadissonTelford') ||
+    			(hotel === 'Park Inn By Radisson Stuttgart') ||
+    			(hotel === 'Park Inn By Radisson Stockholm Hammarby Sjostad') ||
+    			(hotel === 'Park Inn By Radisson Stavanger') ||
+    			(hotel === 'Park Inn By Radisson Solna') ||
+    			(hotel === 'Park Inn By Radisson Sofia') ||
+    			(hotel === 'Park Inn by Radisson, Sheremetyevo Airport Moscow') ||
+    			(hotel === 'Park Inn By Radisson Sharm El Sheikh Resort') ||
+    			(hotel === 'Park Inn By Radisson Shannon Airport') ||
+    			(hotel === 'Park Inn Sandton') ||
+    			(hotel === 'Park Inn by Radisson, Sadu Moscow') ||
+    			(hotel === 'Park Inn by Radisson Rosa Khutor') ||
+    			(hotel === 'Park Inn by Radisson, Pulkovskaya St Petersburg') ||
+    			(hotel === 'Park Inn by Radisson Pulkovo Airport St. Petersburg') ||
+    			(hotel === 'Park Inn by Radisson, Pribaltiyskaya St Petersburg') ||
+    			(hotel === 'Park Inn by Radisson, Poliarnie Zori Murmansk') ||
+    			(hotel === 'Park Inn by Radisson Petrozavodsk') ||
+    			(hotel === 'Park Inn By Radisson Peterborough') ||
+    			(hotel === 'Park Inn By Radisson Papenburg') ||
+    			(hotel === 'Park Inn By Radisson Palace, Southend-on-Sea') ||
+    			(hotel === 'Park Inn By Radisson Oslo Airport') ||
+    			(hotel === 'Park Inn By Radisson Oslo') ||
+    			(hotel === 'Park Inn By Radisson Nuernberg') ||
+    			(hotel === 'Park Inn by Radisson Novosibirsk') ||
+    			(hotel === 'Park Inn Novokuznetsk') ||
+    			(hotel === 'Park Inn By Radisson Nottingham') ||
+    			(hotel === 'Park Inn By Radisson Northampton') ||
+    			(hotel === 'Park Inn by Radisson Nizhny Tagil') ||
+    			(hotel === 'Park Inn by Radisson, Nevsky St Petersburg') ||
+    			(hotel === 'Park Inn by Radisson Neumarkt') ||
+    			(hotel === 'Park Inn by Radisson, Muscat') ||
+    			(hotel === 'Park Inn By Radisson Munich') ||
+    			(hotel === 'Park Inn By Radisson Munich-East') ||
+    			(hotel === 'Park Inn by Radisson Odintsovo') ||
+    			(hotel === 'Park Inn by Radisson Meriton Conference  Spa Hotel Tallinn (Estonia)') ||
+    			(hotel === 'Park Inn By Radisson Manchester City Centre') ||
+    			(hotel === 'Park Inn By Radisson Malmo') ||
+    			(hotel === 'Park Inn By Radisson Mainz') ||
+    			(hotel === 'Park Inn by Radisson Lubeck') ||
+    			(hotel === 'Park Inn by Radisson Luxembourg City') ||
+    			(hotel === 'Park Inn by Radisson Lund') ||
+    			(hotel === 'Park Inn By Radisson Lully') ||
+    			(hotel === 'Park Inn by Radisson Lille Grand Stade') ||
+    			(hotel === 'Park Inn By Radisson Liege Airport') ||
+    			(hotel === 'Park Inn by Radisson Libreville') ||
+    			(hotel === 'Park Inn by Radisson Leuven') ||
+    			(hotel === 'Park Inn By Radisson Krakow') ||
+    			(hotel === 'Park Inn By Radisson Klaipeda') ||
+    			(hotel === 'Park Inn by Radisson, Kazan') ||
+    			(hotel === 'Park Inn By Radisson Kaunas') ||
+    			(hotel === 'Park Inn by Radisson, Izhevsk') ||
+    			(hotel === 'Park Inn by Radisson Istanbul Ataturk Airport') ||
+    			(hotel === 'Park Inn by Radisson Hotel  Conference Centre London Heathrow') ||
+    			(hotel === 'Park Inn by Radisson Hotel Apartments Al Rigga') ||
+    			(hotel === 'Park Inn by Radisson Hotel Apartments') ||
+    			(hotel === 'Park Inn by Radisson Hotel and Residence Duqm') ||
+    			(hotel === 'Park Inn by Radisson Hotel  Conference Centre Oslo Alna') ||
+    			(hotel === 'Park Inn by Radisson Haugesund Airport') ||
+    			(hotel === 'Park Inn By Radisson Harlow') ||
+    			(hotel === 'Park Inn By Radisson Hamburg Nord') ||
+    			(hotel === 'Park Inn by Radisson Gottingen') ||
+    			(hotel === 'Park Inn by Radisson Glasgow City Centre') ||
+    			(hotel === 'Park Inn By Radisson Frankfurt Airport') ||
+    			(hotel === 'Park Inn By Radisson Erfurt-Apfelstadt') ||
+    			(hotel === 'Park Inn by Radisson, Ekaterinburg') ||
+    			(hotel === 'Park Inn By Radisson Dusseldorf Sud') ||
+    			(hotel === 'Park Inn By Radisson Dresden') ||
+        		(hotel === 'Park Inn by Radisson Donetsk')){
+            		
             	console.log(url_post);
 
                 if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
