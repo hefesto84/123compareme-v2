@@ -2,6 +2,8 @@ package es.ubiqua.compareme.service.crawler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.google.gson.Gson;
 
@@ -64,18 +66,35 @@ public class CrawlingService {
 	
 		hotel = new HotelManager().get(hotel);
 		
+		long init = System.currentTimeMillis();  // Instante inicial del procesamiento
+		
+		ExecutorService executor = Executors.newFixedThreadPool(otas.size());
+		
 		for(Ota ota : otas){
-			Price p = new Price();
 			
-			p.setHash(query.toHash(hotel.getId(), ota.getId()));
+			final Query queryParameter = query;
+			final Hotel hotelParameter = hotel;
+			final Ota otaParameter = ota;
 			
-			//p = priceManager.getByHash(p);
-			//if(p==null){
-				p = crawlPrice(ota.getId(),query);
-			//}
+			Runnable run = new Runnable() { public void run() { 
+				
+				Price p = new Price();
+				p.setHash(queryParameter.toHash(hotelParameter.getId(), otaParameter.getId()));
+				p = crawlPrice(otaParameter.getId(),queryParameter);
+				addPriceToResponse(p);
+				
+			} };
+			executor.execute(run);
 			
-			addPriceToResponse(p);
 		}
+		executor.shutdown();
+        while (!executor.isTerminated()) {
+        	// Espero a que terminen de ejecutarse todos los procesos 
+        	// para pasar a las siguientes instrucciones 
+        }
+        
+        long fin = System.currentTimeMillis();	// Instante final del procesamiento
+        System.out.println("Tiempo total de procesamiento: "+(fin-init)/1000+" Segundos");
 		
 		return prices;
 	}
@@ -140,4 +159,5 @@ public class CrawlingService {
 	
 		return p;
 	}
+	
 }
