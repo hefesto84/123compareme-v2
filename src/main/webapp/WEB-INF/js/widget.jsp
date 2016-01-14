@@ -29,17 +29,21 @@ if ((price !== 'undefined') && (price !== '') && (price !== 'NaN')){
     }
     setTranslate123(lang);
     setTimeout(function() {
-       	getDatosWidget123(url_post,device,price,currency,lang,diffDay);
+		if (user === '7') { // PARCHE
+			getDatosWidget123Room(url_post,device,price,currency,lang,diffDay,rooms);
+		} else {
+			getDatosWidget123(url_post,device,price,currency,lang,diffDay);
+		}
     },1000) ;
 }
 
 
 function setCSS123(){
-	jQuery('body').append('<style>'+css+'</style>');
+	jQuery('body').append('<style id="widget123CSS">'+css+'</style>');
 }
 
 function setCSSMobile123(){
-	jQuery('body').append('<style>'+css+'</style>');
+	jQuery('body').append('<style id="widget123CSS">'+css+'</style>');
 }
 
 function setHtml123(price,currency,lang) {
@@ -72,9 +76,33 @@ function getDatosWidget123(url_post,device,price,currency,lang,diffDays){
     });
 }
 
+function getDatosWidget123Room(url_post,device,price,currency,lang,diffDays,rooms){
+	console.log(url_post);
+    var datos;
+    jQuery.ajax({
+        type: "GET",
+        url: url_post,
+        success: function (respuesta) {
+            console.log(respuesta);
+            datos = respuesta;
+            if (device === 'isMobile'){
+                setWidgetMobile123(datos,price,currency);
+            } else {
+                setWidget123Room(datos,price,currency,diffDays,rooms);
+            }
+        }
+    });
+}
+
 function setWidget123(datos,price,currency,diffDay) {    
     var href = hotelswidget.setUrlHref();
     hotelswidget.setJavascript.setWidgetData(datos,price,currency,diffDay);
+    jQuery('#boton_reservar_widget').attr('href', href);
+}
+
+function setWidget123Room(datos,price,currency,diffDay,rooms) {    
+    var href = hotelswidget.setUrlHref();
+    hotelswidget.setJavascript.setWidgetData(datos,price,currency,diffDay,rooms);
     jQuery('#boton_reservar_widget').attr('href', href);
 }
 
