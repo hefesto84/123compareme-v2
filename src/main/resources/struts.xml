@@ -31,6 +31,11 @@
     </package>
     
     <package name="api" namespace="/api" extends="json-default">
+    	<action name="futurePrices" class="es.ubiqua.compareme.actions.GetFuturePricesAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
     	<action name="prices" class="es.ubiqua.compareme.actions.GetPricesAction">
            <result type="json"/>
         	<param name="encoding">UTF-8</param>

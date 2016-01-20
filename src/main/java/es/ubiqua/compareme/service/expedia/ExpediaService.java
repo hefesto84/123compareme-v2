@@ -61,7 +61,7 @@ public class ExpediaService extends Service implements ServiceInterface{
 		return this;
 	}
 	
-	public  Price  trackPrice(){
+	public Price trackPrice(){
 	
 		String url  = "";
 		

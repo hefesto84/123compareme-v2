@@ -7,6 +7,7 @@ import es.ubiqua.compareme.manager.DomainManager;
 import es.ubiqua.compareme.manager.HotelManager;
 import es.ubiqua.compareme.manager.HotelOtaManager;
 import es.ubiqua.compareme.manager.OtaManager;
+import es.ubiqua.compareme.model.FuturePrice;
 import es.ubiqua.compareme.model.Hotel;
 import es.ubiqua.compareme.model.HotelOta;
 import es.ubiqua.compareme.model.Ota;

@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import es.ubiqua.compareme.exceptions.ServiceException;
 import es.ubiqua.compareme.model.Domain;
+import es.ubiqua.compareme.model.FuturePrice;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;

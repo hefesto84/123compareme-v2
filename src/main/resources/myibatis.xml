@@ -17,6 +17,9 @@
 		<typeAlias alias="ModelCSSWidget" type="es.ubiqua.compareme.model.ModelCSSWidget"/>
 		<typeAlias alias="ModelHTMLWidget" type="es.ubiqua.compareme.model.ModelHTMLWidget"/>
 		<typeAlias alias="Exchange" type="es.ubiqua.compareme.model.Exchange"/>
+		<typeAlias alias="HotelsToCrawl" type="es.ubiqua.compareme.model.HotelsToCrawl"/>
+		<typeAlias alias="Serhs" type="es.ubiqua.compareme.model.Serhs"/>
+		<typeAlias alias="FuturePrice" type="es.ubiqua.compareme.model.FuturePrice"/>
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
@@ -47,6 +50,9 @@
 		<mapper resource="mapping/modelCSSWidget.xml"/>
 		<mapper resource="mapping/modelHTMLWidget.xml"/>
 		<mapper resource="mapping/exchange.xml"/>
+		<mapper resource="mapping/hotelsToCrawl.xml"/>
+		<mapper resource="mapping/serhs.xml"/>
+		<mapper resource="mapping/futurePrice.xml"/>
 	</mappers>
 	
 </configuration>

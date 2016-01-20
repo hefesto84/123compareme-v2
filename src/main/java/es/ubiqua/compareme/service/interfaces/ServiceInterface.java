@@ -1,5 +1,6 @@
 package es.ubiqua.compareme.service.interfaces;
 
+import es.ubiqua.compareme.model.FuturePrice;
 import es.ubiqua.compareme.model.Price;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.Service;
