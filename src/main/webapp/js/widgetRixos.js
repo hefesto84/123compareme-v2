@@ -153,7 +153,13 @@ var hotelswidget = new (function(window, document, jQuery){
         	var hotel_re = $('#hotel_details').find('#productNameId').html();
         	var rooms_re = $('select#rooms').val();
 		    var guests_re = $('input#occupants').val();
+		    if (!$('div#checkin-info').find('div.ui-richcal').find('td.selected').length){
+		    	return;
+		    }
 		    var start_re = hotelswidget.dateConverse($('div#checkin-info').find('div.ui-richcal').find('td.selected').attr('class').slice($('div#checkin-info').find('div.ui-richcal').find('td.selected').attr('class').indexOf('-') + 1,$('div#checkin-info').find('div.ui-richcal').find('td.selected').attr('class').indexOf(' ')));
+		    if (!$('div#checkout-info').find('div.ui-richcal').find('td.selected').length){
+		    	return;
+		    }
 		    var stop_re = hotelswidget.dateConverse($('div#checkout-info').find('div.ui-richcal').find('td.selected').attr('class').slice($('div#checkout-info').find('div.ui-richcal').find('td.selected').attr('class').indexOf('-') + 1,$('div#checkout-info').find('div.ui-richcal').find('td.selected').attr('class').indexOf(' ')));
 		    var currency_re = $('em.selling-currency').html().replace('(','').replace(')','');
 		    var lang_re = jQuery('html').attr('lang');

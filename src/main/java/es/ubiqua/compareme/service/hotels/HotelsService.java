@@ -72,7 +72,6 @@ public class HotelsService  extends Service implements ServiceInterface{
 		Connection.Response response = Jsoup.connect("http://es.hoteles.com/change_currency.html?currency="+currencyResponse).method(Connection.Method.GET).execute();
 		
 		url = "http://es.hoteles.com/hotel/details.html?tab=description&q-localised-check-in="+price.getDateIn()+"&hotel-id="+hotelName+"&q-room-0-adults="+price.getGuests()+"&YGF=0&MGT=2&WOE=6&q-localised-check-out="+price.getDateOut()+"&WOD=4&ZSX=0&SYE=3&q-room-0-children=0";
-	   
 			Document doc = Jsoup.connect(url).cookies(response.cookies()).timeout(5000).ignoreHttpErrors(true).followRedirects(true).get();
 			 Elements e = doc.select("form");
 			 Map<String,String> data = new HashMap<String,String>();
@@ -86,11 +85,11 @@ public class HotelsService  extends Service implements ServiceInterface{
 					 }
 				 }
 			 }
-			 Document request = Jsoup.connect("https://ssl-fr.hotels.com/bookingInitialise.do").timeout(5000).ignoreHttpErrors(true).followRedirects(true).data(data).post();
+			 Document request = Jsoup.connect("https://es.hoteles.com/bookingInitialise.do").timeout(5000).ignoreHttpErrors(true).followRedirects(true).data(data).post();
 			 Elements rq = request.select("strong[id=financial-details-total-price]");
 			
 			 String p =rq.text();
-			 
+			 			 
 			// Si el preu no es null i tampoc està buit, busca preu
 			 if(p!=null && p.length()>2){
 				 price.setPurePrice(p);
