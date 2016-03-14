@@ -194,7 +194,7 @@ public class CrawlingService {
 			query.setDateOut(dateOut);
 			p = ve.setServiceParameters(query).trackPrice();
 			break;
-		
+			
 		}
 		p.setBackend(Integer.valueOf(query.getCustomerId()));
 		p.setSite(otaManager.get(o).getIcon());
