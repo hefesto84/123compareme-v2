@@ -24,6 +24,7 @@ public class FuturePrice implements Serializable {
 	private String purePrice;
 	private String basePrice = "0";
 	private String averagePrice;
+	private String currency;
 	private int days;
 	private String hash = "";
 	private Date date;
@@ -171,6 +172,14 @@ public class FuturePrice implements Serializable {
 
 	public void setDays(int days) {
 		this.days = days;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 }

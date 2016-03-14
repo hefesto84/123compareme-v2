@@ -1,7 +1,7 @@
 var hotelswidget = new (function(window, document, jQuery){
     var domain = 'https://www.123compare.me/v2'
     var datos = {};
-    datos.user = 7;
+    datos.user = 1;
     
     this.init = function (showWidget) {
     	if(showWidget === false){
@@ -9,7 +9,7 @@ var hotelswidget = new (function(window, document, jQuery){
         } else {
         	hotelswidget.setAnalytics();
         	datos.domain = domain;
-        	datos.hotel = hotelswidget.hotelName(jQuery('.innername').find("a").text());
+        	datos.hotel = hotelswidget.hotelName(jQuery('.innername').first().find("a").text());
         	datos.rooms = jQuery('[name="rateSearchForm.numberRooms"]').val();
 		    datos.guests = jQuery('[name="occupancyForm[0].numberAdults"]').val();
 		    datos.start = hotelswidget.dateConverse(jQuery('[name="rateSearchForm.checkinDate"]').val());
@@ -27,7 +27,8 @@ var hotelswidget = new (function(window, document, jQuery){
 		    
 		    jQuery.ajax({
 				 method: "POST",
-				 url: "https://www.123compare.me/v2/widget/widget",
+				 url: "https://www.123compare.me/v2/widget/widgetCity",
+				 //url: "http://localhost:8080/123CompareMe-v2/widget/widgetCity",
 				 data: { datos: json },
 				 dataType: "script",
 				 success: function(msg) {
@@ -57,8 +58,8 @@ var hotelswidget = new (function(window, document, jQuery){
     }
     
     this.diffDate = function (fini,fout){
-   		var date1 = new Date(fini.slice(6,10),fini.slice(3,5),fini.slice(0,2));
-		var date2 = new Date(fout.slice(6,10),fout.slice(3,5),fout.slice(0,2));
+   		var date1 = new Date(fini.slice(6,10),(parseInt(fini.slice(3,5)) - 1),fini.slice(0,2));
+		var date2 = new Date(fout.slice(6,10),(parseInt(fout.slice(3,5)) - 1),fout.slice(0,2));
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 		return diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     }
@@ -70,64 +71,41 @@ var hotelswidget = new (function(window, document, jQuery){
     this.setJavascript = {
     	setPriceInWidget : function(price,currency){
     		if(lang == 'en' || lang == 'en_UK'){
-                jQuery('#widget123_top_price').find('#price').html((price.toFixed(2)).replace(',','.'));
-                jQuery('#widget123_popup_content_parkinn_right_price').html((price.toFixed(2)).replace(',','.'));
-            } else{
-                jQuery('#widget123_top_price').find('#price').html((price.toFixed(2)).replace('.',','));
-                jQuery('#widget123_popup_content_parkinn_right_price').html((price.toFixed(2)).replace('.',','));
+                jQuery('#widget123_left_left_price').find('#price').html((price.toFixed(2)).replace(',','.'));
+    		} else{
+                jQuery('#widget123_left_left_price').find('#price').html((price.toFixed(2)).replace('.',','));
             }
-            jQuery('#widget123_top_price').find('#currency').html(currency);
-            jQuery('#widget123_popup_content_parkinn_right_currency').html(currency);
+            jQuery('#widget123_left_left_price').find('#currency').html(currency);
     	},
     	setWidgetJavascript : function(){
-    		var top_widget = jQuery('.panelHeaderWrapper').offset().top;
-            var left_widget = jQuery('#searchPanel').offset().left + jQuery('#searchPanel').width() + 2;
-
-            jQuery('#widget123').css({
-                'top' : top_widget,
-                'left' : left_widget
-            });
-
-
-            var screen_width = jQuery(window).width();
-            var screen_height = jQuery(window).height();
-
-            var popup_width = jQuery('#widget123_popup_content').width();
-            var popup_height = jQuery('#widget123_popup_content').height();
-            jQuery('#widget123_popup_content').css({
-                'left' : ((screen_width - popup_width)/2)
-            });
-
-
-            jQuery('#widget123').click(function(){
-            	var lForm = $('hiddenRateReviewForm');
-                jQuery(lForm).prepend('<input type="hidden" name="facilitatorId" value="REZIDORRATETABLE">');
-                jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
-                jQuery('#widget123_popup').show();
-                _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
-            });
-            jQuery('#widget123_popup_content_top_close').click(function(){
-                jQuery('#widget123_popup').hide();
-            });
-
-            _paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
+    		
+    		jQuery('#widget123_left_left_top').html(hotelswidget.hotelName(jQuery('.innername').first().find("a").text()));
+    		var widget = jQuery('#widget123_city').html();
+    		jQuery('#widget123_city').remove();
+    		//jQuery(widget).insertBefore('.PIIhotelmatrixdiv:eq(0)');
+    		
+    		jQuery('#SortandFilterResults').find('.row.ng-scope:eq(0)').find('.hotelRow').append(widget);
+    		
+    		jQuery('#widget123').css({
+    			'width' : jQuery('.hotelRow').width() + 3
+    		});
+    		
+            _paq.push(['trackEvent', 'Widget', 'Show', 'Widget correctly showed']);
     	},
     	setWidgetData : function(datos,price,currency,diffDay){
     		var href = hotelswidget.setUrlHref();
-            jQuery('.widget123_content_loading').hide();
-            jQuery('#widget123_popup_loading_text').hide();
             data = datos;
             if(data.currency === 'XXX'){
-            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
-                jQuery('#widget123_popup_content_middle').append("<div id='no_otas'>Comparison not available in this currency</div>");
+            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency not available']);
                 return 0;
             }
             if ((data.datos === null) || (data.datos.length === 0)){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
-                jQuery('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
+                _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
                 return 0;
             }
-            var content_middle = document.getElementById("widget123_popup_content_middle");
+
+            var content = document.getElementById("widget123_right_right");
+            
             var count = 0;
             for (var i = 0; i < data.datos.length; i++) {
 
@@ -135,32 +113,37 @@ var hotelswidget = new (function(window, document, jQuery){
                 
                 precio_convertido = precio_convertido / diffDay;
 
-                if (((price - 1) < precio_convertido || (price - 1) == precio_convertido) &&  (count < 5)) {
+                if (((price * 0.995) < precio_convertido || (price * 0.995) == precio_convertido)) {
                     count = count + 1;
+                    
                     var element = document.createElement("div");
                     element.setAttribute('id', 'element');
-
-                    var image = document.createElement('img');
-                    image.setAttribute('src', domain + '/img/' + data.datos[i].site);
-                    element.appendChild(image);
-
-                    var span = document.createElement('span');
-                    span.setAttribute('class', 'priceWidgetElement');
-                    span.innerHTML = precio_convertido.toFixed(2) + ' ' + currency;
-                    element.appendChild(span);
-
-                    var clear = document.createElement('div');
-                    clear.setAttribute('style', 'clear:both;');
-                    element.appendChild(clear);
-
-                    content_middle.appendChild(element);
+                    element.setAttribute('data-element',count);
+                    element.setAttribute('style','top:'+((count - 1) * jQuery('#widget123_right').height())+'px');
+                    
+                    var element_top = document.createElement("div");
+                    element_top.setAttribute('id', 'element_top');
+                    element_top.innerHTML = '<span id="element_top_ota">'+data.datos[i].site.replace('.png','')+'</span>.com';
+                    element.appendChild(element_top);
+                    
+                    var element_bottom = document.createElement("div");
+                    element_bottom.setAttribute('id', 'element_bottom');
+                    element_bottom.innerHTML = '<span id="price">' + precio_convertido.toFixed(2) + '</span>&nbsp;<span id="currency">' + currency + '</span>';
+                    element.appendChild(element_bottom	);
+                    
+                    content.appendChild(element);
+                    
                 }
             }
             if (count === 0){
                 jQuery('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
             } else {
-                _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+                _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
+                jQuery('#widget123').show();
+                if (count > 1){
+                	hotelswidget.setAnimationWidget(count,5);
+                }
             }
             jQuery('#boton_reservar_widget').attr('href', href);
     	}
@@ -183,18 +166,15 @@ var hotelswidget = new (function(window, document, jQuery){
 
 
     this.functionReservar = function(pHotelCode, pRateUni, pRedemptionRate, pClearEcertCode){
-    	_paq.push(['trackEvent', 'Widget', 'Click Book', 'Widget Reservar']);
+    	_paq.push(['trackEvent', 'Widget', 'Click Book', 'Book button clicked']);
         
         if (jQuery('staticPopup'))
         {
         hideStaticDetailDivWithOverlay('staticPopup');
         } 
-        var lForm = jQuery('hiddenRateReviewForm');
+        var lForm = $('hiddenRateReviewForm');
         lForm['rateSelectForm.hotelCode'].value = pHotelCode;
-        lForm['rateSelectForm.rateUni'].value = pRateUni;
-        //jQuery(lForm).prepend('<input type="hidden" name="facilitatorId" value="REZIDORRATETABLE">');
-        //jQuery(lForm).prepend('<input type="hidden" name="icid" value="co_booking_direction">');
-        
+        lForm['rateSelectForm.rateUni'].value = pRateUni;        
         
         if (pClearEcertCode)
         {
@@ -206,6 +186,35 @@ var hotelswidget = new (function(window, document, jQuery){
       	  lForm['rateSearchForm.redemptionSearch'].value = true;
         }
         lForm.submit();
+    }
+    
+    this.setAnimationWidget = function(elements,time){
+    	time = time * 1000;
+    	
+    	var altura = jQuery('#widget123').height();
+    	
+    	setInterval(function(){
+    		jQuery('div#element').each(function(index,element){
+				if (jQuery(element).attr('data-element') === '1'){
+					jQuery(element).animate({
+						'top' : '-'+altura+'px'
+					},1000, function(){
+						jQuery(this).css({
+							'top': (elements - 1) * altura
+						});
+						jQuery(this).attr('data-element',elements);
+					});
+				} else {
+					var next_element = parseInt(jQuery(element).attr('data-element')) - 1;
+					jQuery(element).animate({
+						'top' : ((parseInt(jQuery(element).attr('data-element')) - 2) * altura)
+					},1000, function(){
+						jQuery(this).attr('data-element', next_element);
+					});
+				}
+			});
+		},time);
+    	
     }
     
 })(window, document,jQuery);

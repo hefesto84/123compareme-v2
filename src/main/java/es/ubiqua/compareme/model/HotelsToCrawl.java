@@ -6,6 +6,7 @@ public class HotelsToCrawl {
 	private int id_hotel;
 	private int customer;
 	private int days;
+	private String currency;
 	private Boolean active;
 	private String name_hotel;
 	
@@ -55,6 +56,14 @@ public class HotelsToCrawl {
 
 	public void setName_hotel(String name_hotel) {
 		this.name_hotel = name_hotel;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 }

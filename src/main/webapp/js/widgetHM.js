@@ -51,8 +51,8 @@ var hotelswidget = new (function(window, document, jQuery){
     }
     
     this.diffDate = function (fini,fout){
-   		var date1 = new Date(fini.slice(6,10),fini.slice(3,5),fini.slice(0,2));
-		var date2 = new Date(fout.slice(6,10),fout.slice(3,5),fout.slice(0,2));
+   		var date1 = new Date(fini.slice(6,10),(parseInt(fini.slice(3,5)) - 1),fini.slice(0,2));
+		var date2 = new Date(fout.slice(6,10),(parseInt(fout.slice(3,5)) - 1),fout.slice(0,2));
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 		return diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     }
@@ -94,7 +94,7 @@ var hotelswidget = new (function(window, document, jQuery){
             });
     		$('#widget123_responsive').click(function(){
                 $('#widget123_popup').show();
-                _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
+                _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicked']);
             });
             $('#widget123_popup_content_top_close').click(function(){
                 $('#widget123_popup').hide();
@@ -105,12 +105,12 @@ var hotelswidget = new (function(window, document, jQuery){
             $('.widget123_content_loading').hide();
             $('#widget123_popup_loading_text').hide();
             if(data.currency === 'XXX'){
-            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
+            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency not available']);
             	$('#widget123_popup_content_middle').append("<div id='no_otas'>Comparison not available in this currency</div>");
             	return 0;
             }
             if (data.datos.length == 0){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
                 $('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
                 return 0;
             }
@@ -171,10 +171,10 @@ var hotelswidget = new (function(window, document, jQuery){
             }
             if (count === 0){
             	$('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
             } else {
             	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
-                _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+                _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
                 $('#widget123').show();
             }
     	}

@@ -1,7 +1,7 @@
 var hotelswidget = new (function(window, document, jQuery){
     var domain = 'https://www.123compare.me/v2'
     var datos = {};
-    datos.user = 10;
+    datos.user = 8;
     
     this.init = function (showWidget,properties) {
     	if(showWidget === false){
@@ -9,13 +9,13 @@ var hotelswidget = new (function(window, document, jQuery){
         } else {
         	hotelswidget.setAnalytics();
         	datos.domain = domain;
-        	datos.hotel = hotelswidget.getHotelName();
+        	datos.hotel = data.establishment.ticker;
         	datos.rooms = 1;
-		    datos.guests = parseInt($( "[name='adultos'] option:selected" ).html());
-		    datos.start = hotelswidget.dateConverse($("[name='datein']").val());
-		    datos.stop = hotelswidget.dateConverse($("[name='dateout']").val());
+		    datos.guests = 2;
+		    datos.start = hotelswidget.dateConverse(properties.checkin);
+		    datos.stop = hotelswidget.dateConverse(properties.checkout);
 		    datos.currency = properties.currency;
-		    datos.lang =  $('li.languages').find('ul.languages-menu').find('li.active').find('a').html().toLowerCase();
+		    datos.lang =  properties.locale;
 		    datos.defaultLang = 'en';
 		    datos.price = properties.price;
 		    datos.device = 'isDesktop';
@@ -44,48 +44,53 @@ var hotelswidget = new (function(window, document, jQuery){
     }
     
     this.diffDate = function (fini,fout){
-   		var date1 = new Date(fini.slice(6,10),fini.slice(3,5),fini.slice(0,2));
-		var date2 = new Date(fout.slice(6,10),fout.slice(3,5),fout.slice(0,2));
+   		var date1 = new Date(fini.slice(6,10),(parseInt(fini.slice(3,5)) - 1),fini.slice(0,2));
+		var date2 = new Date(fout.slice(6,10),(parseInt(fout.slice(3,5)) - 1),fout.slice(0,2));
 		var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 		return diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     }
     
     this.setAnalytics = function(){
-        $('body').append("<script type='text/javascript'>var _paq = _paq || [];_paq.push(['trackPageView']);_paq.push(['enableLinkTracking']);(function() {var u='//www.123compare.me/piwik/';_paq.push(['setTrackerUrl', u+'piwik.php']);_paq.push(['setSiteId', 10]);var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src='//www.123compare.me/piwik/piwik.php?idsite=10' style='border:0;' alt='' /></p></noscript>");
+        $('body').append("<script type='text/javascript'>var _paq = _paq || [];_paq.push(['trackPageView']);_paq.push(['enableLinkTracking']);(function() {var u='//www.123compare.me/piwik/';_paq.push(['setTrackerUrl', u+'piwik.php']);_paq.push(['setSiteId', 8]);var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);})();</script><noscript><p><img src='//www.123compare.me/piwik/piwik.php?idsite=8' style='border:0;' alt='' /></p></noscript>");
     }
     
     this.setJavascript = {
     	setPriceInWidget : function(price,currency){
     		$('#widget123_responsive_left_price').find('.price').html(Math.floor(price));
-    		$('#widget123_responsive_left_price').find('.currency').html((price + "").split(".")[1]+currency);
+    		$('#widget123_responsive_left_price').find('.currency').html(price.toFixed(2).split(".")[1]+currency);
     		
     		$('#widget123_popup_content_ota_right_price').html(price.toFixed(2));
             $('#widget123_popup_content_ota_right_currency').html(currency);
     	},
     	setWidgetJavascript : function(){
     		
-    		var widget_responsive = $('#widget123_responsive_div').html();
-    		$(widget_responsive).insertBefore('.wrap-iframe');
+    		var interval = setInterval(function(){
+    			if ($('.col-md-8').length === 0) return;
+    			clearInterval(interval);
+    			var widget_responsive = $('#widget123_responsive_div').html();
+        		$('#widget123_responsive_div').remove();
+        		$('.col-md-8').prepend(widget_responsive);
+        		$('#widget123_responsive').click(function(){
+                    $('#widget123_popup').show();
+                    _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicked']);
+                });
+                $('#widget123_popup_content_top_close').click(function(){
+                    $('#widget123_popup').hide();
+                });
+    		},100);
     		
-    		$('#widget123_responsive').click(function(){
-                $('#widget123_popup').show();
-                _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
-            });
-            $('#widget123_popup_content_top_close').click(function(){
-                $('#widget123_popup').hide();
-            });
     	},
     	setWidgetData : function(datos,price,currency,diffDay){
     		data = datos;
             $('.widget123_content_loading').hide();
             $('#widget123_popup_loading_text').hide();
             if(data.currency === 'XXX'){
-            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
+            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency not available']);
             	$('#widget123_popup_content_middle').append("<div id='no_otas'>Comparison not available in this currency</div>");
             	return 0;
             }
             if (data.datos.length == 0){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
                 $('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
                 return 0;
             }
@@ -120,10 +125,10 @@ var hotelswidget = new (function(window, document, jQuery){
             }
             if (count === 0){
             	$('#widget123_popup_content_middle').append("<div id='no_otas'>Sorry, we couldn\'t complete the search for these dates</div>");
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
             } else {
-            	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
-                _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+            	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget correctly showed']);
+                _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
             }
     	}
     }

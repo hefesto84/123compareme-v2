@@ -10,12 +10,15 @@
  	<constant name="struts.mapper.action.prefix.enabled" value="true" />
 	
 	<package name="widget" namespace="/widget" extends="struts-default">
-        <action name="widgetParkinn" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetParkinn">
-            <result name="success">/WEB-INF/js/widgetParkinn.jsp</result>
-        </action>
         <action name="widget" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widget">
             <result name="success">/WEB-INF/js/widget.jsp</result>
         </action>
+        <action name="widgetHome" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetHome">
+            <result name="success">/WEB-INF/js/widgetHome.jsp</result>
+        </action>
+        <action name="widgetCity" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetCity">
+            <result name="success">/WEB-INF/js/widget.jsp</result>
+        </action>        
     </package> 
 	
     <package name="default" namespace="/" extends="struts-default">
@@ -117,6 +120,12 @@
            <param name="encoding">UTF-8</param>
            <param name="contentType">application/json</param>
         </action>
+    	<action name="hotel_name_autocompletar" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction" method="autocompletar">
+    		<result type="json"/>
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+       
+    	</action>
     </package>
     
     <package name="login" namespace="/login" extends="struts-default">

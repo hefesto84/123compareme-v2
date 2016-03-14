@@ -75,11 +75,11 @@ var hotelswidget = new (function(window, document, $){
     	setWidgetData : function(datos,price,currency,diffDay){
     		data = datos;
             if(data.currency === 'XXX'){
-            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
+            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency not available']);
             	return 0;
             }
             if (data.datos.length == 0){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
                 return 0;
             }
             var content = document.getElementById("widget123_right_otas");
@@ -112,10 +112,10 @@ var hotelswidget = new (function(window, document, $){
             }
             
             if (count === 0){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
             } else {
-            	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
-                _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+            	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget correctly showed']);
+                _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
                 if (count > 1){
                 	$('#widget123').slideDown(1000);
                 	hotelswidget.setJavascript.setAnimationWidget();

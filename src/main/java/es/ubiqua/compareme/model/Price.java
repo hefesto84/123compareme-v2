@@ -21,6 +21,7 @@ public class Price implements Serializable {
 	private int otaId;
 	private String site;
 	private String price;
+	private String currency;
 	private String purePrice;
 	private String basePrice = "0";
 	private int valoration;
@@ -180,6 +181,14 @@ public class Price implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 }

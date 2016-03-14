@@ -14,6 +14,7 @@
         <result property="otaId" column="otaId"/>
         <result property="site" column="site"/>
         <result property="price" column="price"/>
+        <result property="currency" column="currency"/>
         <result property="purePrice" column="purePrice"/>
         <result property="basePrice" column="basePrice"/>
         <result property="valoration" column="valoration"/>
@@ -49,7 +50,7 @@
     </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Price" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO RepositoryPrice (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,purePrice,basePrice,valoration,hash,backend,date) 
+        INSERT INTO RepositoryPrice (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,currency,purePrice,basePrice,valoration,hash,backend,date) 
         	VALUES (
         		#{hotelId},
         		#{language},
@@ -59,6 +60,7 @@
         		#{rooms},
         		#{otaId},
         		#{price},
+        		#{currency},
         		#{purePrice},
         		#{basePrice},
         		#{valoration},

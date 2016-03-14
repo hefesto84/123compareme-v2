@@ -1,5 +1,8 @@
 package es.ubiqua.compareme.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
@@ -18,9 +21,22 @@ public class FuturePriceDAO extends BaseDAO {
 			session.close();
 		}
 		return prices;
+	} */
+	
+	public List<FuturePrice> listByHotelId(int id){
+		List<FuturePrice> prices = new ArrayList<FuturePrice>();
+		SqlSession session = sql.openSession();
+		try{
+			prices = session.selectList("SqlMapFuturePrice.listByHotelId", id);
+		}catch(Exception e){
+			Logger.getLogger(this.getClass()).error(e.getMessage());
+		}finally{
+			session.close();
+		}
+		return prices;
 	}
 	
-	public Price get(Price price){
+	/*public Price get(Price price){
 		SqlSession session = sql.openSession();
 		try{
 			price = session.selectOne("SqlMapPrice.get",price);

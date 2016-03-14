@@ -1,16 +1,10 @@
 package es.ubiqua.compareme.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import es.ubiqua.compareme.dao.CustomerDAO;
 import es.ubiqua.compareme.dao.HotelDAO;
-import es.ubiqua.compareme.dao.OtaDAO;
-import es.ubiqua.compareme.exceptions.CustomerException;
-import es.ubiqua.compareme.exceptions.OtaException;
 import es.ubiqua.compareme.model.Customer;
 import es.ubiqua.compareme.model.Hotel;
-import es.ubiqua.compareme.model.Ota;
 
 public class HotelManager {
 	
@@ -27,9 +21,21 @@ public class HotelManager {
 	public List<Hotel> list(Customer c){
 		return hotelDao.list(c);
 	}
+
+	public List<Hotel> listOrdered(Customer c){
+		return hotelDao.listOrdered(c);
+	}
 	
 	public Hotel get(Hotel hotel){
 		return hotelDao.get(hotel);
+	}
+	
+	public List<Hotel> getHotelAutocompletar(String term){
+		return hotelDao.getHotelAutocompletar(term);
+	}
+	
+	public List<Hotel> getHotelAutocompletarSimple(String term, Customer c){
+		return hotelDao.getHotelAutocompletarSimple(term,c);
 	}
 	
 	public Hotel getHotelByHotelName(Hotel hotel){

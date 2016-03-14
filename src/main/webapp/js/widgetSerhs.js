@@ -12,7 +12,7 @@ var hotelswidget = new (function(window, document, jQuery){
         	datos.hotel = $('#maindesc').find('.content').find('h1').html().substring(0,$('#maindesc').find('.content').find('h1').html().indexOf('<')).trim();
         	datos.rooms = 1;
 		    datos.guests = $('a.addroomaction').first().attr('data-adults');
-		    datos.start = $('ul.dates li:eq(0)').find('.date-value').html().trim()
+		    datos.start = $('ul.dates li:eq(0)').find('.date-value').html().trim();
 		    datos.stop = $('ul.dates li:eq(1)').find('.date-value').html().trim();
 		    datos.currency = 'EUR';
 		    datos.lang = $('html').attr('lang');
@@ -84,11 +84,11 @@ var hotelswidget = new (function(window, document, jQuery){
     	setWidgetData : function(datos,price,currency,diffDay){
     		data = datos;
             if(data.currency === 'XXX'){
-            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency no disponible']);
+            	_paq.push(['trackEvent', 'Widget', 'No currency', 'Currency not available']);
                 return 0;
             }
             if (data.datos.length == 0){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
                 return 0;
             }
             var content_middle = document.getElementById("widget123_middle");
@@ -119,10 +119,10 @@ var hotelswidget = new (function(window, document, jQuery){
                 }
             }
             if (count === 0){
-                _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+                _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
             } else {
-            	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
-                _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+            	_paq.push(['trackEvent', 'Widget', 'Show', 'Widget correctly showed']);
+                _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
                 $('#widget123').show();
             }
     	}

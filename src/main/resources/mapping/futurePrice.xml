@@ -12,6 +12,7 @@
         <result property="guests" column="guests"/>
         <result property="rooms" column="rooms"/>
         <result property="otaId" column="otaId"/>
+        <result property="site" column="site"/>
         <result property="price" column="price"/>
         <result property="purePrice" column="purePrice"/>
         <result property="basePrice" column="basePrice"/>
@@ -28,9 +29,13 @@
     
     <select id="list" resultMap="SqlMapPrice.Price">
         SELECT * FROM RepositoryPrice;
+    </select> -->
+    
+    <select id="listByHotelId" parameterType="int" resultMap="SqlMapFuturePrice.FuturePrice">
+        SELECT rfp.*, ro.name as site FROM RepositoryFuturePrice rfp, RepositoryOta ro WHERE rfp.hotelId = #{hotelId} AND rfp.otaId = ro.id AND DATE(date) = CURDATE();
     </select>
     
-    <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
+    <!-- <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
         SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id ORDER BY rp.otaId ASC;
     </select>
     
@@ -48,7 +53,7 @@
     </select> -->
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.FuturePrice" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        REPLACE INTO RepositoryFuturePrice (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,purePrice,basePrice,averagePrice,days,hash,date) 
+        REPLACE INTO RepositoryFuturePrice (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,purePrice,basePrice,averagePrice,currency,days,hash,date) 
         	VALUES (
         		#{hotelId},
         		#{language},
@@ -61,6 +66,7 @@
         		#{purePrice},
         		#{basePrice},
         		#{averagePrice},
+        		#{currency},
         		#{days},
         		#{hash},
         		null

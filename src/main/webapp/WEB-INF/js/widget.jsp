@@ -1,4 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+ <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 
 var html = htmlDecode("<s:property value="HTML"/>");
 var css = "<s:property value="CSS"/>";
@@ -115,7 +116,11 @@ function setTranslate123(lang){
 	translation  = htmlDecode(translation);
 	var obj = JSON.parse(translation);
 	jQuery('[data-translation]').each(function(){
-		jQuery(this).html(obj[jQuery(this).attr('data-translation')]);
+		if(jQuery(this).is('a')){
+			jQuery(this).attr('href',obj[jQuery(this).attr('data-translation')]);
+		} else {
+			jQuery(this).html(obj[jQuery(this).attr('data-translation')]);
+		}
 	});
 }
 

@@ -1,12 +1,13 @@
 package es.ubiqua.compareme.backend.actions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.Gson;
-import com.opensymphony.xwork2.ActionSupport;
 
 import es.ubiqua.compareme.manager.ExchangeManager;
 import es.ubiqua.compareme.manager.HotelManager;
@@ -33,6 +34,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	private String guests;
 
 	private String hotelName;
+	private String hotelNameAutocompletar;
 	private String dateIn;
 	private String dateOut;
 	private String lang;
@@ -45,6 +47,9 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	private String ip;
 	private int idHotel;
 	
+	private String term;
+	private String response;
+	
 	private static final long serialVersionUID = -2527001795402427911L;
 
 	public String execute(){
@@ -53,7 +58,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		
 		ip = Utils.getIP();
 		otas = otaManager.list();
-		hotels = hotelManager.list(getLoggedCustomer());
+		hotels = hotelManager.listOrdered(getLoggedCustomer());
 		
 		currencies = exchangeManager.list();
 		
@@ -61,6 +66,9 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		lastLanguage = lang;
 	
 		try{
+			if (!hotelNameAutocompletar.equals("")){
+				hotelName = hotelNameAutocompletar;
+			}
 			Hotel h = new Hotel();
 			h.setName(new String(hotelName.getBytes("iso-8859-1"),"UTF-8"));
 			h = hotelManager.get(h);
@@ -99,6 +107,26 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 			
 		}
 		return SUCCESS;
+	}
+	
+	public String autocompletar(){
+				
+		List<Hotel> hotels = new ArrayList<Hotel>();
+		hotels = new HotelManager().getHotelAutocompletarSimple(term,getLoggedCustomer());
+		Map[] array = new Map[hotels.size()];
+		int count = 0;
+		for(Hotel hotel:hotels){
+			Map<String, String> hoteles = new HashMap<String, String>();
+			hoteles.put("label" , hotel.getName());
+			array[count] = hoteles;
+			count++;
+		}
+		
+		
+		response = new Gson().toJson(array);
+				
+		return SUCCESS;
+		
 	}
 
 	public List<Ota> getOtas() {
@@ -272,5 +300,31 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 		
 		return dateConverted;
 	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public String getResponse() {
+		return response;
+	}
+
+	public void setResponse(String response) {
+		this.response = response;
+	}
+
+	public String getHotelNameAutocompletar() {
+		return hotelNameAutocompletar;
+	}
+
+	public void setHotelNameAutocompletar(String hotelNameAutocompletar) {
+		this.hotelNameAutocompletar = hotelNameAutocompletar;
+	}
+	
+	
 
 }

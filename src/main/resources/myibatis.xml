@@ -20,6 +20,8 @@
 		<typeAlias alias="HotelsToCrawl" type="es.ubiqua.compareme.model.HotelsToCrawl"/>
 		<typeAlias alias="Serhs" type="es.ubiqua.compareme.model.Serhs"/>
 		<typeAlias alias="FuturePrice" type="es.ubiqua.compareme.model.FuturePrice"/>
+	    <typeAlias alias="HotelHome" type="es.ubiqua.compareme.model.HotelHome"/>
+	    <typeAlias alias="HotelCity" type="es.ubiqua.compareme.model.HotelCity"/>
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
@@ -53,6 +55,8 @@
 		<mapper resource="mapping/hotelsToCrawl.xml"/>
 		<mapper resource="mapping/serhs.xml"/>
 		<mapper resource="mapping/futurePrice.xml"/>
+		<mapper resource="mapping/hotelHome.xml"/>
+		<mapper resource="mapping/hotelCity.xml"/>
 	</mappers>
 	
 </configuration>

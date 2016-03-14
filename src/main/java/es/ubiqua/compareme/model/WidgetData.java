@@ -1,6 +1,11 @@
 package es.ubiqua.compareme.model;
 
 public class WidgetData {
+	
+	/*public static int DEFAULT = 0;
+	public static int CITY = 1;
+	public static int HOME = 2;*/
+	
 	private String domain;
 	private int user;
 	private String hotel;
@@ -14,6 +19,7 @@ public class WidgetData {
 	private Float price;
 	private String device;
 	private int diffDay;
+	//private int tipo = WidgetData.DEFAULT;
 	
 	public int getUser() {
 		return user;
@@ -93,5 +99,11 @@ public class WidgetData {
 	public void setDefaultLang(String defaultLang) {
 		this.defaultLang = defaultLang;
 	}
+	/*public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}*/
 	
 }

@@ -134,7 +134,7 @@ var hotelswidget = new (function(window, document, $){
         $('#widget_popup_loading_text').hide();
         data = datos;
         if (data.datos.length == 0){
-            _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+            _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
             return 0;
         }
         var content_middle = document.getElementById("widget_popup_content_middle");
@@ -167,9 +167,9 @@ var hotelswidget = new (function(window, document, $){
         }
         if (count === 0){
             $('#widget_popup_content_middle').append("<div id='no_otas'>No rooms found for these dates in other sites</div>");
-            _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+            _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
         } else {
-            _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+            _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
         }
 
     }
@@ -197,22 +197,22 @@ var hotelswidget = new (function(window, document, $){
         $('#widget').click(function(){
             $('#widget_popup').show();
             $('#widget').hide();
-            _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicado']);
+            _paq.push(['trackEvent', 'Widget', 'Click', 'Widget clicked']);
         });
         $('#widget_popup_content_top_close').click(function(){
             $('#widget').show();
             $('#widget_popup').hide();
-            _paq.push(['trackEvent', 'Widget', 'Hide Popup', 'Widget popup ocultado']);
+            _paq.push(['trackEvent', 'Widget', 'Hide Popup', 'Widget popup hidden']);
         });
 
         $('#widget_close').click(function(){
             $('#widget').hide();
             $('#widget').unbind("click");
 
-            _paq.push(['trackEvent', 'Widget', 'Hide', 'Widget ocultado']);
+            _paq.push(['trackEvent', 'Widget', 'Hide', 'Widget closed']);
         });
 
-        _paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
+        _paq.push(['trackEvent', 'Widget', 'Show', 'Widget correctly showed']);
 
         $('#widget_popup_content_bottom_button').click(function(){
             hotelswidget.functionReservar(reserva);
@@ -225,7 +225,7 @@ var hotelswidget = new (function(window, document, $){
     }
 
     this.functionReservar = function(reserva){
-        _paq.push(['trackEvent', 'Widget', 'Click Book', 'Widget Reservar']);
+        _paq.push(['trackEvent', 'Widget', 'Click Book', 'Book button clicked']);
         $('#rp1_rate').val(reserva.rate);
         $('#rp1_room').val(reserva.room);
         $('#rp1_bed').val(reserva.bed);

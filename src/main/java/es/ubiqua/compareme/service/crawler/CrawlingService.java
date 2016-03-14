@@ -121,7 +121,7 @@ public class CrawlingService {
 				p.setHash(queryParameter.toHash(hotelParameter.getId(), otaParameter.getId()));
 				p = crawlFuturePrice(otaParameter.getId(),queryParameter);
 								
-				fp = priceToFuturePrice(p, daysParameter);
+				fp = priceToFuturePrice(p, daysParameter, queryParameter.getCurrency());
 								
 				futurePriceManager.add(fp);
 				
@@ -201,6 +201,7 @@ public class CrawlingService {
 		p.setBasePrice(query.getBase());
 		p.setDateIn(dateIn);
 		p.setDateOut(dateOut);
+		p.setCurrency(query.getCurrency());
 		priceManager.add(p);
 	
 		return p;
@@ -262,7 +263,7 @@ public class CrawlingService {
 		return p;
 	}
 	
-	private FuturePrice priceToFuturePrice(Price p, int days){
+	private FuturePrice priceToFuturePrice(Price p, int days, String currency){
 		
 		FuturePrice fp = new FuturePrice();
 		
@@ -277,6 +278,7 @@ public class CrawlingService {
 		fp.setPurePrice(p.getPurePrice());
 		fp.setBasePrice(p.getBasePrice());
 		fp.setAveragePrice(String.valueOf((Float.valueOf(p.getPrice()) / days)));
+		fp.setCurrency(currency);
 		fp.setDays(days);
 		fp.setHash(p.getHash());
 		

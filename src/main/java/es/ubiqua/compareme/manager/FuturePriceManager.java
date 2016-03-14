@@ -1,5 +1,7 @@
 package es.ubiqua.compareme.manager;
 
+import java.util.List;
+
 import es.ubiqua.compareme.dao.FuturePriceDAO;
 import es.ubiqua.compareme.model.FuturePrice;
 
@@ -13,9 +15,14 @@ public class FuturePriceManager {
 	
 	/*public List<Price> list(){
 		return priceDao.list();
+	}*/
+	
+	public List<FuturePrice> listByHotelId(int id){
+		return futurePriceDao.listByHotelId(id);
 	}
 	
-	public List<PricesByHotel> getPricesByHotel(){
+	
+	/*public List<PricesByHotel> getPricesByHotel(){
 		return priceDao.getPricesByHotel();
 	}
 

@@ -64,6 +64,10 @@
 								</s:iterator>
 							</select>
 						</div>
+						<div class="form-group">
+							<label for="hotelName">Autocomplete Hotel:</label>
+							<input class="form-control" type="text" id="hotelNameAutocompletar" name="hotelNameAutocompletar" value="<s:property value="hotelNameAutocompletar"/>"/>
+						</div>
 					</div>
 					<div id="right_params">
 						<div class="form-group">
@@ -140,6 +144,24 @@
 			}
 			$("#dateOut").datepicker();
 		});
+		
+		$("#hotelNameAutocompletar").autocomplete({
+			source : function(request, response) {
+                $.ajax({
+                        url : "/123CompareMe-v2/api/hotel_name_autocompletar",
+                        type : "GET",
+                        data : {
+                                term : request.term
+                        },
+                        dataType : "json",
+                        success : function(data) {
+                                response(JSON.parse( data.response ))
+                        }
+                });
+			},
+			minLength: 3
+		});
+		
 	</script>
 </body>
 </html>

@@ -97,7 +97,7 @@ var hotelswidget = new (function(window, document, $){
     this.setWidget = function(datos,price,conversion, currency) {
         data = datos;
         if (data.datos.length == 0){
-            _paq.push(['trackEvent', 'Widget', 'No results', 'No se ha mostrado el widget por que no hay datos']);
+            _paq.push(['trackEvent', 'Widget', 'No results', 'Widget not showed (No data available)']);
             return 0;
         }
         var content_middle = document.getElementById("widget123_middle");
@@ -137,9 +137,9 @@ var hotelswidget = new (function(window, document, $){
             }
         }
         if (count === 0){
-            _paq.push(['trackEvent', 'Widget', 'No results', 'No se han mostrado resultados']);
+            _paq.push(['trackEvent', 'Widget', 'No results', 'No results shown']);
         } else {
-            _paq.push(['trackEvent', 'Widget', 'Results', 'Se han mostrado '+count+' resultados']);
+            _paq.push(['trackEvent', 'Widget', 'Results', 'Shown '+count+' results']);
             $('#widget123').show();
         }
     }
@@ -173,7 +173,7 @@ var hotelswidget = new (function(window, document, $){
             }
         });
 
-        _paq.push(['trackEvent', 'Widget', 'Show', 'Widget mostrado correctamente']);
+        _paq.push(['trackEvent', 'Widget', 'Show', 'Widget correctly showed']);
     }
 
     this.setJavaScriptMobile = function(time){

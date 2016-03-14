@@ -79,6 +79,12 @@
     	<load-on-startup>5</load-on-startup>
     </servlet>
     
+    <servlet>
+	    <servlet-name>Prova</servlet-name>
+	    <servlet-class>es.ubiqua.compareme.cron.cron</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+    
     <servlet-mapping>
         <servlet-name>dwr</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
