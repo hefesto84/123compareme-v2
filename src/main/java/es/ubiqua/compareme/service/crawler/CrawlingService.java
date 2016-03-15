@@ -201,7 +201,11 @@ public class CrawlingService {
 		p.setBasePrice(query.getBase());
 		p.setDateIn(dateIn);
 		p.setDateOut(dateOut);
-		p.setCurrency(query.getCurrency());
+		if ((query.getCurrencyTemp() != null) && !(query.getCurrencyTemp().equals(""))){
+			p.setCurrency(query.getCurrencyTemp());
+		} else {
+			p.setCurrency(query.getCurrency());
+		}
 		priceManager.add(p);
 	
 		return p;

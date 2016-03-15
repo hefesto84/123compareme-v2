@@ -14,11 +14,15 @@ var hotelswidget = new (function(window, document, $){
         } else {
         	hotelswidget.setAnalytics();
         	datos.domain = domain;
-        	datos.hotel = $('#ddHotel :selected').html();
-        	datos.rooms = $('#spHeader_spBooking_ddRooms').val();
-		    datos.guests = $('#spHeader_spBooking_ddAdultos1').val();
-		    datos.start = hotelswidget.dateConverse($('#spHeader_spBooking_txtStartDate').val());
-		    datos.stop = hotelswidget.dateConverse($('#spHeader_spBooking_txtEndDate').val());
+        	datos.hotel = hotelswidget.getHotelName();
+        	var tipo = '';
+        	if($('#ddHotel').length > 0){
+        		tipo = 'spHeader_';
+        	}
+        	datos.rooms = $('#'+tipo+'spBooking_ddRooms').val();
+		    datos.guests = $('#'+tipo+'spBooking_ddAdultos1').val();
+		    datos.start = hotelswidget.dateConverse($('#'+tipo+'spBooking_txtStartDate').val());
+		    datos.stop = hotelswidget.dateConverse($('#'+tipo+'spBooking_txtEndDate').val());
 		    datos.currency = 'EUR';
 		    datos.lang =  hotelswidget.getLang();
 		    datos.defaultLang = 'en';
@@ -67,7 +71,6 @@ var hotelswidget = new (function(window, document, $){
     		
     		var widget = $('#widget123_content').html();
     		$('#widget123_content').remove();
-    		//$('#SortandFilterResults').find('.row.ng-scope:eq(0)').find('.hotelRow').append(widget);
     		$('.room-type-head').append(widget);
     		
     		$('#widget123_left_left').click(function(){
@@ -225,7 +228,7 @@ var hotelswidget = new (function(window, document, $){
     	var mql = window.matchMedia("screen and (min-width: 1251px)");
 		var mql1 = window.matchMedia("screen and (min-width: 1101px) and (max-width: 1250px)");
 		var mql2 = window.matchMedia("screen and (min-width: 951px) and (max-width: 1100px)");
-		var mql3 = window.matchMedia("screen and (min-width: 900px) and (max-width: 950px)");
+		var mql3 = window.matchMedia("screen and (min-width: 0px) and (max-width: 950px)");
 		mediaqueryresponseFull(mql);
 		mediaqueryresponse3Elements(mql1);
 		mediaqueryresponse2Elements(mql2);
@@ -281,6 +284,90 @@ var hotelswidget = new (function(window, document, $){
         };
         return conversion[code];
     
+    }
+    
+    this.getParameterByName = function(name,url){
+    	if (!url) url = window.location.href;
+        url = url.toLowerCase(); // This is just to avoid case sensitiveness  
+        name = name.replace(/[\[\]]/g, "\\$&").toLowerCase();// This is just to avoid case sensitiveness for query parameter name
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    
+    this.getHotelName = function(){
+    	
+    	var hotel;
+    	var hot = hotelswidget.getParameterByName("hot");
+    	
+    	switch (hot){
+    	
+	    	case "102":
+	    		hotel = "RH Princesa";
+	    		break;
+	    	
+	    	case "103":
+	    		hotel = "RH Bayren SPA";
+	    		break;
+	    	
+	    	case "104":
+	    		hotel = "RH Bayren Parc";
+	    		break;
+	    	
+	    	case "105":
+	    		hotel = "RH Canfali";
+	    		break;
+	    	
+	    	case "106":
+	    		hotel = "RH Casablanca";
+	    		break;
+	    	
+	    	case "107":
+	    		hotel = "RH Corona del Mar";
+	    		break;
+	    	
+	    	case "108":
+	    		hotel = "RH Gijon";
+	    		break;
+	    	
+	    	case "109":
+	    		hotel = "RH Portocristo";
+	    		break;
+	    	
+	    	case "110":
+	    		hotel = "RH Riviera";
+	    		break;
+	    	
+	    	case "111":
+	    		hotel = "RH Royal";
+	    		break;
+	    	
+	    	case "112":
+	    		hotel = "RH Sol";
+	    		break;
+	    	
+	    	case "113":
+	    		hotel = "RH Victoria";
+	    		break;
+	    	
+	    	case "122":
+	    		hotel = "RH Vinaros Playa";
+	    		break;
+	    	
+	    	case "123":
+	    		hotel = "RH Vinaros Aura";
+	    		break;
+	    	
+	    	case "124":
+	    		hotel = "RH Don Carlos SPA";
+	    		break;
+    	
+    	}
+    	
+    	return hotel;
+    	
     }
     
 })(window, document,$);

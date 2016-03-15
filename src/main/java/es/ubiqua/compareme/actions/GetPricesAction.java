@@ -55,6 +55,7 @@ public class GetPricesAction extends ActionSupport {
 			}else{
 				needToBeConverted = true;
 				query.setCurrency("EUR");
+				query.setCurrencyTemp(currency);
 			}
 		}
 

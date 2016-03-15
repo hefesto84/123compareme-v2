@@ -13,6 +13,7 @@ public class Query {
 	private String dateOut;
 	private String base;
 	private String currency;
+	private String currencyTemp;
 	
 	public Query(String customerId, String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base, String currency){
 		if(customerId==null){
@@ -110,5 +111,13 @@ public class Query {
 		String hash = Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+hotelId+otaId);
 		System.out.println("HASH: "+hash);
 		return Utils.compute(this.dateIn+this.dateOut+this.rooms+this.guests+hotelId+otaId);
+	}
+
+	public String getCurrencyTemp() {
+		return currencyTemp;
+	}
+
+	public void setCurrencyTemp(String currencyTemp) {
+		this.currencyTemp = currencyTemp;
 	}
 }
