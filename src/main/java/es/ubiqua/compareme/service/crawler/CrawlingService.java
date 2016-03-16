@@ -25,6 +25,7 @@ import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.service.booking.BookingService;
 import es.ubiqua.compareme.service.expedia.ExpediaService;
 import es.ubiqua.compareme.service.hotels.HotelsService;
+import es.ubiqua.compareme.service.hrs.HRSService;
 import es.ubiqua.compareme.service.venere.VenereService;
 
 public class CrawlingService {
@@ -193,6 +194,13 @@ public class CrawlingService {
 			query.setDateIn(dateIn);
 			query.setDateOut(dateOut);
 			p = ve.setServiceParameters(query).trackPrice();
+			break;
+			
+		case 5:
+			HRSService hrse = new HRSService();
+			query.setDateIn(dateIn);
+			query.setDateOut(dateOut);
+			p = hrse.setServiceParameters(query).trackPrice();
 			break;
 			
 		}
