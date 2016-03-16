@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapPriceConverted">
+    
+    <resultMap id="PriceConverted" type="es.ubiqua.compareme.model.PriceConverted">
+        <result property="id" column="id"/>
+        <result property="hotelId" column="name"/>
+        <result property="language" column="language"/>
+        <result property="dateIn" column="dateIn"/>
+        <result property="dateOut" column="dateOut"/>
+        <result property="guests" column="guests"/>
+        <result property="rooms" column="rooms"/>
+        <result property="otaId" column="otaId"/>
+        <result property="price" column="price"/>
+        <result property="currency" column="currency"/>
+        <result property="priceEuro" column="priceEuro"/>
+        <result property="tipoCanvio" column="tipoCanvio"/>
+        <result property="basePrice" column="basePrice"/>
+        <result property="backend" column="backend"/>
+        <result property="date" column="date"/>
+    </resultMap>
+    
+    <!-- <resultMap id="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel">
+    	<result property="times" column="times"/>
+    	<result property="name" column="name"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapPrice.Price">
+        SELECT * FROM RepositoryPrice;
+    </select>
+    
+    <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
+        SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id ORDER BY rp.otaId ASC;
+    </select>
+    
+    <select id="cached" parameterType="es.ubiqua.compareme.model.Query" resultMap="SqlMapPrice.Price">
+    
+    </select>
+    
+    <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
+    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash LIKE #{hash} AND rp.otaId = ro.id LIMIT 1;
+    </select>
+    
+     
+    <select id="getPricesByHotel" resultMap="SqlMapPrice.PricesByHotel">
+    	SELECT COUNT(rp.hotelId) as times, rh.name as name FROM RepositoryPrice rp, RepositoryHotel rh WHERE rp.hotelId = rh.id GROUP BY rp.hotelId;
+    </select> -->
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.PriceConverted" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryPriceConverted (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,currency,priceEuro,tipoCanvio,basePrice,backend,date) 
+        	VALUES (
+        		#{hotelId},
+        		#{language},
+        		#{dateIn},
+        		#{dateOut},
+        		#{guests},
+        		#{rooms},
+        		#{otaId},
+        		#{price},
+        		#{currency},
+        		#{priceEuro},
+        		#{tipoCanvio},
+        		#{basePrice},
+        		#{backend},
+        		null
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+
+</mapper>

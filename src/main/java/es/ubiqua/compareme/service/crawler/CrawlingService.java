@@ -206,8 +206,10 @@ public class CrawlingService {
 		} else {
 			p.setCurrency(query.getCurrency());
 		}
-		priceManager.add(p);
-	
+		if (query.getConverted() == false){
+			priceManager.add(p);
+		}
+		
 		return p;
 	}
 	

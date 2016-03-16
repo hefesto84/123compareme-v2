@@ -10,12 +10,16 @@ import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import com.tunyk.currencyconverter.api.CurrencyConverterException;
 
+import es.ubiqua.compareme.exceptions.CurrencyException;
 import es.ubiqua.compareme.exceptions.CustomerException;
 import es.ubiqua.compareme.exceptions.ExpediaServiceException;
 import es.ubiqua.compareme.manager.ExchangeManager;
+import es.ubiqua.compareme.manager.PriceConvertedManager;
 import es.ubiqua.compareme.manager.PriceManager;
 import es.ubiqua.compareme.manager.TestManager;
+import es.ubiqua.compareme.model.Exchange;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.PriceConverted;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.model.Test;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
@@ -48,6 +52,7 @@ public class GetPricesAction extends ActionSupport {
 		
 		if(exchangeManager.isCurrencyRestrictive(currency)){
 			needToBeConverted = false;
+			query.setConverted(needToBeConverted);
 		}else{
 			if(!exchangeManager.isCurrencyAvailable(currency)){		
 				currency = "XXX";
@@ -56,6 +61,7 @@ public class GetPricesAction extends ActionSupport {
 				needToBeConverted = true;
 				query.setCurrency("EUR");
 				query.setCurrencyTemp(currency);
+				query.setConverted(needToBeConverted);
 			}
 		}
 
@@ -63,11 +69,44 @@ public class GetPricesAction extends ActionSupport {
         
        if(needToBeConverted){
         	for(Price p : datos){
+        		convertPrice(p);
 	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
         	}
         }
      
         return SUCCESS;
+    }
+    
+    private void convertPrice(Price p){
+    	
+    	Exchange exchange = new Exchange();
+    	exchange.setCurrency(currency);
+    	
+    	ExchangeManager exchangeManager = new ExchangeManager();
+    	try{
+    		exchange = exchangeManager.get(exchange);
+    	} catch (Exception e){
+    		
+    	}
+    	PriceConverted priceConverted = new PriceConverted();
+    	
+    	priceConverted.setHotelId(p.getHotelId());
+    	priceConverted.setLanguage(p.getLanguage());
+    	priceConverted.setDateIn(p.getDateIn());
+    	priceConverted.setDateOut(p.getDateOut());
+    	priceConverted.setGuests(p.getGuests());
+    	priceConverted.setRooms(p.getRooms());
+    	priceConverted.setOtaId(p.getOtaId());
+    	priceConverted.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+    	priceConverted.setCurrency(currency);
+    	priceConverted.setPriceEuro(p.getPrice());
+    	priceConverted.setTipoCanvio(String.valueOf(exchange.getValue()));
+    	priceConverted.setBasePrice(p.getBasePrice());
+    	priceConverted.setBackend(p.getBackend());
+    
+    	PriceConvertedManager priceConvertedManager = new PriceConvertedManager();
+    	priceConvertedManager.add(priceConverted);
+    	
     }
 
     
