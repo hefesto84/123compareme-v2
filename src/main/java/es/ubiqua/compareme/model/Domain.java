@@ -31,6 +31,7 @@ public class Domain {
 	private String domain;
 	private String format;
 	private int idOta;
+	private Boolean ratePerNightExpedia;
 	
 	public Domain(){
 		
@@ -50,5 +51,13 @@ public class Domain {
 
 	public void setIdOta(int idOta) {
 		this.idOta = idOta;
+	}
+
+	public Boolean getRatePerNightExpedia() {
+		return ratePerNightExpedia;
+	}
+
+	public void setRatePerNightExpedia(Boolean ratePerNightExpedia) {
+		this.ratePerNightExpedia = ratePerNightExpedia;
 	}
 }

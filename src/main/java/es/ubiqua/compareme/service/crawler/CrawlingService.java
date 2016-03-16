@@ -26,6 +26,7 @@ import es.ubiqua.compareme.service.booking.BookingService;
 import es.ubiqua.compareme.service.expedia.ExpediaService;
 import es.ubiqua.compareme.service.hotels.HotelsService;
 import es.ubiqua.compareme.service.venere.VenereService;
+import es.ubiqua.compareme.utils.Utils;
 
 public class CrawlingService {
 	
@@ -152,6 +153,8 @@ public class CrawlingService {
 	private Price crawlPrice(int otaId, Query query){
 		Price p = new Price();
 		
+		long diffDays = Utils.diffDays(query.getDateIn(), query.getDateOut());
+		
 		Ota o = new Ota();
 		o.setId(otaId);
 		
@@ -205,6 +208,9 @@ public class CrawlingService {
 			p.setCurrency(query.getCurrencyTemp());
 		} else {
 			p.setCurrency(query.getCurrency());
+		}
+		if((d.getRatePerNightExpedia() == true) && (diffDays > 1)){
+			p.setPrice(String.valueOf(Float.valueOf(p.getPrice()) * diffDays));
 		}
 		if (query.getConverted() == false){
 			priceManager.add(p);

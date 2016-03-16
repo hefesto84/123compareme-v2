@@ -9,6 +9,7 @@
         <result property="domain" column="domain"/>
         <result property="format" column="format"/>
         <result property="idOta" column="idOta"/>
+        <result property="ratePerNightExpedia" column="ratePerNightExpedia"/>
     </resultMap>
     
     <select id="get" parameterType="es.ubiqua.compareme.model.Domain" resultMap="SqlMapDomain.Domain">

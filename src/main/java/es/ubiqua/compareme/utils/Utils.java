@@ -8,13 +8,16 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -402,4 +405,22 @@ public class Utils {
     	priceConvertedManager.add(priceConverted);
     	
     }
+	
+	public static long diffDays(String date1, String date2){
+		long days = 0;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+		
+		try{
+			Date fechaIn = formatter.parse(date1);
+			Date fechaOut = formatter.parse(date2);
+			long diff = fechaOut.getTime() - fechaIn.getTime();
+			days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		} catch (Exception e){
+			
+		}
+		
+		
+		return days;
+		
+	}
 }
