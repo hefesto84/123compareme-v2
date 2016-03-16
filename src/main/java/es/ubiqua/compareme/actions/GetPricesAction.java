@@ -69,46 +69,13 @@ public class GetPricesAction extends ActionSupport {
         
        if(needToBeConverted){
         	for(Price p : datos){
-        		convertPrice(p);
+        		Utils.convertPrice(p,currency);
 	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
         	}
         }
      
         return SUCCESS;
     }
-    
-    private void convertPrice(Price p){
-    	
-    	Exchange exchange = new Exchange();
-    	exchange.setCurrency(currency);
-    	
-    	ExchangeManager exchangeManager = new ExchangeManager();
-    	try{
-    		exchange = exchangeManager.get(exchange);
-    	} catch (Exception e){
-    		
-    	}
-    	PriceConverted priceConverted = new PriceConverted();
-    	
-    	priceConverted.setHotelId(p.getHotelId());
-    	priceConverted.setLanguage(p.getLanguage());
-    	priceConverted.setDateIn(p.getDateIn());
-    	priceConverted.setDateOut(p.getDateOut());
-    	priceConverted.setGuests(p.getGuests());
-    	priceConverted.setRooms(p.getRooms());
-    	priceConverted.setOtaId(p.getOtaId());
-    	priceConverted.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
-    	priceConverted.setCurrency(currency);
-    	priceConverted.setPriceEuro(p.getPrice());
-    	priceConverted.setTipoCanvio(String.valueOf(exchange.getValue()));
-    	priceConverted.setBasePrice(p.getBasePrice());
-    	priceConverted.setBackend(p.getBackend());
-    
-    	PriceConvertedManager priceConvertedManager = new PriceConvertedManager();
-    	priceConvertedManager.add(priceConverted);
-    	
-    }
-
     
 	public List<Price> getDatos() {
 		return datos;

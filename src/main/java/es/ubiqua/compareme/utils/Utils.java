@@ -40,9 +40,13 @@ import com.tunyk.currencyconverter.api.CurrencyNotSupportedException;
 import es.ubiqua.compareme.exceptions.CurrencyException;
 import es.ubiqua.compareme.manager.CurrencyManager;
 import es.ubiqua.compareme.manager.DomainManager;
+import es.ubiqua.compareme.manager.ExchangeManager;
+import es.ubiqua.compareme.manager.PriceConvertedManager;
 import es.ubiqua.compareme.model.Domain;
+import es.ubiqua.compareme.model.Exchange;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.PriceConverted;
 
 public class Utils {
 	
@@ -366,4 +370,36 @@ public class Utils {
 		public String sprice;
 		public String fprice;
 	}
+	
+	public static void convertPrice(Price p, String currency){
+    	
+    	Exchange exchange = new Exchange();
+    	exchange.setCurrency(currency);
+    	
+    	ExchangeManager exchangeManager = new ExchangeManager();
+    	try{
+    		exchange = exchangeManager.get(exchange);
+    	} catch (Exception e){
+    		
+    	}
+    	PriceConverted priceConverted = new PriceConverted();
+    	
+    	priceConverted.setHotelId(p.getHotelId());
+    	priceConverted.setLanguage(p.getLanguage());
+    	priceConverted.setDateIn(p.getDateIn());
+    	priceConverted.setDateOut(p.getDateOut());
+    	priceConverted.setGuests(p.getGuests());
+    	priceConverted.setRooms(p.getRooms());
+    	priceConverted.setOtaId(p.getOtaId());
+    	priceConverted.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+    	priceConverted.setCurrency(currency);
+    	priceConverted.setPriceEuro(p.getPrice());
+    	priceConverted.setTipoCanvio(String.valueOf(exchange.getValue()));
+    	priceConverted.setBasePrice(p.getBasePrice());
+    	priceConverted.setBackend(p.getBackend());
+    
+    	PriceConvertedManager priceConvertedManager = new PriceConvertedManager();
+    	priceConvertedManager.add(priceConverted);
+    	
+    }
 }
