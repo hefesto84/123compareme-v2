@@ -10,12 +10,16 @@ import com.google.gson.Gson;
 import com.opensymphony.xwork2.ActionSupport;
 import com.tunyk.currencyconverter.api.CurrencyConverterException;
 
+import es.ubiqua.compareme.exceptions.CurrencyException;
 import es.ubiqua.compareme.exceptions.CustomerException;
 import es.ubiqua.compareme.exceptions.ExpediaServiceException;
 import es.ubiqua.compareme.manager.ExchangeManager;
+import es.ubiqua.compareme.manager.PriceConvertedManager;
 import es.ubiqua.compareme.manager.PriceManager;
 import es.ubiqua.compareme.manager.TestManager;
+import es.ubiqua.compareme.model.Exchange;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.PriceConverted;
 import es.ubiqua.compareme.model.Query;
 import es.ubiqua.compareme.model.Test;
 import es.ubiqua.compareme.service.crawler.CrawlingService;
@@ -49,6 +53,7 @@ public class GetPricesAction extends ActionSupport {
 		
 		if(exchangeManager.isCurrencyRestrictive(currency)){
 			needToBeConverted = false;
+			query.setConverted(needToBeConverted);
 		}else{
 			if(!exchangeManager.isCurrencyAvailable(currency)){		
 				currency = "XXX";
@@ -57,6 +62,7 @@ public class GetPricesAction extends ActionSupport {
 				needToBeConverted = true;
 				query.setCurrency("EUR");
 				query.setCurrencyTemp(currency);
+				query.setConverted(needToBeConverted);
 			}
 		}
 
@@ -65,6 +71,7 @@ public class GetPricesAction extends ActionSupport {
        if(needToBeConverted){
         	for(Price p : datos){
         		if (p.getOtaId() != 5){
+        			Utils.convertPrice(p,currency);
     	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
         		}
         	}
@@ -72,7 +79,6 @@ public class GetPricesAction extends ActionSupport {
      
         return SUCCESS;
     }
-
     
 	public List<Price> getDatos() {
 		return datos;

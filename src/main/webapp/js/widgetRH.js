@@ -66,6 +66,8 @@ var hotelswidget = new (function(window, document, $){
     
     this.setJavascript = {
     	setPriceInWidget : function(price,currency){
+    		$('#widget123_left_right_right_price').html(price.toFixed(2));
+            $('#widget123_left_right_right_currency').html(hotelswidget.conversionCodeToSymbol(currency));
     	},
     	setWidgetJavascript : function(){
     		
@@ -94,7 +96,7 @@ var hotelswidget = new (function(window, document, $){
             for (var j = 0; j < data.datos.length; j++) {
 
                 var precio_convertido = parseFloat(data.datos[j].price);
-                precio_convertido = precio_convertido / diffDay;
+                //precio_convertido = precio_convertido / diffDay;
 
                 if (((price - 1) < precio_convertido || (price - 1) == precio_convertido)){
                 	count = count + 1;
@@ -148,9 +150,11 @@ var hotelswidget = new (function(window, document, $){
     }
     
     this.findPrice = function(){
-    	var start = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.nit').first().html().indexOf('</span>') + 7;
-    	var stop = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.nit').first().html().indexOf('€');
-		var price = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.nit').first().html().slice(start,stop).trim();
+    	//var start = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.nit').first().html().indexOf('</span>') + 7;
+    	//var stop = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.nit').first().html().indexOf('€');
+    	var start = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.tot').first().html().indexOf('</span>') + 7;
+    	var stop = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.tot').first().html().indexOf('€');
+    	var price = $('.room').find('.col12.room-type-holder').find('.rooms-type-item.active').find('.col9').find('.bucle').find('.tot').first().html().slice(start,stop).trim();
 		price = parseFloat(price.replace('.','').replace(',','.'));
 		return price;
     }

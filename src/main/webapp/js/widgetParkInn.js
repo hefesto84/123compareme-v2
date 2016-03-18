@@ -46,14 +46,21 @@ var hotelswidget = new (function(window, document, jQuery){
 
     this.priceConverse = function(price,lang){
         if(lang == 'en' || lang == 'en_UK'){
-            price = price.replace(',','');
+            price = price.replace(/,/g,'');
         } else{
+        	price = price.replace(/\s+/g,"");
             price = price.replace(',','.');
         }
         if (isNaN(price)){
             return parseFloat(price.slice(1)).toFixed(2);
         } else {
-            return parseFloat(price).toFixed(2);
+        	price = parseFloat(price);
+        	if (price > 999999){
+        		price = Math.round(price);
+        		return parseInt(price);
+        	} else {
+        		return price.toFixed(2);
+        	}
         }
     }
     
@@ -71,13 +78,27 @@ var hotelswidget = new (function(window, document, jQuery){
     this.setJavascript = {
     	setPriceInWidget : function(price,currency){
     		if(lang == 'en' || lang == 'en_UK'){
-                jQuery('#widget123_top_price').find('#price').html((price.toFixed(2)).replace(',','.'));
-                jQuery('#widget123_popup_content_parkinn_right_price').html((price.toFixed(2)).replace(',','.'));
-                jQuery('#widget123_top_bottom_price').html((price.toFixed(2)).replace(',','.'));
+    			price = parseFloat(price);
+    			if(price > 999999){
+    				jQuery('#widget123_top_price').find('#price').html(price);
+                    jQuery('#widget123_popup_content_parkinn_right_price').html(price);
+                    jQuery('#widget123_top_bottom_price').html(price);
+    			} else {
+    				jQuery('#widget123_top_price').find('#price').html((price.toFixed(2)).replace(',','.'));
+                    jQuery('#widget123_popup_content_parkinn_right_price').html((price.toFixed(2)).replace(',','.'));
+                    jQuery('#widget123_top_bottom_price').html((price.toFixed(2)).replace(',','.'));
+    			}
     		} else{
-                jQuery('#widget123_top_price').find('#price').html((price.toFixed(2)).replace('.',','));
-                jQuery('#widget123_popup_content_parkinn_right_price').html((price.toFixed(2)).replace('.',','));
-                jQuery('#widget123_top_bottom_price').html((price.toFixed(2)).replace('.',','));
+    			price = parseFloat(price);
+    			if(price > 999999){
+    				jQuery('#widget123_top_price').find('#price').html(price.toFixed(0).replace('.',','));
+                    jQuery('#widget123_popup_content_parkinn_right_price').html(price.toFixed(0).replace('.',','));
+                    jQuery('#widget123_top_bottom_price').html(price.toFixed(0).replace('.',','));
+    			} else{
+    				jQuery('#widget123_top_price').find('#price').html((price.toFixed(2)).replace('.',','));
+                    jQuery('#widget123_popup_content_parkinn_right_price').html((price.toFixed(2)).replace('.',','));
+                    jQuery('#widget123_top_bottom_price').html((price.toFixed(2)).replace('.',','));
+    			}
             }
             jQuery('#widget123_top_price').find('#currency').html(currency);
             jQuery('#widget123_popup_content_parkinn_right_currency').html(currency);

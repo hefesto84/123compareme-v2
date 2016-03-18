@@ -83,6 +83,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 			
 			if(exchangeManager.isCurrencyRestrictive(currency)){
 				needToBeConverted = false;
+				q.setConverted(needToBeConverted);
 			}else{
 				if(!exchangeManager.isCurrencyAvailable(currency)){		
 					currency = "XXX";
@@ -90,6 +91,8 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 				}else{
 					needToBeConverted = true;
 					q.setCurrency("EUR");
+					q.setCurrencyTemp(currency);
+					q.setConverted(needToBeConverted);
 				}
 			}
 
@@ -97,6 +100,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 	        
 	        if(needToBeConverted){
 	        	for(Price p : datos){
+	        		Utils.convertPrice(p,currency);
 		        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
 	        	}
 	        }

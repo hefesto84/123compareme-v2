@@ -8,13 +8,16 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,9 +43,13 @@ import com.tunyk.currencyconverter.api.CurrencyNotSupportedException;
 import es.ubiqua.compareme.exceptions.CurrencyException;
 import es.ubiqua.compareme.manager.CurrencyManager;
 import es.ubiqua.compareme.manager.DomainManager;
+import es.ubiqua.compareme.manager.ExchangeManager;
+import es.ubiqua.compareme.manager.PriceConvertedManager;
 import es.ubiqua.compareme.model.Domain;
+import es.ubiqua.compareme.model.Exchange;
 import es.ubiqua.compareme.model.Ota;
 import es.ubiqua.compareme.model.Price;
+import es.ubiqua.compareme.model.PriceConverted;
 
 public class Utils {
 	
@@ -365,5 +372,55 @@ public class Utils {
 	public static class BookingPair{
 		public String sprice;
 		public String fprice;
+	}
+	
+	public static void convertPrice(Price p, String currency){
+    	
+    	Exchange exchange = new Exchange();
+    	exchange.setCurrency(currency);
+    	
+    	ExchangeManager exchangeManager = new ExchangeManager();
+    	try{
+    		exchange = exchangeManager.get(exchange);
+    	} catch (Exception e){
+    		
+    	}
+    	PriceConverted priceConverted = new PriceConverted();
+    	
+    	priceConverted.setHotelId(p.getHotelId());
+    	priceConverted.setLanguage(p.getLanguage());
+    	priceConverted.setDateIn(p.getDateIn());
+    	priceConverted.setDateOut(p.getDateOut());
+    	priceConverted.setGuests(p.getGuests());
+    	priceConverted.setRooms(p.getRooms());
+    	priceConverted.setOtaId(p.getOtaId());
+    	priceConverted.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+    	priceConverted.setCurrency(currency);
+    	priceConverted.setPriceEuro(p.getPrice());
+    	priceConverted.setTipoCanvio(String.valueOf(exchange.getValue()));
+    	priceConverted.setBasePrice(p.getBasePrice());
+    	priceConverted.setBackend(p.getBackend());
+    
+    	PriceConvertedManager priceConvertedManager = new PriceConvertedManager();
+    	priceConvertedManager.add(priceConverted);
+    	
+    }
+	
+	public static long diffDays(String date1, String date2){
+		long days = 0;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+		
+		try{
+			Date fechaIn = formatter.parse(date1);
+			Date fechaOut = formatter.parse(date2);
+			long diff = fechaOut.getTime() - fechaIn.getTime();
+			days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		} catch (Exception e){
+			
+		}
+		
+		
+		return days;
+		
 	}
 }

@@ -22,6 +22,7 @@
 		<typeAlias alias="FuturePrice" type="es.ubiqua.compareme.model.FuturePrice"/>
 	    <typeAlias alias="HotelHome" type="es.ubiqua.compareme.model.HotelHome"/>
 	    <typeAlias alias="HotelCity" type="es.ubiqua.compareme.model.HotelCity"/>
+	    <typeAlias alias="PriceConverted" type="es.ubiqua.compareme.model.PriceConverted"/>
 	</typeAliases>
 	
 	<!-- Configuración de las diferentes bases de datos -->
@@ -57,6 +58,7 @@
 		<mapper resource="mapping/futurePrice.xml"/>
 		<mapper resource="mapping/hotelHome.xml"/>
 		<mapper resource="mapping/hotelCity.xml"/>
+		<mapper resource="mapping/priceConverted.xml"/>
 	</mappers>
 	
 </configuration>

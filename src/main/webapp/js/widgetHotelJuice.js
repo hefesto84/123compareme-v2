@@ -106,7 +106,7 @@ var hotelswidget = new (function(window, document, $){
 
             var precio_convertido = (parseFloat(data.datos[i].price.replace(',','.')) * conversion);
 
-            if (((price - 1) < precio_convertido || (price - 1) == precio_convertido) &&  (count < 5)) {
+            if (((price - 1) < precio_convertido || (price - 1) == precio_convertido) && (data.datos[i].site !== 'booking.png') && (count < 5)) {
                 count = count + 1;
 
                 var element = document.createElement("div");
