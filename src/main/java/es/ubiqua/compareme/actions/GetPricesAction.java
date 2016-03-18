@@ -45,6 +45,7 @@ public class GetPricesAction extends ActionSupport {
 		CrawlingService service = new CrawlingService();
 		Query query = new Query(code,lang,hotel,rooms,guests,fin,fout,base,currency);
 		boolean needToBeConverted = false;
+		boolean needToBeConvertedHRS = false;
 		
 		if(exchangeManager.isCurrencyRestrictive(currency)){
 			needToBeConverted = false;
@@ -63,7 +64,9 @@ public class GetPricesAction extends ActionSupport {
         
        if(needToBeConverted){
         	for(Price p : datos){
-	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+        		if (p.getOtaId() != 5){
+    	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+        		}
         	}
         }
      

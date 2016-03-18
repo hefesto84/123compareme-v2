@@ -61,12 +61,14 @@ public class CrawlingService {
 		
 		try{
 			c = customerManager.get(c);
+			System.out.println("ROC : "+new Gson().toJson(c));
 		}catch(Exception e){
 			c.setId(10000);
 			c.setIdentifier("10000");
 		}
 		
 		List<Ota> otas = new OtaManager().list(c);
+		System.out.println("MARTA : "+new Gson().toJson(otas));
 		Hotel hotel = new Hotel();
 		hotel.setName(query.getHotel());
 	
