@@ -78,12 +78,18 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 			dateOut = converseDate(dateOut);
 			
 			boolean needToBeConverted = false;
+			boolean needToBeConvertedHRS = false;
 			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100",currency);
 			CrawlingService service = new CrawlingService();
+			
+			if (!exchangeManager.isCurrencyRestrictiveHrs(currency)){
+				needToBeConvertedHRS = true;
+			}
 			
 			if(exchangeManager.isCurrencyRestrictive(currency)){
 				needToBeConverted = false;
 				q.setConverted(needToBeConverted);
+				q.setConvertedHrs(needToBeConvertedHRS);
 			}else{
 				if(!exchangeManager.isCurrencyAvailable(currency)){		
 					currency = "XXX";
@@ -93,16 +99,19 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 					q.setCurrency("EUR");
 					q.setCurrencyTemp(currency);
 					q.setConverted(needToBeConverted);
+					q.setConvertedHrs(needToBeConvertedHRS);
 				}
 			}
 
 	        datos = service.weaving(CrawlingService.MONOTHREAD_MODE, q);
 	        
-	        if(needToBeConverted){
-	        	for(Price p : datos){
-	        		Utils.convertPrice(p,currency);
-		        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
-	        	}
+	        if (needToBeConverted || needToBeConvertedHRS){
+		        for (Price p : datos){
+		        	if (((needToBeConverted) && (p.getOtaId() != 5)) || ((needToBeConvertedHRS) && (p.getOtaId() == 5))){
+		        		Utils.convertPrice(p,currency);
+			        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+		        	}
+		        }
 	        }
 	  
 	        //this.query = "http://www.meneame.net";

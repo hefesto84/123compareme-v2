@@ -15,6 +15,7 @@ public class Query {
 	private String currency;
 	private String currencyTemp;
 	private Boolean converted;
+	private Boolean convertedHrs;
 	
 	public Query(String customerId, String lang, String hotel, int rooms, int guests, String dateIn, String dateOut, String base, String currency){
 		if(customerId==null){
@@ -128,5 +129,13 @@ public class Query {
 
 	public void setConverted(Boolean converted) {
 		this.converted = converted;
+	}
+
+	public Boolean getConvertedHrs() {
+		return convertedHrs;
+	}
+
+	public void setConvertedHrs(Boolean convertedHrs) {
+		this.convertedHrs = convertedHrs;
 	}
 }

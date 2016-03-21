@@ -48,6 +48,18 @@ public class ExchangeDAO extends BaseDAO {
 		}
 		return exchange;
 	}
+	
+	public Exchange restrictiveHrs(Exchange exchange) {
+		SqlSession session = sql.openSession();
+		try {
+			exchange = session.selectOne("SqlMapExchange.restrictiveHrs", exchange);
+		} catch (Exception e) {
+			Logger.getLogger(this.getClass()).error(/* e.getMessage() */e);
+		} finally {
+			session.close();
+		}
+		return exchange;
+	}
 
 	public Exchange add(Exchange exchange) {
 		SqlSession session = sql.openSession();

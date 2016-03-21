@@ -33,7 +33,12 @@ public class HRSService extends Service implements ServiceInterface{
 	
 	public HRSService setServiceParameters(Query query){
 		mOta = otaManager.get(new Ota(OTA));
-		currencyResponse = query.getCurrency();
+		
+		if (query.getConverted() && (query.getConvertedHrs() == false)){
+			currencyResponse = query.getCurrencyTemp();
+		} else {
+			currencyResponse = query.getCurrency();
+		}
 
 		Domain d = new Domain();
 		d.setCurrency(query.getCurrency());

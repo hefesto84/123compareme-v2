@@ -51,9 +51,14 @@ public class GetPricesAction extends ActionSupport {
 		boolean needToBeConverted = false;
 		boolean needToBeConvertedHRS = false;
 		
+		if (!exchangeManager.isCurrencyRestrictiveHrs(currency)){
+			needToBeConvertedHRS = true;
+		}
+		
 		if(exchangeManager.isCurrencyRestrictive(currency)){
 			needToBeConverted = false;
 			query.setConverted(needToBeConverted);
+			query.setConvertedHrs(needToBeConvertedHRS);
 		}else{
 			if(!exchangeManager.isCurrencyAvailable(currency)){		
 				currency = "XXX";
@@ -63,18 +68,19 @@ public class GetPricesAction extends ActionSupport {
 				query.setCurrency("EUR");
 				query.setCurrencyTemp(currency);
 				query.setConverted(needToBeConverted);
+				query.setConvertedHrs(needToBeConvertedHRS);
 			}
 		}
 
         datos = service.weaving(CrawlingService.MONOTHREAD_MODE, query);
         
-       if(needToBeConverted){
-        	for(Price p : datos){
-        		if (p.getOtaId() != 5){
-        			Utils.convertPrice(p,currency);
-    	        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
-        		}
-        	}
+        if (needToBeConverted || needToBeConvertedHRS){
+	        for (Price p : datos){
+	        	if (((needToBeConverted) && (p.getOtaId() != 5)) || ((needToBeConvertedHRS) && (p.getOtaId() == 5))){
+	        		Utils.convertPrice(p,currency);
+		        	p.setPrice(String.valueOf(exchangeManager.change(Float.valueOf(p.getPrice()), currency)));
+	        	}
+	        }
         }
      
         return SUCCESS;

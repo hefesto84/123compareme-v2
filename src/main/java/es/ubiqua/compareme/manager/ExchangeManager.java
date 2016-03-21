@@ -68,6 +68,14 @@ public class ExchangeManager {
 		return true;
 	}
 	
+	public boolean isCurrencyRestrictiveHrs(String currency){
+		Exchange e = exchangeDao.restrictiveHrs(new Exchange(currency,0,""));
+		if(e==null){
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean isCurrencyAvailable(String currency){
 		Exchange e = exchangeDao.get(new Exchange(currency,0,""));
 		if(e==null){

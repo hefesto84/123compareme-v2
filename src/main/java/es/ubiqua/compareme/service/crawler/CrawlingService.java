@@ -62,21 +62,18 @@ public class CrawlingService {
 		
 		try{
 			c = customerManager.get(c);
-			System.out.println("ROC : "+new Gson().toJson(c));
 		}catch(Exception e){
 			c.setId(10000);
 			c.setIdentifier("10000");
 		}
 		
 		List<Ota> otas = new OtaManager().list(c);
-		System.out.println("MARTA : "+new Gson().toJson(otas));
 		Hotel hotel = new Hotel();
 		hotel.setName(query.getHotel());
 	
 		hotel = new HotelManager().get(hotel);
 		
 		for(Ota ota : otas){
-			
 			Price p = new Price();
 			p.setHash(query.toHash(hotel.getId(), ota.getId()));
 			p = crawlPrice(ota.getId(),query);
@@ -222,7 +219,7 @@ public class CrawlingService {
 		if((d.getRatePerNightExpedia() == true) && (diffDays > 1)){
 			p.setPrice(String.valueOf(Float.valueOf(p.getPrice()) * diffDays));
 		}
-		if (query.getConverted() == false){
+		if (((query.getConverted() == false) && (p.getOtaId() != 5)) || ((query.getConvertedHrs() == false) && (p.getOtaId() == 5))){
 			priceManager.add(p);
 		}
 		

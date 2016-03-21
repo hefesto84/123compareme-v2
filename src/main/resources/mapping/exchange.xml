@@ -21,6 +21,10 @@
 	<select id="restrictive" parameterType="es.ubiqua.compareme.model.Exchange" resultMap="Exchange">
         SELECT * FROM RepositoryExchange WHERE id = #{id} OR (currency LIKE #{currency} AND restrictive = 1);
     </select>
+
+	<select id="restrictiveHrs" parameterType="es.ubiqua.compareme.model.Exchange" resultMap="Exchange">
+        SELECT * FROM RepositoryExchange WHERE id = #{id} OR (currency LIKE #{currency} AND restrictiveHrs = 1);
+    </select>
     
     <insert id="add" parameterType="es.ubiqua.compareme.model.Exchange" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO RepositoryExchange (currency,value,name) 
