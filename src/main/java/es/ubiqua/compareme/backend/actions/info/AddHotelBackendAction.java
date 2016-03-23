@@ -34,6 +34,7 @@ public class AddHotelBackendAction extends BaseBackendAction{
 	private String bookingId;
 	private String hotelsId;
 	private String venereId;
+	private String hrsId;
 	
 	
 	public String execute(){
@@ -58,6 +59,7 @@ public class AddHotelBackendAction extends BaseBackendAction{
 		HotelOta booking = new HotelOta();
 		HotelOta hotels = new HotelOta();
 		HotelOta venere = new HotelOta();
+		HotelOta hrs = new HotelOta();
 		
 		expedia.setCurrency(currency);
 		expedia.setIdHotel(hotel.getId());
@@ -83,6 +85,11 @@ public class AddHotelBackendAction extends BaseBackendAction{
 		venere.setName(venereId);
 		hotelOtaManager.add(venere);
 		
+		hrs.setCurrency(currency);
+		hrs.setIdHotel(hotel.getId());
+		hrs.setIdOta(5);
+		hrs.setName(hrsId);
+		hotelOtaManager.add(hrs);
 		
 		return SUCCESS;
 	}
@@ -159,6 +166,14 @@ public class AddHotelBackendAction extends BaseBackendAction{
 
 	public void setVenereId(String venereId) {
 		this.venereId = venereId;
+	}
+
+	public String getHrsId() {
+		return hrsId;
+	}
+
+	public void setHrsId(String hrsId) {
+		this.hrsId = hrsId;
 	}
 
 }

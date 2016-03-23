@@ -324,6 +324,38 @@ public class Utils {
 			e.printStackTrace();
 		}
 		
+		// HRS
+		
+		try {
+
+			String request = "https://www.google.es/search?q="+hotelName+"+hrs&num=20";
+			Document doc = Jsoup.connect(request)
+				.userAgent(
+				  "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
+				.timeout(5000).get();
+
+			Elements links = doc.select("a[href]");
+			for (Element link : links) {
+
+				String temp = link.attr("href");
+				if(temp.startsWith("/url?q=")){
+					String domain = getDomainName(temp);
+					if(domain.contains("www.hrs.com")){
+						String temp1 = temp.substring(0,temp.indexOf(".html"));
+						int from = temp1.lastIndexOf("-") + 1;
+						int to = temp1.length();
+						String valor = temp1.substring(from, to);
+						 
+						data.put("www.hrs.com", valor);
+					}
+				}
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("LEO MESSI : "+new Gson().toJson(data));
 		//result = new Gson().toJson(data);
 		return data;
 	}

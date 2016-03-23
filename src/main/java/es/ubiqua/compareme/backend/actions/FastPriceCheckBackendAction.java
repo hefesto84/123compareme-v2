@@ -79,7 +79,7 @@ public class FastPriceCheckBackendAction extends BaseBackendAction{
 			
 			boolean needToBeConverted = false;
 			boolean needToBeConvertedHRS = false;
-			Query q = new Query("10000",lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100",currency);
+			Query q = new Query(getLoggedCustomer().getIdentifier(),lang, new String(hotelName.getBytes("iso-8859-1"),"UTF-8"), Integer.valueOf(rooms), Integer.valueOf(guests), dateIn, dateOut, "100",currency);
 			CrawlingService service = new CrawlingService();
 			
 			if (!exchangeManager.isCurrencyRestrictiveHrs(currency)){

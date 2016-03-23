@@ -60,6 +60,8 @@
 		  <input type="text" name="hotelsId" class="form-control" id="hotelsId" value="<s:property value="hotelsId"/>"/> <br /> 
 		  <label for="venereId">Venere ID:</label><br /> 
 		  <input type="text" name="venereId" class="form-control" id="venereId" value="<s:property value="venereId"/>"/> <br />  
+		  <label for="hrsId">HRS ID:</label><br /> 
+		  <input type="text" name="hrsId" class="form-control" id="hrsId" value="<s:property value="hrsId"/>"/> <br /> 
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-info" id="autofill">Autofill Fields</button>
@@ -102,6 +104,7 @@ $( "#autofill" ).click(function() {
 		$("#bookingId").val(data.data["www.booking.com"]);
 		$("#hotelsId").val(data.data["www.hotels.com"]);
 		$("#venereId").val(data.data["www.venere.com"]);
+		$("#hrsId").val(data.data["www.hrs.com"]);
 	});
 });
 
@@ -111,9 +114,10 @@ $( "#save" ).click(function() {
 	var bookingId = $("#bookingId").val();
 	var hotelsId = $("#hotelsId").val();
 	var venereId = $("#venereId").val();
+	var hrsId = $("#hrsId").val();
 	var currency = $("#currency").val();
 	var customer = $("#customer").val();
-	var query = "?name="+hotelName+"&expediaId="+expediaId+"&bookingId="+bookingId+"&hotelsId="+hotelsId+"&venereId="+venereId+"&currency="+currency+"&customer="+customer;
+	var query = "?name="+hotelName+"&expediaId="+expediaId+"&bookingId="+bookingId+"&hotelsId="+hotelsId+"&venereId="+venereId+"&hrsId="+hrsId+"&currency="+currency+"&customer="+customer;
 	$("#save" ).html("Saving...");
 	$.getJSON( "../api/add"+query, function( data ) {
 		$("#autofill" ).html("Save");
