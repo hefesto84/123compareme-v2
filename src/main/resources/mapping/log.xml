@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapLog">
+    
+    <resultMap id="Log" type="es.ubiqua.compareme.model.Log">
+        <result property="id" column="id"/>
+        <result property="type" column="type"/>
+        <result property="data" column="data"/>
+        <result property="date" column="date"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapLog.Log">
+        SELECT * FROM RepositoryLog;
+    </select>
+
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Log" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryLog (type,data) 
+        	VALUES (
+        		#{type},
+        		#{data}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+</mapper>

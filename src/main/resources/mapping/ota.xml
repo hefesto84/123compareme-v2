@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapOta">
+    
+    <resultMap id="Ota" type="es.ubiqua.compareme.model.Ota">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="icon" column="icon"/>
+        <result property="queryOk" column="queryOk"/>
+        <result property="queryNum" column="queryNum"/>
+    </resultMap>
+    
+    <select id="listByOta" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapOta.Ota">
+        SELECT ro.* FROM RepositoryOta ro, RepositoryCustomerOta rco WHERE ro.id = rco.idOta AND rco.idCustomer = #{id};
+    </select>
+    
+    <select id="list" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapOta.Ota">
+        SELECT * FROM RepositoryOta;
+    </select>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.Ota" resultMap="SqlMapOta.Ota">
+        SELECT * FROM RepositoryOta WHERE name LIKE #{name} OR id = #{id};
+    </select>
+   
+    <update id="update" parameterType="es.ubiqua.compareme.model.Ota">
+    	UPDATE RepositoryOta SET 
+    		queryOk = queryOk + #{queryOk},
+    		queryNum = queryNum + 1
+    	WHERE id = #{id}
+    </update>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Ota" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryOta (name,icon,queryOk,queryNum) 
+        	VALUES (
+        		#{name},
+        		#{icon},
+        		0,
+        		0
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+</mapper>

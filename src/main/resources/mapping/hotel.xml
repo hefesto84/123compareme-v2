@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapHotel">
+    
+    <resultMap id="Hotel" type="es.ubiqua.compareme.model.Hotel">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="customerId" column="customerId"/>
+        <result property="customerName" column="customerName"/>
+        <result property="currency" column="currency"/>
+        <result property="stars" column="stars"/>
+        <result property="modelWidget" column="modelWidget"/>
+        <result property="model" column="model"/>
+        <result property="css" column="css"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id ORDER BY rh.customerId;
+    </select>
+    
+    <select id="listOrdered" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id ORDER BY rh.name;
+    </select>
+    
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id AND rc.id = #{id} ORDER BY rh.customerId;
+    </select>
+    
+    <select id="listOrderedByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id AND rc.id = #{id} ORDER BY rh.name;
+    </select>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
+        SELECT * FROM RepositoryHotel WHERE id = #{id} OR name LIKE #{name};
+    </select>
+    
+    <select id="getHotelByHotelName" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rmw.model, rcw.css FROM RepositoryHotel rh, RepositoryModelWidget rmw, RepositoryCSSWidget rcw WHERE name LIKE #{name} AND rh.modelWidget = rmw.id AND rh.cssWidget = rcw.id;
+    </select>
+    
+    <select id="getHotelAutocompletar" parameterType="String" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.* from RepositoryHotel rh WHERE (MATCH (name) AGAINST ("${value}" IN BOOLEAN MODE))
+    </select>
+    
+    <select id="getHotelAutocompletarSimple" parameterType="String" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.* from RepositoryHotel rh WHERE rh.name LIKE "%${value}%"
+    </select>
+    
+    <select id="getHotelAutocompletarSimpleByCustomer" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.* from RepositoryHotel rh WHERE rh.customerId = #{customer.id} AND rh.name LIKE "%${term}%"
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Hotel" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryHotel (name,customerId,currency,stars) 
+        	VALUES (
+        		#{name},
+        		#{customerId},
+        		#{currency},
+        		#{stars}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+    </insert>
+    
+    <update id="update" parameterType="es.ubiqua.compareme.model.Hotel">
+    	UPDATE RepositoryHotel SET 
+    		name = #{name}, currency = #{currency}, stars = #{stars}
+    	WHERE id = #{id}
+    </update>
+    
+ </mapper>

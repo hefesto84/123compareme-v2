@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    
+    <!-- Alias asociado a cada modelo de datos --> 
+    <typeAliases>
+	    <typeAlias alias="Ota" type="es.ubiqua.compareme.model.Ota"/>
+	    <typeAlias alias="Customer" type="es.ubiqua.compareme.model.Customer"/>
+	    <typeAlias alias="Hotel" type="es.ubiqua.compareme.model.Hotel"/>
+		<typeAlias alias="HotelOta" type="es.ubiqua.compareme.model.HotelOta"/>
+		<typeAlias alias="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel"/>
+		<typeAlias alias="Price" type="es.ubiqua.compareme.model.Price"/>
+		<typeAlias alias="Domain" type="es.ubiqua.compareme.model.Domain"/>
+		<typeAlias alias="Booking" type="es.ubiqua.compareme.model.Booking"/>
+		<typeAlias alias="Currency" type="es.ubiqua.compareme.model.Currency"/>
+		<typeAlias alias="WidgetTranslations" type="es.ubiqua.compareme.model.WidgetTranslations"/>
+		<typeAlias alias="ModelCSSWidget" type="es.ubiqua.compareme.model.ModelCSSWidget"/>
+		<typeAlias alias="ModelHTMLWidget" type="es.ubiqua.compareme.model.ModelHTMLWidget"/>
+		<typeAlias alias="Exchange" type="es.ubiqua.compareme.model.Exchange"/>
+		<typeAlias alias="HotelsToCrawl" type="es.ubiqua.compareme.model.HotelsToCrawl"/>
+		<typeAlias alias="Serhs" type="es.ubiqua.compareme.model.Serhs"/>
+		<typeAlias alias="FuturePrice" type="es.ubiqua.compareme.model.FuturePrice"/>
+	    <typeAlias alias="HotelHome" type="es.ubiqua.compareme.model.HotelHome"/>
+	    <typeAlias alias="HotelCity" type="es.ubiqua.compareme.model.HotelCity"/>
+	    <typeAlias alias="PriceConverted" type="es.ubiqua.compareme.model.PriceConverted"/>
+	</typeAliases>
+	
+	<!-- Configuración de las diferentes bases de datos -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/123compareme-v2"/>
+				<property name="username" value="compare"/>
+				<property name="password" value="20Ubiq2015"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- Mapeado con las querys sql de cada modelo -->
+	<mappers>
+		<mapper resource="mapping/ota.xml"/>
+		<mapper resource="mapping/customer.xml"/>
+		<mapper resource="mapping/hotel.xml"/>
+		<mapper resource="mapping/hotelota.xml"/>
+		<mapper resource="mapping/price.xml"/>
+		<mapper resource="mapping/log.xml"/>
+		<mapper resource="mapping/domain.xml"/>
+		<mapper resource="mapping/booking.xml"/>
+		<mapper resource="mapping/currency.xml"/>
+		<mapper resource="mapping/widgetTranslation.xml"/>
+		<mapper resource="mapping/modelCSSWidget.xml"/>
+		<mapper resource="mapping/modelHTMLWidget.xml"/>
+		<mapper resource="mapping/exchange.xml"/>
+		<mapper resource="mapping/hotelsToCrawl.xml"/>
+		<mapper resource="mapping/serhs.xml"/>
+		<mapper resource="mapping/futurePrice.xml"/>
+		<mapper resource="mapping/hotelHome.xml"/>
+		<mapper resource="mapping/hotelCity.xml"/>
+		<mapper resource="mapping/priceConverted.xml"/>
+	</mappers>
+	
+</configuration>

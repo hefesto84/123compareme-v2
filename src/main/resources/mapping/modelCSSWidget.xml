@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapModelCSSWidget">
+    
+    <resultMap id="ModelCSSWidget" type="es.ubiqua.compareme.model.ModelCSSWidget">
+        <result property="id" column="id"/>
+        <result property="customerId" column="customerId"/>
+        <result property="identifier" column="identifier"/>
+        <result property="css" column="css"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapModelCSSWidget.ModelCSSWidget">
+        SELECT * FROM RepositoryCSSWidget ORDER BY identifier;
+    </select>
+    
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapModelCSSWidget.ModelCSSWidget">
+        SELECT * FROM RepositoryCSSWidget WHERE customerId LIKE #{identifier} ORDER BY identifier;
+    </select>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.ModelCSSWidget" resultMap="SqlMapModelCSSWidget.ModelCSSWidget">
+        SELECT * FROM RepositoryCSSWidget WHERE id = #{id};
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.ModelCSSWidget" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryCSSWidget (customerId,identifier,css) 
+        	VALUES (
+        		#{customerId},
+        		#{identifier},
+        		#{css}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+    
+    <update id="update" parameterType="es.ubiqua.compareme.model.ModelCSSWidget">
+    	UPDATE RepositoryCSSWidget SET
+    		identifier = #{identifier},
+    		css = #{css}
+    	WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="es.ubiqua.compareme.model.ModelCSSWidget">
+	  	delete from RepositoryCSSWidget where id = #{id}
+	</delete>
+
+ </mapper>

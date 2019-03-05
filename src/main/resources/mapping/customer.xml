@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapCustomer">
+    
+    <resultMap id="Customer" type="es.ubiqua.compareme.model.Customer">
+        <result property="id" column="id"/>
+        <result property="admin" column="admin"/>
+        <result property="name" column="name"/>
+        <result property="identifier" column="identifier"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="musername" column="musername"/>
+        <result property="mpassword" column="mpassword"/>
+        <result property="mhost" column="mhost"/>
+        <result property="contact" column="contact"/>
+        <result property="token" column="token"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer;
+    </select>
+    
+    <select id="listAllCustomers" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE admin != 1 ORDER BY name;
+    </select>
+    
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE id = #{id};
+    </select>
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE id = #{id} OR identifier LIKE #{identifier};
+    </select>
+    
+    <select id="login" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapCustomer.Customer">
+        SELECT * FROM RepositoryCustomer WHERE username = #{username} AND password = #{password};
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Customer" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryCustomer (name,identifier,username,password,musername,mpassword,mhost,contact,token) 
+        	VALUES (
+        		#{name},
+        		#{identifier},
+        		#{username},
+        		#{password},
+        		#{musername},
+        		#{mpassword},
+        		#{mhost},
+        		#{contact},
+        		#{token}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+    
+    <delete id="del" parameterType="es.ubiqua.compareme.model.Customer">
+    	DELETE FROM RepositoryCustomer WHERE id = #{id}
+    </delete>
+</mapper>

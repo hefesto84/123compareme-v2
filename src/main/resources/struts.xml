@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.devMode" value="true" />
+ 	<constant name="struts.configuration.xml.reload" value="true" />
+ 	<constant name="struts.mapper.action.prefix.enabled" value="true" />
+	
+	<package name="widget" namespace="/widget" extends="struts-default">
+        <action name="widget" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widget">
+            <result name="success">/WEB-INF/js/widget.jsp</result>
+        </action>
+        <action name="widgetHome" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetHome">
+            <result name="success">/WEB-INF/js/widgetHome.jsp</result>
+        </action>
+        <action name="widgetCity" class="es.ubiqua.compareme.javascripts.actions.JavascriptsAction" method="widgetCity">
+            <result name="success">/WEB-INF/js/widget.jsp</result>
+        </action>        
+    </package> 
+	
+    <package name="default" namespace="/" extends="struts-default">
+        <default-action-ref name="index" />
+        <action name="index" class="es.ubiqua.compareme.IndexAction">
+            <result name="success" type="redirect">/backend/</result>
+        </action>
+        <action name="backend" class="es.ubiqua.compareme.IndexAction">
+        	<result type="redirectAction">
+        		<param name="actionName">backend/</param>
+        	</result>
+        </action>
+    </package>
+    
+    <package name="api" namespace="/api" extends="json-default">
+    	<action name="ht_manage_hotels_update" class="es.ubiqua.compareme.backend.actions.ManageHotelsBackendAction" method="update">
+    		<result type="json"/>
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+    	</action>
+    	<action name="futurePrices" class="es.ubiqua.compareme.actions.GetFuturePricesAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+    	<action name="prices" class="es.ubiqua.compareme.actions.GetPricesAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="widget" class="es.ubiqua.compareme.actions.GetWidgetAction">
+           <result type="stream">
+        	<param name="contentType">application/javascript</param>
+        	<param name="inputName">output</param>
+           </result>
+        </action>
+        <action name="monitor" class="es.ubiqua.compareme.actions.MonitorAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="otasinfo" class="es.ubiqua.compareme.backend.actions.info.OtasInformationBackendAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph1" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph1BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph2" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph2BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph3" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph3BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="otasgraph4" class="es.ubiqua.compareme.backend.actions.info.OtasPriceGraph4BackendAction">
+            <result type="json"/>
+            <param name="encoding">UTF-8</param>
+            <param name="contentType">application/json</param>
+        </action>
+        <action name="pricesinfo" class="es.ubiqua.compareme.backend.actions.info.PricesByHotelInformationBackendAction">
+           <result type="json"/>
+        	<param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="find" class="es.ubiqua.compareme.backend.actions.info.AddHotelBackendAction" method="find">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+        	<param name="contentType">application/json</param>
+        </action>
+        <action name="add" class="es.ubiqua.compareme.backend.actions.info.AddHotelBackendAction" method="add">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="addcustomer" class="es.ubiqua.compareme.backend.actions.info.CustomerBackendAction" method="add">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="delcustomer" class="es.ubiqua.compareme.backend.actions.info.CustomerBackendAction" method="del">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="getcustomer" class="es.ubiqua.compareme.backend.actions.info.CustomerBackendAction" method="get">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="logBooking" class="es.ubiqua.compareme.backend.actions.info.LogBookingBackendAction">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+        <action name="updateExchange" class="es.ubiqua.compareme.actions.UpdateExchangeRatesAction">
+           <result type="json"/>
+           <param name="encoding">UTF-8</param>
+           <param name="contentType">application/json</param>
+        </action>
+    	<action name="hotel_name_autocompletar" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction" method="autocompletar">
+    		<result type="json"/>
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+       
+    	</action>
+    </package>
+    
+    <package name="login" namespace="/login" extends="struts-default">
+    	<default-action-ref name="index" />
+    	<action name="index" class="es.ubiqua.compareme.backend.actions.LoginBackendAction">
+    		<result name="success">/WEB-INF/jsp/login/signin.jsp</result>
+    	</action>
+    	<action name="signin" class="es.ubiqua.compareme.backend.actions.LoginBackendAction" method="signin">
+    		<result name="success" type="redirect">../backend/</result>
+    		<result name="error">/WEB-INF/jsp/login/signin.jsp</result>
+    	</action>
+    	<action name="signout" class="es.ubiqua.compareme.backend.actions.LoginBackendAction" method="signout">
+    		<result name="success" type="redirect">../login/</result>
+    	</action>
+    </package>
+    
+    <package name="backend" namespace="/backend" extends="struts-default">
+    	<default-action-ref name="dashboard" />
+    	<action name="dashboard" class="es.ubiqua.compareme.backend.actions.DashboardBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/dashboard.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="about" class="es.ubiqua.compareme.backend.actions.AboutBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/about.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="ht_manage_otas" class="es.ubiqua.compareme.backend.actions.ManageOtasBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/manage_otas.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="ht_manage_hotels" class="es.ubiqua.compareme.backend.actions.ManageHotelsBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/manage_hotels.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="ht_manage_hotels_edit" class="es.ubiqua.compareme.backend.actions.ManageHotelsBackendAction" method="edit">
+    		<result name="success">/WEB-INF/jsp/backend/manage_hotels_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="ht_check_dbstatus" class="es.ubiqua.compareme.backend.actions.CheckDBStatusBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/check_dbstatus.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="contact" class="es.ubiqua.compareme.backend.actions.ContactBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/contact.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="general_reporting" class="es.ubiqua.compareme.backend.actions.GeneralReportingBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/general_reporting.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="download_statistics" class="es.ubiqua.compareme.backend.actions.DownloadStatisticsBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/download_statistics.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="fast_price_check" class="es.ubiqua.compareme.backend.actions.FastPriceCheckBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/fast_price_check.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="widget_configuration" class="es.ubiqua.compareme.backend.actions.WidgetConfigurationBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget_configuration.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    </package>
+    
+    <package name="widget_custom_css" namespace="/backend/widget-custom-css" extends="json-default">
+		<default-action-ref name="list" />
+		<action name="list" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_css.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="edit" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="editAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_css_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="new" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="newAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_css_new.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="add" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="addAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="modify" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="modifyAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="delete" class="es.ubiqua.compareme.backend.actions.WidgetCustomCSSBackendAction" method="deleteAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+	</package>
+	
+	<package name="widget_custom_html" namespace="/backend/widget-custom-html" extends="json-default">
+		<default-action-ref name="list" />
+		<action name="list" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_html.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="edit" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="editAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_html_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="new" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="newAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_custom_html_new.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="add" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="addAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="modify" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="modifyAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="delete" class="es.ubiqua.compareme.backend.actions.WidgetCustomHTMLBackendAction" method="deleteAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+	</package>
+	
+	<package name="widget_translations" namespace="/backend/widget-translations" extends="json-default">
+		<default-action-ref name="list" />
+		<action name="list" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_translations.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="edit" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="editAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_translations_edit.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+		<action name="new" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="newAction">
+    		<result name="success">/WEB-INF/jsp/backend/widget/widget_translations_new.jsp</result>
+    		<result name="error" type="redirect">../login/</result>
+    	</action>
+    	<action name="add" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="addAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="modify" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="modifyAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+    	<action name="delete" class="es.ubiqua.compareme.backend.actions.WidgetTranslationsBackendAction" method="deleteAction">
+    		<result type="json">
+        		<param name="encoding">UTF-8</param>
+        		<param name="contentType">application/json</param>
+		    	<param name="excludeNullProperties">true</param>
+		    </result>
+    	</action>
+	</package>
+</struts>

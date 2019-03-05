@@ -1,0 +1,7 @@
+2/11/2015:
+
+Cambiados scripts del widget de MayFair y HotelJuice
+
+// TODO: Arreglar lo de que algunos precios de miles fallan.
+   TODO: Arreglar crawling Expedia. Para más de 2 días a veces falla.
+   TODO: Cambiar los hash (DONE)

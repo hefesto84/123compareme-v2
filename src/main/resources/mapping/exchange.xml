@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapExchange">
+    
+    <resultMap id="Exchange" type="es.ubiqua.compareme.model.Exchange">
+        <result property="id" column="id"/>
+        <result property="currency" column="currency"/>
+        <result property="value" column="value"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    
+    <select id="list" resultMap="Exchange">
+        SELECT * FROM RepositoryExchange ORDER BY currency ASC ;
+    </select>
+
+    <select id="get" parameterType="es.ubiqua.compareme.model.Exchange" resultMap="Exchange">
+        SELECT * FROM RepositoryExchange WHERE id = #{id} OR (currency LIKE #{currency});
+    </select>
+
+	<select id="restrictive" parameterType="es.ubiqua.compareme.model.Exchange" resultMap="Exchange">
+        SELECT * FROM RepositoryExchange WHERE id = #{id} OR (currency LIKE #{currency} AND restrictive = 1);
+    </select>
+
+	<select id="restrictiveHrs" parameterType="es.ubiqua.compareme.model.Exchange" resultMap="Exchange">
+        SELECT * FROM RepositoryExchange WHERE id = #{id} OR (currency LIKE #{currency} AND restrictiveHrs = 1);
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Exchange" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryExchange (currency,value,name) 
+        	VALUES (
+        		#{currency},
+        		#{value},
+        		#{name}
+        	)
+        ON DUPLICATE KEY UPDATE value = #{value}, name = #{name}
+        
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+    
+    <delete id="del" parameterType="es.ubiqua.compareme.model.Exchange">
+    	DELETE FROM RepositoryExchange WHERE id = #{id}
+    </delete>
+</mapper>

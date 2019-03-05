@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapHotelCity">
+    
+    <resultMap id="HotelCity" type="es.ubiqua.compareme.model.HotelCity">
+        <result property="id" column="id"/>
+        <result property="id_hotel" column="id_hotel"/>
+        <result property="modelWidget" column="modelWidget"/>
+        <result property="cssWidget" column="cssWidget"/>
+    </resultMap>
+    
+    <!-- <select id="list" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id ORDER BY rh.customerId;
+    </select>
+    
+    <select id="listByCustomer" parameterType="es.ubiqua.compareme.model.Customer" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rc.name as customerName FROM RepositoryHotel rh, RepositoryCustomer rc WHERE rh.customerId = rc.id AND rc.id = #{id} ORDER BY rh.customerId;
+    </select> -->
+    
+    <select id="get" parameterType="es.ubiqua.compareme.model.HotelCity" resultMap="SqlMapHotelCity.HotelCity">
+        SELECT * FROM RepositoryHotelCity WHERE id = #{id};
+    </select>
+    
+    <select id="getByIdHotel" parameterType="es.ubiqua.compareme.model.HotelCity" resultMap="SqlMapHotelCity.HotelCity">
+        SELECT * FROM RepositoryHotelCity WHERE id_hotel = #{id_hotel};
+    </select>
+    
+    <!-- <select id="getHotelByHotelName" parameterType="es.ubiqua.compareme.model.Hotel" resultMap="SqlMapHotel.Hotel">
+        SELECT rh.*, rmw.model, rcw.css FROM RepositoryHotel rh, RepositoryModelWidget rmw, RepositoryCSSWidget rcw WHERE name LIKE #{name} AND rh.modelWidget = rmw.id AND rh.cssWidget = rcw.id;
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Hotel" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryHotel (name,customerId,currency) 
+        	VALUES (
+        		#{name},
+        		#{customerId},
+        		#{currency}
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+    </insert> -->
+ </mapper>

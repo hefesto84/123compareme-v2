@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlMapPrice">
+    
+    <resultMap id="Price" type="es.ubiqua.compareme.model.Price">
+        <result property="id" column="id"/>
+        <result property="hotelId" column="name"/>
+        <result property="language" column="language"/>
+        <result property="dateIn" column="dateIn"/>
+        <result property="dateOut" column="dateOut"/>
+        <result property="guests" column="guests"/>
+        <result property="rooms" column="rooms"/>
+        <result property="otaId" column="otaId"/>
+        <result property="site" column="site"/>
+        <result property="price" column="price"/>
+        <result property="currency" column="currency"/>
+        <result property="purePrice" column="purePrice"/>
+        <result property="basePrice" column="basePrice"/>
+        <result property="valoration" column="valoration"/>
+        <result property="hash" column="hash"/>
+        <result property="backend" column="backend"/>
+        <result property="date" column="date"/>
+    </resultMap>
+    
+    <resultMap id="PricesByHotel" type="es.ubiqua.compareme.model.PricesByHotel">
+    	<result property="times" column="times"/>
+    	<result property="name" column="name"/>
+    </resultMap>
+    
+    <select id="list" resultMap="SqlMapPrice.Price">
+        SELECT * FROM RepositoryPrice;
+    </select>
+    
+    <select id="get" parameterType="int" resultMap="SqlMapPrice.Price">
+        SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.id = #{id} rp.otaId = ro.id ORDER BY rp.otaId ASC;
+    </select>
+    
+    <select id="cached" parameterType="es.ubiqua.compareme.model.Query" resultMap="SqlMapPrice.Price">
+    
+    </select>
+    
+    <select id="getByHash" parameterType="es.ubiqua.compareme.model.Price" resultMap="SqlMapPrice.Price">
+    	SELECT rp.*, ro.icon as site FROM RepositoryPrice rp, RepositoryOta ro WHERE rp.hash LIKE #{hash} AND rp.otaId = ro.id LIMIT 1;
+    </select>
+    
+     
+    <select id="getPricesByHotel" resultMap="SqlMapPrice.PricesByHotel">
+    	SELECT COUNT(rp.hotelId) as times, rh.name as name FROM RepositoryPrice rp, RepositoryHotel rh WHERE rp.hotelId = rh.id GROUP BY rp.hotelId;
+    </select>
+    
+    <insert id="add" parameterType="es.ubiqua.compareme.model.Price" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO RepositoryPrice (hotelId,language,dateIn,dateOut,guests,rooms,otaId,price,currency,purePrice,basePrice,valoration,hash,backend,date) 
+        	VALUES (
+        		#{hotelId},
+        		#{language},
+        		#{dateIn},
+        		#{dateOut},
+        		#{guests},
+        		#{rooms},
+        		#{otaId},
+        		#{price},
+        		#{currency},
+        		#{purePrice},
+        		#{basePrice},
+        		#{valoration},
+        		#{hash},
+        		#{backend},
+        		null
+        	)
+        	
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID();
+	  	</selectKey>
+	  	
+    </insert>
+
+    <select id="graph1" parameterType="es.ubiqua.compareme.model.Price"  resultMap="SqlMapPrice.Price"><![CDATA[
+        SELECT
+            a.id,
+            a.hotelId,
+            a.language,
+            a.dateIn,
+            a.dateOut,
+            a.guests,
+            a.rooms,
+            a.otaId,
+            AVG(a.price) price,
+            a.purePrice,
+            AVG(a.basePrice) basePrice,
+            a.valoration,
+            a.hash,
+            a.idCustomer,
+            a.date,
+        FROM (
+            SELECT
+                DATEDIFF(str_to_date(dateIn, '%d/%m/%Y'), str_to_date(#{dateIn})) AS id,
+                0 AS hotelId,
+                'es' AS language,
+                dateIn,
+                dateIn AS dateOut,
+                1 AS guests,
+                1 AS rooms,
+                otaId,
+                price / (guests * rooms * DATEDIFF(str_to_date(dateOut, '%d/%m/%Y'), str_to_date(dateIn, '%d/%m/%Y'))) AS price,
+                '0' AS purePrice,
+                basePrice / (guests * rooms * DATEDIFF(str_to_date(dateOut, '%d/%m/%Y'), str_to_date(dateIn, '%d/%m/%Y'))) AS basePrice,
+                100 AS valoration,
+                '' AS hash,
+                '10000' AS idCustomer,
+                '0' AS date
+            FROM
+                RepositoryPrice
+            WHERE
+                (basePrice != 100) AND
+                (hotelId = #{hotelId} OR 0 = #{hotelId}) AND
+                (otaId = #{otaId} OR 0 = #{otaId}) AND
+                (str_to_date(dateIn, '%d/%m/%Y') >= str_to_date('#{dateIn}', '%d/%m/%Y')) AND
+                (str_to_date(dateOut, '%d/%m/%Y') <= str_to_date('#{dateOut}', '%d/%m/%Y'))
+            ) AS a
+        GROUP BY
+            a.dateIn,
+            a.otaId
+        ;
+    ]]></select>
+</mapper>
